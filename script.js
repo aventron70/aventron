@@ -18,21 +18,21 @@
       eyebrow: 'Aventron Technologies',
       chipSizes: '150L, 200L, 300L',
       chipWarranty: '5 ans de garantie',
-      title: 'Le chauffe-eau solaire smart qui donne a votre maison une nouvelle energie',
+      title: 'Le chauffe-eau solaire smart qui donne à votre maison une nouvelle énergie',
       lead:
-        "Aventron Technologies vend et installe des chauffe-eau solaires smart partout au Maroc avec une experience plus moderne, plus propre et plus confortable.",
+        "Aventron Technologies vend et installe des chauffe-eau solaires smart partout au Maroc avec une expérience plus moderne, plus propre et plus confortable.",
       body:
-        "Suivi intelligent via l'application Aventron, installation soignee, eau chaude au quotidien et solution pensee pour les maisons, villas, residences et projets professionnels.",
+        "Suivi intelligent via l'application Aventron, installation soignée, eau chaude au quotidien et solution pensée pour les maisons, villas, résidences et projets professionnels.",
       ctaPrimary: 'Obtenir un devis gratuit',
       ctaSecondary: 'Voir le produit',
       metric1Title: 'Smart',
-      metric1Body: 'Controle mobile et surveillance en temps reel',
+      metric1Body: 'Contrôle mobile et surveillance en temps réel',
       metric2Title: 'Eco',
-      metric2Body: "Energie solaire propre et reduction des depenses",
+      metric2Body: 'Énergie solaire propre et réduction des dépenses',
       metric3Title: 'Maroc',
       metric3Body: 'Vente et installation partout au Maroc',
       hudTopLabel: 'APP CONTROL',
-      hudTopCopy: 'Temperature ideale',
+      hudTopCopy: 'Température idéale',
       hudBottomLabel: 'SMART FLOW',
       hudBottomTitle: 'LIVE MONITORING',
       hudBottomCopy: 'Performance et confort optimises',
@@ -43,7 +43,7 @@
       item2Title: 'Energie renouvelable',
       item2Body: 'Le soleil comme source de confort quotidien',
       item3Title: 'Application Aventron',
-      item3Body: 'Suivi et controle intelligents sur mobile',
+      item3Body: 'Suivi et contrôle intelligents sur mobile',
       item4Title: 'Installation rapide',
       item4Body: "Accompagnement du choix jusqu'a la mise en service",
     },
@@ -51,16 +51,16 @@
       eyebrow: 'Avantages',
       title: 'Pourquoi choisir le chauffe-eau solaire smart Aventron',
       body:
-        "Une solution creee pour l'economie d'energie, le confort durable et une experience plus connectee au quotidien.",
+        "Une solution créée pour l'économie d'énergie, le confort durable et une expérience plus connectée au quotidien.",
       card1Title: 'Energie efficace',
       card1Body:
-        "Profitez d'une eau chaude fiable en reduisant la dependance aux energies conventionnelles.",
+        "Profitez d'une eau chaude fiable en réduisant la dépendance aux énergies conventionnelles.",
       card2Title: 'Connectivite smart',
       card2Body:
         "Surveillez la temperature et les performances avec l'application Aventron.",
       card3Title: 'Installation facile',
       card3Body:
-        'Un accompagnement clair, une mise en place soignee et une experience simple du debut a la fin.',
+        'Un accompagnement clair, une mise en place soignée et une expérience simple du début à la fin.',
     },
     product: {
       eyebrow: 'Produit',
@@ -69,13 +69,13 @@
         "Le chauffe-eau solaire smart Aventron combine performance solaire, structure moderne et suivi intelligent pour offrir une solution premium aussi efficace qu'esthetique.",
       spec1Title: 'Capacites',
       spec1Body: '150L, 200L et 300L',
-      spec2Title: 'Controle',
+      spec2Title: 'Contrôle',
       spec2Body: 'Application mobile Aventron',
       spec3Title: 'Garantie',
       spec3Body: '5 ans',
       spec4Title: 'Couverture',
       spec4Body: 'Vente et installation partout au Maroc',
-      selectorSize: 'Choisir la capacite',
+      selectorSize: 'Choisir la capacité',
       selectorVariant: 'Choisir la version',
       size150: '150L',
       size200: '200L',
@@ -83,25 +83,25 @@
       variantNormal: 'Normal',
       variantSmart: 'Smart',
       focusLabel: 'Configuration active',
-      detailCapacity: 'Capacite',
+      detailCapacity: 'Capacité',
       detailCollector: 'Collecteur',
-      detailControl: 'Controle',
+      detailControl: 'Contrôle',
       detailCoverage: 'Couverture',
       lineupTitle: '6 references disponibles',
       lineupBody:
-        "Chaque capacite existe en version normale N ou smart S avec controle via l'application Aventron a telecharger sur le telephone de l'utilisateur.",
+        "Chaque capacité existe en version normale N ou smart S avec contrôle via l'application Aventron à télécharger sur le téléphone de l'utilisateur.",
       model1Code: 'AT150N',
       model1Body: '150L normal',
       model2Code: 'AT150S',
-      model2Body: "150L smart avec controle via l'application Aventron",
+      model2Body: "150L smart avec contrôle via l'application Aventron",
       model3Code: 'AT200N',
       model3Body: '200L normal',
       model4Code: 'AT200S',
-      model4Body: "200L smart avec controle via l'application Aventron",
+      model4Body: "200L smart avec contrôle via l'application Aventron",
       model5Code: 'AT300N',
       model5Body: '300L normal',
       model6Code: 'AT300S',
-      model6Body: "300L smart avec controle via l'application Aventron",
+      model6Body: "300L smart avec contrôle via l'application Aventron",
     },
     applications: {
       eyebrow: 'Applications',
@@ -117,20 +117,20 @@
     },
     testimonials: {
       eyebrow: 'Avis clients',
-      title: 'Une experience qui se ressent dans le confort de chaque jour',
-      prevLabel: 'Avis precedent',
+      title: 'Une expérience qui se ressent dans le confort de chaque jour',
+      prevLabel: 'Avis précédent',
       nextLabel: 'Avis suivant',
       dot1: 'Avis 1',
       dot2: 'Avis 2',
       dot3: 'Avis 3',
       quote1:
-        "Le produit donne une impression tres moderne, et l'application rend le controle vraiment pratique. Le confort est visible tous les jours.",
+        "Le produit donne une impression très moderne, et l'application rend le contrôle vraiment pratique. Le confort est visible tous les jours.",
       author1: 'Sarah L.',
       quote2:
-        'Installation rapide, bonne finition et vraie difference sur la consommation. On sent une approche serieuse du debut a la fin.',
+        'Installation rapide, bonne finition et vraie différence sur la consommation. On sent une approche sérieuse du début à la fin.',
       author2: 'Karim B.',
       quote3:
-        "Le systeme est elegant, pratique et tres simple a suivre sur mobile. C'est une vraie solution premium pour la maison.",
+        "Le système est élégant, pratique et très simple à suivre sur mobile. C'est une vraie solution premium pour la maison.",
       author3: 'Amina R.',
     },
     contact: {
@@ -138,24 +138,27 @@
       title: 'Parlez-nous de votre projet et recevez une recommandation claire',
       body:
         "Aventron Technologies vous accompagne du choix du chauffe-eau solaire smart jusqu'a l'installation et au suivi.",
-      item1: 'Conseil produit adapte a votre besoin',
+      item1: 'Conseil produit adapté à votre besoin',
       item2: 'Vente et installation partout au Maroc',
-      item3: 'Application mobile et accompagnement apres pose',
+      item3: 'Application mobile et accompagnement après pose',
       form: {
         name: 'Nom',
         email: 'Email',
-        phone: 'Telephone',
+        phone: 'Téléphone',
         message: 'Message',
         submit: 'Envoyer la demande',
+        sending: 'Envoi en cours...',
+        success: 'Merci, votre demande a bien été envoyée. Nous vous recontacterons rapidement.',
+        error: "L'envoi a échoué. Merci de réessayer.",
       },
     },
     mobileCta: 'Obtenir un devis gratuit',
     footer: {
-      body: 'Chauffe-eau solaire smart pour une experience plus propre, plus connectee et plus confortable.',
+      body: 'Chauffe-eau solaire smart pour une expérience plus propre, plus connectée et plus confortable.',
       facebook: 'Facebook',
       twitter: 'Twitter',
       instagram: 'Instagram',
-      copyright: '&copy; 2026 Aventron Technologies. Tous droits reserves.',
+      copyright: '&copy; 2026 Aventron Technologies. Tous droits réservés.',
     },
   },
   ar: {
@@ -303,6 +306,9 @@
         phone: 'الهاتف',
         message: 'الرسالة',
         submit: 'إرسال الطلب',
+        sending: 'جارٍ الإرسال...',
+        success: 'شكرا، تم إرسال طلبك بنجاح. سنتواصل معك قريبا.',
+        error: 'تعذر الإرسال. يرجى المحاولة مرة أخرى.',
       },
     },
     mobileCta: 'احصل على عرض سعر مجاني',
@@ -322,12 +328,12 @@ const productCatalog = {
     collector200: '1 collecteur de 2.5 m2',
     collector300: '2 collecteurs de 2.0 m2',
     normalControl: 'Version normale',
-    smartControl: "Controle via l'application Aventron",
+    smartControl: "Contrôle via l'application Aventron",
     normalLabel: 'Normal',
     smartLabel: 'Smart',
     summaryNormal: 'Chauffe-eau solaire {capacity} en version normale avec {collector}.',
     summarySmart:
-      "Chauffe-eau solaire {capacity} en version smart avec controle via l'application Aventron a telecharger sur le telephone de l'utilisateur, plus {collector}.",
+      "Chauffe-eau solaire {capacity} en version smart avec contrôle via l'application Aventron à télécharger sur le téléphone de l'utilisateur, plus {collector}.",
   },
   ar: {
     collector150: 'جامع واحد بمساحة 2.0 م2',
@@ -350,6 +356,7 @@ const prevButton = document.querySelector('.testimonial-slider__control--prev');
 const nextButton = document.querySelector('.testimonial-slider__control--next');
 const contactForm = document.querySelector('#contact-form');
 const contactSuccess = document.querySelector('#contact-success');
+const contactSubmitButton = document.querySelector('.contact-form__submit');
 const heroBackground = document.querySelector('.hero__bg');
 const languageButtons = Array.from(document.querySelectorAll('[data-lang-switch]'));
 const translatableNodes = Array.from(document.querySelectorAll('[data-i18n]'));
@@ -524,8 +531,42 @@ if (prevButton && nextButton && testimonialCards.length) {
 }
 
 if (contactForm && contactSuccess) {
-  contactForm.addEventListener('submit', () => {
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const labels = translations[activeLanguage].contact.form;
     contactSuccess.textContent = '';
+
+    if (contactSubmitButton) {
+      contactSubmitButton.disabled = true;
+      contactSubmitButton.textContent = labels.sending;
+    }
+
+    try {
+      const formData = new FormData(contactForm);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        contactSuccess.textContent = labels.success;
+        contactForm.reset();
+      } else {
+        contactSuccess.textContent = data.message
+          ? `${labels.error} ${data.message}`
+          : labels.error;
+      }
+    } catch (error) {
+      contactSuccess.textContent = labels.error;
+      console.error('Web3Forms submission failed:', error);
+    } finally {
+      if (contactSubmitButton) {
+        contactSubmitButton.disabled = false;
+        contactSubmitButton.textContent = translations[activeLanguage].contact.form.submit;
+      }
+    }
   });
 }
 
