@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
+﻿<!DOCTYPE html>
+<html lang="fr" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aventron Technologies | Chauffe-eau solaire smart</title>
+    <title data-i18n="meta.title">Aventron Technologies | Chauffe-eau solaire smart</title>
     <meta
       name="description"
+      data-i18n-attr="content"
+      data-i18n="meta.description"
       content="Aventron Technologies vend et installe des chauffe-eau solaires smart partout au Maroc avec application mobile, garantie 5 ans et accompagnement complet."
     />
     <link rel="stylesheet" href="styles.css" />
@@ -18,14 +20,38 @@
         </a>
 
         <nav class="site-nav" aria-label="Navigation principale">
-          <a href="#features">Avantages</a>
-          <a href="#product">Produit</a>
-          <a href="#applications">Applications</a>
-          <a href="#testimonials">Avis</a>
-          <a href="#contact">Contact</a>
+          <a href="#features" data-i18n="nav.features">Avantages</a>
+          <a href="#product" data-i18n="nav.product">Produit</a>
+          <a href="#applications" data-i18n="nav.applications">Applications</a>
+          <a href="#testimonials" data-i18n="nav.testimonials">Avis</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
 
-        <a class="button button--small button--ghost" href="#contact">Demander un devis</a>
+        <div class="site-header__actions">
+          <a
+            class="header-link header-link--whatsapp"
+            href="https://wa.me/212722667235"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="WhatsApp Aventron"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 4.25C7.72 4.25 4.25 7.63 4.25 11.8C4.25 13.34 4.72 14.83 5.6 16.09L4.75 19.75L8.57 18.95C9.77 19.73 11.18 20.15 12.64 20.15C16.92 20.15 20.39 16.77 20.39 12.6C20.39 8.43 16.92 4.25 12.64 4.25H12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M9.51 9.14C9.72 8.7 9.95 8.68 10.18 8.69C10.36 8.7 10.57 8.69 10.77 8.69C10.98 8.69 11.31 8.77 11.45 9.08C11.59 9.39 11.97 10.31 12.01 10.39C12.05 10.47 12.08 10.57 12.02 10.67C11.96 10.78 11.93 10.84 11.83 10.96C11.73 11.07 11.62 11.21 11.53 11.3C11.43 11.4 11.34 11.5 11.46 11.7C11.58 11.9 11.99 12.55 12.59 13.07C13.36 13.74 14.01 13.95 14.24 14.04C14.47 14.13 14.6 14.11 14.7 14C14.8 13.89 15.12 13.52 15.26 13.32C15.4 13.12 15.54 13.15 15.73 13.22C15.92 13.29 16.95 13.78 17.16 13.88C17.37 13.98 17.51 14.03 17.56 14.11C17.61 14.2 17.61 14.62 17.41 15.02C17.21 15.42 16.25 15.79 15.81 15.84C15.37 15.89 14.82 15.92 13.04 15.19C11.25 14.47 10.08 13.07 9.75 12.6C9.42 12.14 8.46 10.84 8.46 9.49C8.46 9.09 8.58 8.71 8.83 8.43C9.08 8.15 9.29 9.58 9.51 9.14Z" fill="currentColor"/>
+            </svg>
+            <span>WhatsApp</span>
+          </a>
+
+          <div class="header-qr">
+            <img src="assets/images/qr.png" alt="QR code Aventron" />
+          </div>
+
+          <div class="language-switcher" aria-label="Language switcher">
+            <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
+            <button class="language-switcher__button" type="button" data-lang-switch="ar">AR</button>
+          </div>
+          <a class="button button--small button--ghost" href="#contact" data-i18n="nav.quote">Demander un devis</a>
+        </div>
       </div>
     </header>
 
@@ -39,40 +65,67 @@
 
         <div class="container hero__inner">
           <div class="hero__copy reveal is-visible">
-            <p class="eyebrow">Aventron Technologies</p>
-            <div class="hero__chips">
-              <span class="chip chip--warm">150L, 200L, 300L</span>
-              <span class="chip chip--cool">5 ans de garantie</span>
-            </div>
-            <h1>Le chauffe-eau solaire smart qui donne a votre maison une nouvelle energie</h1>
-            <p class="hero__lead">
-              Aventron Technologies vend et installe des chauffe-eau solaires
-              smart partout au Maroc avec une experience plus moderne, plus
-              propre et plus confortable.
-            </p>
-            <p class="hero__body">
-              Suivi intelligent via l'application Aventron, installation
-              soignee, eau chaude au quotidien et solution pensee pour les
-              maisons, villas, residences et projets professionnels.
-            </p>
+            <div class="hero__banner">
+              <p class="eyebrow" data-i18n="hero.eyebrow">Aventron Technologies</p>
+              <div class="hero__chips">
+                <span class="chip chip--warm" data-i18n="hero.chipSizes">150L, 200L, 300L</span>
+                <span class="chip chip--cool" data-i18n="hero.chipWarranty">5 ans de garantie</span>
+              </div>
+              <h1 data-i18n="hero.title">Le chauffe-eau solaire smart qui donne a votre maison une nouvelle energie</h1>
+              <p class="hero__lead" data-i18n="hero.lead">
+                Aventron Technologies vend et installe des chauffe-eau solaires
+                smart partout au Maroc avec une experience plus moderne, plus
+                propre et plus confortable.
+              </p>
+              <p class="hero__body" data-i18n="hero.body">
+                Suivi intelligent via l'application Aventron, installation
+                soignee, eau chaude au quotidien et solution pensee pour les
+                maisons, villas, residences et projets professionnels.
+              </p>
 
-            <div class="hero__actions">
-              <a class="button button--primary" href="#contact">Obtenir un devis gratuit</a>
-              <a class="button button--secondary" href="#product">Voir le produit</a>
+              <div class="hero__actions">
+                <a class="button button--primary" href="#contact" data-i18n="hero.ctaPrimary">Obtenir un devis gratuit</a>
+                <a class="button button--secondary" href="#product" data-i18n="hero.ctaSecondary">Voir le produit</a>
+              </div>
+            </div>
+
+            <div class="hero__visual reveal is-visible">
+              <div class="product-showcase">
+                <div class="product-showcase__ring product-showcase__ring--one"></div>
+                <div class="product-showcase__ring product-showcase__ring--two"></div>
+
+                <div class="hud-card hud-card--top">
+                  <span class="hud-card__label" data-i18n="hero.hudTopLabel">APP CONTROL</span>
+                  <strong>72&deg;C</strong>
+                  <span class="hud-card__copy" data-i18n="hero.hudTopCopy">Temperature ideale</span>
+                </div>
+
+                <div class="hud-card hud-card--bottom">
+                  <span class="hud-card__label" data-i18n="hero.hudBottomLabel">SMART FLOW</span>
+                  <strong data-i18n="hero.hudBottomTitle">LIVE MONITORING</strong>
+                  <span class="hud-card__copy" data-i18n="hero.hudBottomCopy">Performance et confort optimises</span>
+                </div>
+
+                <img
+                  class="product-showcase__image"
+                  src="assets/images/product.jpeg"
+                  alt="Chauffe-eau solaire smart Aventron"
+                />
+              </div>
             </div>
 
             <div class="hero__metrics">
               <article class="metric-card">
-                <strong>Smart</strong>
-                <span>Controle mobile et surveillance en temps reel</span>
+                <strong data-i18n="hero.metric1Title">Smart</strong>
+                <span data-i18n="hero.metric1Body">Controle mobile et surveillance en temps reel</span>
               </article>
               <article class="metric-card">
-                <strong>Eco</strong>
-                <span>Energie solaire propre et reduction des depenses</span>
+                <strong data-i18n="hero.metric2Title">Eco</strong>
+                <span data-i18n="hero.metric2Body">Energie solaire propre et reduction des depenses</span>
               </article>
               <article class="metric-card">
-                <strong>Maroc</strong>
-                <span>Vente et installation partout au Maroc</span>
+                <strong data-i18n="hero.metric3Title">Maroc</strong>
+                <span data-i18n="hero.metric3Body">Vente et installation partout au Maroc</span>
               </article>
             </div>
 
@@ -85,51 +138,26 @@
               </a>
             </div>
           </div>
-
-          <div class="hero__visual reveal is-visible">
-            <div class="product-showcase">
-              <div class="product-showcase__ring product-showcase__ring--one"></div>
-              <div class="product-showcase__ring product-showcase__ring--two"></div>
-
-              <div class="hud-card hud-card--top">
-                <span class="hud-card__label">APP CONTROL</span>
-                <strong>72&deg;C</strong>
-                <span class="hud-card__copy">Temperature ideale</span>
-              </div>
-
-              <div class="hud-card hud-card--bottom">
-                <span class="hud-card__label">SMART FLOW</span>
-                <strong>LIVE MONITORING</strong>
-                <span class="hud-card__copy">Performance et confort optimises</span>
-              </div>
-
-              <img
-                class="product-showcase__image"
-                src="assets/images/product.jpeg"
-                alt="Chauffe-eau solaire smart Aventron"
-              />
-            </div>
-          </div>
         </div>
       </section>
 
       <section class="proofbar">
         <div class="container proofbar__grid">
           <div class="proofbar__item reveal">
-            <strong>Pas de gaz</strong>
-            <span>Une solution plus sereine et plus moderne</span>
+            <strong data-i18n="proof.item1Title">Pas de gaz</strong>
+            <span data-i18n="proof.item1Body">Une solution plus sereine et plus moderne</span>
           </div>
           <div class="proofbar__item reveal">
-            <strong>Energie renouvelable</strong>
-            <span>Le soleil comme source de confort quotidien</span>
+            <strong data-i18n="proof.item2Title">Energie renouvelable</strong>
+            <span data-i18n="proof.item2Body">Le soleil comme source de confort quotidien</span>
           </div>
           <div class="proofbar__item reveal">
-            <strong>Application Aventron</strong>
-            <span>Suivi et controle intelligents sur mobile</span>
+            <strong data-i18n="proof.item3Title">Application Aventron</strong>
+            <span data-i18n="proof.item3Body">Suivi et controle intelligents sur mobile</span>
           </div>
           <div class="proofbar__item reveal">
-            <strong>Installation rapide</strong>
-            <span>Accompagnement du choix jusqu'a la mise en service</span>
+            <strong data-i18n="proof.item4Title">Installation rapide</strong>
+            <span data-i18n="proof.item4Body">Accompagnement du choix jusqu'a la mise en service</span>
           </div>
         </div>
       </section>
@@ -137,9 +165,9 @@
       <section class="section features" id="features">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="eyebrow">Avantages</p>
-            <h2>Pourquoi choisir le chauffe-eau solaire smart Aventron</h2>
-            <p>
+            <p class="eyebrow" data-i18n="features.eyebrow">Avantages</p>
+            <h2 data-i18n="features.title">Pourquoi choisir le chauffe-eau solaire smart Aventron</h2>
+            <p data-i18n="features.body">
               Une solution creee pour l'economie d'energie, le confort durable
               et une experience plus connectee au quotidien.
             </p>
@@ -153,8 +181,8 @@
                   <path d="M24 6V12M24 36V42M42 24H36M12 24H6M36.7 11.3L32.4 15.6M15.6 32.4L11.3 36.7M36.7 36.7L32.4 32.4M15.6 15.6L11.3 11.3" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
                 </svg>
               </div>
-              <h3>Energie efficace</h3>
-              <p>Profitez d'une eau chaude fiable en reduisant la dependance aux energies conventionnelles.</p>
+              <h3 data-i18n="features.card1Title">Energie efficace</h3>
+              <p data-i18n="features.card1Body">Profitez d'une eau chaude fiable en reduisant la dependance aux energies conventionnelles.</p>
             </article>
 
             <article class="glass-card feature-card reveal">
@@ -165,8 +193,8 @@
                   <circle cx="24" cy="33" r="1.8" fill="currentColor" />
                 </svg>
               </div>
-              <h3>Connectivite smart</h3>
-              <p>Surveillez la temperature et les performances avec l'application Aventron.</p>
+              <h3 data-i18n="features.card2Title">Connectivite smart</h3>
+              <p data-i18n="features.card2Body">Surveillez la temperature et les performances avec l'application Aventron.</p>
             </article>
 
             <article class="glass-card feature-card reveal">
@@ -177,8 +205,8 @@
                   <rect x="7" y="9" width="34" height="30" rx="6" stroke="currentColor" stroke-width="2.4" />
                 </svg>
               </div>
-              <h3>Installation facile</h3>
-              <p>Un accompagnement clair, une mise en place soignee et une experience simple du debut a la fin.</p>
+              <h3 data-i18n="features.card3Title">Installation facile</h3>
+              <p data-i18n="features.card3Body">Un accompagnement clair, une mise en place soignee et une experience simple du debut a la fin.</p>
             </article>
           </div>
         </div>
@@ -188,33 +216,68 @@
         <div class="container product__grid">
           <div class="product__media reveal">
             <img src="assets/images/product.jpeg" alt="Produit Aventron Technologies" />
+            <img src="assets/images/smart.png" alt="Application smart Aventron" />
           </div>
 
           <div class="product__copy reveal">
-            <p class="eyebrow">Produit</p>
-            <h2>Un design solaire intelligent, propre et performant</h2>
-            <p>
+            <p class="eyebrow" data-i18n="product.eyebrow">Produit</p>
+            <h2 data-i18n="product.title">Un design solaire intelligent, propre et performant</h2>
+            <p data-i18n="product.body">
               Le chauffe-eau solaire smart Aventron combine performance solaire,
               structure moderne et suivi intelligent pour offrir une solution
               premium aussi efficace qu'esthetique.
             </p>
 
-            <div class="product-specs">
-              <div class="product-specs__item">
-                <strong>Capacites</strong>
-                <span>150L, 200L et 300L</span>
+            <div class="product-configurator">
+              <div class="product-configurator__controls">
+                <div class="product-configurator__group">
+                  <span class="product-configurator__label" data-i18n="product.selectorSize">Choisir la capacite</span>
+                  <div class="product-configurator__options">
+                    <button class="product-option is-active" type="button" data-product-size="150" data-i18n="product.size150">150L</button>
+                    <button class="product-option" type="button" data-product-size="200" data-i18n="product.size200">200L</button>
+                    <button class="product-option" type="button" data-product-size="300" data-i18n="product.size300">300L</button>
+                  </div>
+                </div>
+
+                <div class="product-configurator__group">
+                  <span class="product-configurator__label" data-i18n="product.selectorVariant">Choisir la version</span>
+                  <div class="product-configurator__options">
+                    <button class="product-option is-active" type="button" data-product-variant="N" data-i18n="product.variantNormal">Normal</button>
+                    <button class="product-option" type="button" data-product-variant="S" data-i18n="product.variantSmart">Smart</button>
+                  </div>
+                </div>
               </div>
-              <div class="product-specs__item">
-                <strong>Controle</strong>
-                <span>Application mobile Aventron</span>
-              </div>
-              <div class="product-specs__item">
-                <strong>Garantie</strong>
-                <span>5 ans</span>
-              </div>
-              <div class="product-specs__item">
-                <strong>Couverture</strong>
-                <span>Vente et installation partout au Maroc</span>
+
+              <div class="product-focus">
+                <div class="product-focus__hero">
+                  <div>
+                    <span class="product-focus__eyebrow" data-i18n="product.focusLabel">Configuration active</span>
+                    <h3 class="product-focus__code" data-product-model>AT150N</h3>
+                    <p class="product-focus__summary" data-product-summary>
+                      Chauffe-eau solaire 150L en version normale avec 1 collecteur de 2.0 m2.
+                    </p>
+                  </div>
+                  <span class="product-focus__badge" data-product-badge>150L / Normal</span>
+                </div>
+
+                <div class="product-focus__stats">
+                  <article class="product-specs__item">
+                    <strong data-i18n="product.detailCapacity">Capacite</strong>
+                    <span data-product-capacity>150L</span>
+                  </article>
+                  <article class="product-specs__item">
+                    <strong data-i18n="product.detailCollector">Collecteur</strong>
+                    <span data-product-collector>1 x 2.0 m2</span>
+                  </article>
+                  <article class="product-specs__item">
+                    <strong data-i18n="product.detailControl">Controle</strong>
+                    <span data-product-control>Version normale</span>
+                  </article>
+                  <article class="product-specs__item">
+                    <strong data-i18n="product.detailCoverage">Couverture</strong>
+                    <span data-i18n="product.spec4Body">Vente et installation partout au Maroc</span>
+                  </article>
+                </div>
               </div>
             </div>
           </div>
@@ -224,8 +287,8 @@
       <section class="section applications" id="applications">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="eyebrow">Applications</p>
-            <h2>Adapte aux besoins du quotidien comme aux projets professionnels</h2>
+            <p class="eyebrow" data-i18n="applications.eyebrow">Applications</p>
+            <h2 data-i18n="applications.title">Adapte aux besoins du quotidien comme aux projets professionnels</h2>
           </div>
 
           <div class="card-grid card-grid--four">
@@ -233,49 +296,49 @@
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 5L20 11.5V19H4V11.5Z" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 19V13.5H14.5V19" stroke="currentColor" stroke-width="1.8"/></svg>
               </span>
-              <span>Maisons</span>
+              <span data-i18n="applications.item1">Maisons</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 18.5L8.5 9.5H15.5L20.5 18.5H3.5Z" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.5L12 5.5L14.5 9.5" stroke="currentColor" stroke-width="1.8"/></svg>
               </span>
-              <span>Villas</span>
+              <span data-i18n="applications.item2">Villas</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="4.5" width="14" height="15" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 8H9.6M14.5 8H14.6M9.5 12H9.6M14.5 12H14.6M9.5 16H9.6M14.5 16H14.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
               </span>
-              <span>Immeubles</span>
+              <span data-i18n="applications.item3">Immeubles</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M5 9H19V19H5V9Z" stroke="currentColor" stroke-width="1.8"/><path d="M8 9V6H16V9M8 13H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </span>
-              <span>Commerces</span>
+              <span data-i18n="applications.item4">Commerces</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M6 10H18L17 19H7L6 10Z" stroke="currentColor" stroke-width="1.8"/><path d="M9 10V8.5C9 6.8 10.3 5.5 12 5.5C13.7 5.5 15 6.8 15 8.5V10" stroke="currentColor" stroke-width="1.8"/></svg>
               </span>
-              <span>Cafes & restos</span>
+              <span data-i18n="applications.item5">Cafes & restos</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M5 8.5H19V18.5H5V8.5Z" stroke="currentColor" stroke-width="1.8"/><path d="M8 8.5V5.5H16V8.5M9 13H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </span>
-              <span>Petits hotels</span>
+              <span data-i18n="applications.item6">Petits hotels</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="6" width="15" height="12.5" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5H16M8 14H13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </span>
-              <span>Residences</span>
+              <span data-i18n="applications.item7">Residences</span>
             </article>
             <article class="application-card glass-card reveal">
               <span class="application-card__icon">
                 <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M6 18.5C7.2 15.8 9.2 14.5 12 14.5C14.8 14.5 16.8 15.8 18 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </span>
-              <span>Professionnels</span>
+              <span data-i18n="applications.item8">Professionnels</span>
             </article>
           </div>
         </div>
@@ -284,45 +347,45 @@
       <section class="section testimonials" id="testimonials">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="eyebrow">Avis clients</p>
-            <h2>Une experience qui se ressent dans le confort de chaque jour</h2>
+            <p class="eyebrow" data-i18n="testimonials.eyebrow">Avis clients</p>
+            <h2 data-i18n="testimonials.title">Une experience qui se ressent dans le confort de chaque jour</h2>
           </div>
 
           <div class="testimonial-slider reveal">
-            <button class="testimonial-slider__control testimonial-slider__control--prev" type="button" aria-label="Avis precedent">&larr;</button>
+            <button class="testimonial-slider__control testimonial-slider__control--prev" type="button" aria-label="Avis precedent" data-i18n-attr="aria-label" data-i18n="testimonials.prevLabel">&larr;</button>
             <div class="testimonial-slider__track">
               <article class="testimonial-card is-active">
                 <img src="assets/images/testimonial-sarah.svg" alt="Cliente Sarah" />
                 <div class="testimonial-card__body">
                   <div class="testimonial-card__rating">★★★★★</div>
-                  <p>“Le produit donne une impression tres moderne, et l'application rend le controle vraiment pratique. Le confort est visible tous les jours.”</p>
-                  <strong>Sarah L.</strong>
+                  <p data-i18n="testimonials.quote1">“Le produit donne une impression tres moderne, et l'application rend le controle vraiment pratique. Le confort est visible tous les jours.”</p>
+                  <strong data-i18n="testimonials.author1">Sarah L.</strong>
                 </div>
               </article>
               <article class="testimonial-card">
                 <img src="assets/images/testimonial-karim.svg" alt="Client Karim" />
                 <div class="testimonial-card__body">
                   <div class="testimonial-card__rating">★★★★★</div>
-                  <p>“Installation rapide, bonne finition et vraie difference sur la consommation. On sent une approche serieuse du debut a la fin.”</p>
-                  <strong>Karim B.</strong>
+                  <p data-i18n="testimonials.quote2">“Installation rapide, bonne finition et vraie difference sur la consommation. On sent une approche serieuse du debut a la fin.”</p>
+                  <strong data-i18n="testimonials.author2">Karim B.</strong>
                 </div>
               </article>
               <article class="testimonial-card">
                 <img src="assets/images/testimonial-amina.svg" alt="Cliente Amina" />
                 <div class="testimonial-card__body">
                   <div class="testimonial-card__rating">★★★★★</div>
-                  <p>“Le systeme est elegant, pratique et tres simple a suivre sur mobile. C'est une vraie solution premium pour la maison.”</p>
-                  <strong>Amina R.</strong>
+                  <p data-i18n="testimonials.quote3">“Le systeme est elegant, pratique et tres simple a suivre sur mobile. C'est une vraie solution premium pour la maison.”</p>
+                  <strong data-i18n="testimonials.author3">Amina R.</strong>
                 </div>
               </article>
             </div>
-            <button class="testimonial-slider__control testimonial-slider__control--next" type="button" aria-label="Avis suivant">&rarr;</button>
+            <button class="testimonial-slider__control testimonial-slider__control--next" type="button" aria-label="Avis suivant" data-i18n-attr="aria-label" data-i18n="testimonials.nextLabel">&rarr;</button>
           </div>
 
           <div class="testimonial-slider__dots" aria-label="Navigation des avis">
-            <button class="is-active" type="button" aria-label="Avis 1"></button>
-            <button type="button" aria-label="Avis 2"></button>
-            <button type="button" aria-label="Avis 3"></button>
+            <button class="is-active" type="button" aria-label="Avis 1" data-i18n-attr="aria-label" data-i18n="testimonials.dot1"></button>
+            <button type="button" aria-label="Avis 2" data-i18n-attr="aria-label" data-i18n="testimonials.dot2"></button>
+            <button type="button" aria-label="Avis 3" data-i18n-attr="aria-label" data-i18n="testimonials.dot3"></button>
           </div>
         </div>
       </section>
@@ -330,38 +393,38 @@
       <section class="section contact" id="contact">
         <div class="container contact__grid">
           <div class="contact__copy reveal">
-            <p class="eyebrow">Contact</p>
-            <h2>Parlez-nous de votre projet et recevez une recommandation claire</h2>
-            <p>
+            <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+            <h2 data-i18n="contact.title">Parlez-nous de votre projet et recevez une recommandation claire</h2>
+            <p data-i18n="contact.body">
               Aventron Technologies vous accompagne du choix du chauffe-eau
               solaire smart jusqu'a l'installation et au suivi.
             </p>
             <ul class="contact__list">
-              <li>Conseil produit adapte a votre besoin</li>
-              <li>Vente et installation partout au Maroc</li>
-              <li>Application mobile et accompagnement apres pose</li>
+              <li data-i18n="contact.item1">Conseil produit adapte a votre besoin</li>
+              <li data-i18n="contact.item2">Vente et installation partout au Maroc</li>
+              <li data-i18n="contact.item3">Application mobile et accompagnement apres pose</li>
             </ul>
           </div>
 
           <div class="contact__card reveal">
             <form class="contact-form" id="contact-form">
               <div class="contact-form__field">
-                <label for="name">Nom</label>
+                <label for="name" data-i18n="contact.form.name">Nom</label>
                 <input id="name" name="name" type="text" required />
               </div>
               <div class="contact-form__field">
-                <label for="email">Email</label>
+                <label for="email" data-i18n="contact.form.email">Email</label>
                 <input id="email" name="email" type="email" required />
               </div>
               <div class="contact-form__field">
-                <label for="phone">Telephone</label>
+                <label for="phone" data-i18n="contact.form.phone">Telephone</label>
                 <input id="phone" name="phone" type="tel" required />
               </div>
               <div class="contact-form__field">
-                <label for="message">Message</label>
+                <label for="message" data-i18n="contact.form.message">Message</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
               </div>
-              <button class="button button--primary contact-form__submit" type="submit">Envoyer la demande</button>
+              <button class="button button--primary contact-form__submit" type="submit" data-i18n="contact.form.submit">Envoyer la demande</button>
               <p class="contact-form__success" id="contact-success" aria-live="polite"></p>
             </form>
           </div>
@@ -369,26 +432,25 @@
       </section>
     </main>
 
-    <a class="mobile-cta" href="#contact">Obtenir un devis gratuit</a>
+    <a class="mobile-cta" href="#contact" data-i18n="mobileCta">Obtenir un devis gratuit</a>
 
     <footer class="site-footer">
       <div class="container site-footer__inner">
         <div>
           <img class="site-footer__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
-          <p class="site-footer__text">
+          <p class="site-footer__text" data-i18n="footer.body">
             Chauffe-eau solaire smart pour une experience plus propre, plus
             connectee et plus confortable.
           </p>
         </div>
         <div class="site-footer__socials">
-          <a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter</a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer" data-i18n="footer.facebook">Facebook</a>
+          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer" data-i18n="footer.instagram">Instagram</a>
         </div>
         <div class="site-footer__meta">
           <a href="mailto:info@aventrontechnologies.ma">info@aventrontechnologies.ma</a>
           <a href="tel:0722667235">0722667235</a>
-          <p>&copy; 2026 Aventron Technologies. Tous droits reserves.</p>
+          <p data-i18n="footer.copyright">&copy; 2026 Aventron Technologies. Tous droits reserves.</p>
         </div>
       </div>
     </footer>
