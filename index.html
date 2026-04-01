@@ -407,7 +407,16 @@
           </div>
 
           <div class="contact__card reveal">
-            <form class="contact-form" id="contact-form">
+            <form
+              class="contact-form"
+              id="contact-form"
+              action="https://api.web3forms.com/submit"
+              method="POST"
+            >
+              <input type="hidden" name="access_key" value="4de3406d-49da-47a1-9e30-e5f9ae41aace" />
+              <input type="hidden" name="subject" value="Nouvelle demande depuis aventrontechnologies.ma" />
+              <input type="hidden" name="from_name" value="Aventron Technologies Website" />
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="contact-form__botcheck" />
               <div class="contact-form__field">
                 <label for="name" data-i18n="contact.form.name">Nom</label>
                 <input id="name" name="name" type="text" required />

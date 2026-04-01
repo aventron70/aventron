@@ -147,7 +147,6 @@
         phone: 'Telephone',
         message: 'Message',
         submit: 'Envoyer la demande',
-        success: 'Merci, votre demande a bien ete envoyee. Nous vous recontacterons rapidement.',
       },
     },
     mobileCta: 'Obtenir un devis gratuit',
@@ -304,7 +303,6 @@
         phone: 'الهاتف',
         message: 'الرسالة',
         submit: 'إرسال الطلب',
-        success: 'شكرا، تم إرسال طلبك بنجاح. سنتواصل معك قريبا.',
       },
     },
     mobileCta: 'احصل على عرض سعر مجاني',
@@ -526,10 +524,8 @@ if (prevButton && nextButton && testimonialCards.length) {
 }
 
 if (contactForm && contactSuccess) {
-  contactForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    contactSuccess.textContent = translations[activeLanguage].contact.form.success;
-    contactForm.reset();
+  contactForm.addEventListener('submit', () => {
+    contactSuccess.textContent = '';
   });
 }
 
