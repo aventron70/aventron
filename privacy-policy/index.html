@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aventron Privacy Policy</title>
+    <meta
+      name="description"
+      content="Privacy Policy for the Aventron mobile application and related website."
+    />
+    <link rel="canonical" href="https://www.aventrontechnologies.ma/privacy-policy" />
+    <style>
+      :root {
+        --bg: #0f1720;
+        --panel: #18212b;
+        --panel-soft: #212c38;
+        --text: #eef4f8;
+        --muted: #bfd0db;
+        --accent: #f08a24;
+        --border: rgba(255, 255, 255, 0.1);
+        --link: #ffb056;
+        --max: 860px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(240, 138, 36, 0.18), transparent 32%),
+          linear-gradient(180deg, #0b1117 0%, var(--bg) 100%);
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      main {
+        width: min(calc(100% - 32px), var(--max));
+        margin: 0 auto;
+        padding: 40px 0 64px;
+      }
+
+      .hero,
+      section {
+        background: rgba(24, 33, 43, 0.94);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(6px);
+      }
+
+      .hero {
+        padding: 32px;
+        margin-bottom: 20px;
+      }
+
+      section {
+        padding: 28px 32px;
+        margin-bottom: 16px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(240, 138, 36, 0.14);
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        margin: 0 0 12px;
+        line-height: 1.2;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        color: #fff4e6;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+      }
+
+      ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+      }
+
+      a {
+        color: var(--link);
+      }
+
+      .meta {
+        color: #ffd3a0;
+        font-size: 0.95rem;
+      }
+
+      .contact-box {
+        background: var(--panel-soft);
+        border-radius: 14px;
+        padding: 16px 18px;
+        border: 1px solid var(--border);
+      }
+
+      footer {
+        color: #96adbb;
+        font-size: 0.92rem;
+        padding: 8px 4px 0;
+        text-align: center;
+      }
+
+      @media (max-width: 640px) {
+        .hero,
+        section {
+          padding: 22px 20px;
+          border-radius: 16px;
+        }
+
+        main {
+          width: min(calc(100% - 20px), var(--max));
+          padding-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="hero">
+        <div class="eyebrow">Aventron</div>
+        <h1>Privacy Policy</h1>
+        <p class="meta">Effective date: April 5, 2026</p>
+        <p>
+          This Privacy Policy explains how Aventron Technologies collects, uses,
+          stores, and shares information when you use the Aventron mobile app and
+          related website content.
+        </p>
+      </div>
+
+      <section>
+        <h2>1. What the app does</h2>
+        <p>
+          The Aventron app helps users connect to compatible Shelly-based solar
+          thermostat hardware, monitor device status and temperatures, manage
+          automation rules, and contact Aventron Technologies for support.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Information we process</h2>
+        <p>Depending on how you use the app, the app may process:</p>
+        <ul>
+          <li>Shelly account authentication tokens and related OAuth server information.</li>
+          <li>Thermostat and device information such as device IDs, MAC-style identifiers, cloud device IDs, local IP or LAN labels, and device status.</li>
+          <li>Thermostat settings and operational data such as configured target temperature, measured temperature, boiler size, automation schedules, and temperature history stored by the app.</li>
+          <li>Support and contact actions you initiate, such as opening email, WhatsApp, Google Maps, or external web pages.</li>
+          <li>Basic technical and network information required to communicate with local devices, Shelly cloud endpoints, and infrastructure used by the app.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Information stored on your device</h2>
+        <p>
+          The app stores some data locally on your device to keep you signed in and
+          to preserve your setup between sessions. This may include authentication
+          tokens, selected server information, thermostat definitions, automation
+          rules, and locally cached historical usage or temperature data.
+        </p>
+        <p>
+          Sensitive authentication data is intended to be stored using secure local
+          storage where supported by the platform. Some app preferences and cached
+          operational data may also be stored using standard local app storage.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. How we use Firebase</h2>
+        <p>
+          The app uses Firebase services for app configuration and device
+          authorization checks. In particular, Aventron may verify whether a device
+          identifier is authorized by querying a Firebase Firestore collection used
+          for authorized device records.
+        </p>
+        <p>
+          This verification may involve processing hardware identifiers such as a
+          normalized device ID or MAC-style identifier. The app does not include
+          Firebase Analytics in the current project configuration.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. How we use Shelly services and local network connections</h2>
+        <p>
+          The app communicates with compatible Shelly services and, where available,
+          with supported devices on the local network in order to discover devices,
+          read status data, and execute thermostat control actions.
+        </p>
+        <p>
+          These communications may involve requests to Shelly cloud endpoints and
+          direct local-network requests to compatible devices.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Background automation</h2>
+        <p>
+          If automation is enabled, the app may run periodic background work to
+          evaluate saved automation rules and send control commands to a configured
+          thermostat. This background processing uses locally stored rule and device
+          data and may access Shelly cloud or local device endpoints when needed.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Maps, links, and third-party services</h2>
+        <p>
+          The app may display or open services provided by third parties, including:
+        </p>
+        <ul>
+          <li>Google Maps for directions to Aventron Technologies.</li>
+          <li>OpenStreetMap tiles for map display.</li>
+          <li>WhatsApp for customer contact.</li>
+          <li>Shelly cloud authentication and device APIs.</li>
+          <li>Google Firebase services used by the app.</li>
+        </ul>
+        <p>
+          When you use those services, your information may also be processed under
+          the privacy policies and terms of those third parties.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Location and permissions</h2>
+        <p>
+          The Android app currently declares internet and network-state permissions.
+          It does not request Android fine or coarse location permission in the
+          current project configuration.
+        </p>
+        <p>
+          The app may still process local network information and may open external
+          map services. Those third-party services may infer approximate location
+          from IP address or their own inputs.
+        </p>
+      </section>
+
+      <section>
+        <h2>9. How long data is retained</h2>
+        <p>
+          Data stored locally on your device is generally retained until you log
+          out, clear app data, uninstall the app, or overwrite the stored data
+          through normal app use. Device authorization records maintained by
+          Aventron or its service providers may be retained as long as reasonably
+          necessary for product operation, support, security, and legal compliance.
+        </p>
+      </section>
+
+      <section>
+        <h2>10. Data sharing</h2>
+        <p>
+          Aventron does not sell your personal information. Information may be
+          shared only as needed to operate the app and its connected services,
+          including with service providers such as Google Firebase, Shelly services,
+          mapping providers, and communication platforms you choose to open from the app.
+        </p>
+      </section>
+
+      <section>
+        <h2>11. Security</h2>
+        <p>
+          Aventron uses reasonable technical and organizational measures to protect
+          information processed by the app. However, no method of electronic storage
+          or transmission is completely secure, and absolute security cannot be guaranteed.
+        </p>
+      </section>
+
+      <section>
+        <h2>12. Your choices</h2>
+        <ul>
+          <li>You can stop using the app at any time.</li>
+          <li>You can remove locally stored data by logging out, clearing app data, or uninstalling the app.</li>
+          <li>You can choose not to use optional contact links or third-party services opened from the app.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>13. Contact</h2>
+        <div class="contact-box">
+          <p>
+            If you have questions about this Privacy Policy or Aventron's data
+            practices, contact:
+          </p>
+          <p>
+            Aventron Technologies<br />
+            Email:
+            <a href="mailto:info@aventrontechnologies.ma">info@aventrontechnologies.ma</a><br />
+            WhatsApp:
+            <a href="https://wa.me/212722667235">+212 722 667 235</a>
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>14. Changes to this policy</h2>
+        <p>
+          Aventron may update this Privacy Policy from time to time. The latest
+          version should always be published on the official website or app page
+          associated with the Aventron app.
+        </p>
+      </section>
+
+      <footer>Aventron Technologies &copy; 2026</footer>
+    </main>
+  </body>
+</html>
