@@ -67,6 +67,12 @@
       title: 'Un design solaire intelligent, propre et performant',
       body:
         "Le chauffe-eau solaire smart Aventron combine performance solaire, structure moderne et suivi intelligent pour offrir une solution premium aussi efficace qu'esthetique.",
+      trust1Title: 'Made in Europe',
+      trust1Body:
+        'Fabrication europeenne pour une finition fiable et un niveau de qualité constant.',
+      trust2Title: "Jusqu'a 99°C en mode solaire",
+      trust2Body:
+        'Performance solaire élevée pour répondre aux besoins de confort les plus exigeants.',
       spec1Title: 'Capacites',
       spec1Body: '150L, 200L et 300L',
       spec2Title: 'Contrôle',
@@ -138,6 +144,8 @@
       title: 'Parlez-nous de votre projet et recevez une recommandation claire',
       body:
         "Aventron Technologies vous accompagne du choix du chauffe-eau solaire smart jusqu'a l'installation et au suivi.",
+      seoLinks:
+        '<a href="https://wa.me/212722667235" target="_blank" rel="noreferrer">Demander les prix maintenant</a>.',
       item1: 'Conseil produit adapté à votre besoin',
       item2: 'Vente et installation partout au Maroc',
       item3: 'Application mobile et accompagnement après pose',
@@ -226,6 +234,12 @@
       title: 'تصميم شمسي ذكي ونظيف وعالي الأداء',
       body:
         'يجمع سخان الماء الشمسي الذكي من Aventron بين الأداء الشمسي والبنية الحديثة والمتابعة الذكية ليقدم حلا متميزا يجمع بين الفعالية والجمال.',
+      trust1Title: 'صنع في أوروبا',
+      trust1Body:
+        'تصنيع أوروبي يمنحك تشطيبا موثوقا ومستوى جودة ثابتا.',
+      trust2Title: 'حتى 99°م في الوضع الشمسي',
+      trust2Body:
+        'أداء شمسي مرتفع لتلبية احتياجات الراحة الأكثر تطلبا.',
       spec1Title: 'السعات',
       spec1Body: '150L و200L و300L',
       spec2Title: 'التحكم',
@@ -297,6 +311,8 @@
       title: 'حدثنا عن مشروعك واحصل على توصية واضحة',
       body:
         'ترافقك Aventron Technologies من اختيار سخان الماء الشمسي الذكي إلى التركيب والمتابعة.',
+      seoLinks:
+        '<a href="https://wa.me/212722667235" target="_blank" rel="noreferrer">اطلب الأسعار الآن</a>.',
       item1: 'نصيحة مناسبة لاحتياجك',
       item2: 'بيع وتركيب في جميع أنحاء المغرب',
       item3: 'تطبيق للهاتف ومرافقة بعد التركيب',
