@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recrutement | Aventron Technologies</title>
+    <title data-i18n="meta.title">Recrutement | Aventron Technologies</title>
     <meta
       name="description"
+      data-i18n-attr="content"
+      data-i18n="meta.description"
       content="Recrutement chez Aventron Technologies: ingenieur systeme IoT et poste bureau pour relation client, devis et facturation."
     />
     <meta name="robots" content="index,follow" />
@@ -18,12 +20,17 @@
         <a class="brand" href="index.html" aria-label="Aventron Technologies">
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
-        <nav class="landing-nav" aria-label="Navigation">
-          <a href="index.html">Accueil</a>
-          <a href="entreprise.html">L'entreprise</a>
-          <a href="notre-equipe.html">Notre equipe</a>
-          <a class="button button--small button--ghost" href="mailto:info@aventrontechnologies.ma">Postuler</a>
+        <nav class="landing-nav" aria-label="Navigation principale">
+          <a href="index.html" data-i18n="nav.home">Accueil</a>
+          <a href="entreprise.html" data-i18n="nav.company">L'entreprise</a>
+          <a href="notre-equipe.html" data-i18n="nav.team">Notre equipe</a>
+          <a class="button button--small button--ghost" href="mailto:info@aventrontechnologies.ma" data-i18n="nav.apply">Postuler</a>
         </nav>
+        <div class="language-switcher" aria-label="Language switcher">
+          <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="ar">AR</button>
+        </div>
       </div>
     </header>
 
@@ -31,18 +38,18 @@
       <section class="landing-hero">
         <div class="container landing-hero__grid">
           <div>
-            <p class="eyebrow">Recrutement</p>
-            <h1>Deux besoins actuels au sein d'Aventron Technologies</h1>
-            <p class="landing-lead">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Recrutement</p>
+            <h1 data-i18n="hero.title">Deux besoins actuels au sein d'Aventron Technologies</h1>
+            <p class="landing-lead" data-i18n="hero.lead">
               Nous cherchons a renforcer notre equipe avec des profils capables de soutenir a la fois l'evolution technique
               du produit et la qualite de la gestion client au quotidien.
             </p>
           </div>
           <div class="glass-card landing-panel">
-            <h2>Postes recherches</h2>
+            <h2 data-i18n="roles.title">Postes recherches</h2>
             <ul class="landing-list">
-              <li>Ingenieur systeme IoT</li>
-              <li>Poste bureau oriente clients, devis, factures et suivi administratif</li>
+              <li data-i18n="roles.item1">Ingenieur systeme IoT</li>
+              <li data-i18n="roles.item2">Poste bureau oriente clients, devis, factures et suivi administratif</li>
             </ul>
           </div>
         </div>
@@ -54,23 +61,23 @@
             <table class="seo-table">
               <thead>
                 <tr>
-                  <th>Nom de l'offre</th>
-                  <th>Site</th>
-                  <th>Type</th>
-                  <th>Date de fin de candidatures</th>
+                  <th data-i18n="table.role">Nom de l'offre</th>
+                  <th data-i18n="table.site">Site</th>
+                  <th data-i18n="table.type">Type</th>
+                  <th data-i18n="table.deadline">Date de fin de candidatures</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="offre-ingenieur-iot-mobile.html">Ingenieur systeme IoT</a></td>
-                  <td>Grand Casablanca</td>
-                  <td>CDI</td>
+                  <td><a href="offre-ingenieur-iot-mobile.html" data-i18n="table.iotRole">Ingenieur systeme IoT</a></td>
+                  <td data-i18n="table.location">Grand Casablanca</td>
+                  <td data-i18n="table.contract">CDI</td>
                   <td>31.08.2026</td>
                 </tr>
                 <tr>
-                  <td><a href="offre-assistante-administrative.html">Assistant(e) Administratif(ve)</a></td>
-                  <td>Grand Casablanca</td>
-                  <td>CDI</td>
+                  <td><a href="offre-assistante-administrative.html" data-i18n="table.adminRole">Assistant(e) Administratif(ve)</a></td>
+                  <td data-i18n="table.location">Grand Casablanca</td>
+                  <td data-i18n="table.contract">CDI</td>
                   <td>31.08.2026</td>
                 </tr>
               </tbody>
@@ -82,12 +89,12 @@
       <section class="section landing-section">
         <div class="container landing-grid landing-grid--two">
           <article class="glass-card landing-card">
-            <h3>Ingenieur systeme IoT</h3>
-            <p>Nous recherchons un profil capable de travailler sur les aspects systeme, connectivite, logique produit et accompagnement technique autour des solutions smart.</p>
+            <h3 data-i18n="cards.iotTitle">Ingenieur systeme IoT</h3>
+            <p data-i18n="cards.iotBody">Nous recherchons un profil capable de travailler sur les aspects systeme, connectivite, logique produit et accompagnement technique autour des solutions smart.</p>
           </article>
           <article class="glass-card landing-card">
-            <h3>Poste bureau</h3>
-            <p>Ce poste est oriente relation client et gestion quotidienne: accueil des demandes, redaction des devis, preparation des factures et suivi administratif general.</p>
+            <h3 data-i18n="cards.adminTitle">Poste bureau</h3>
+            <p data-i18n="cards.adminBody">Ce poste est oriente relation client et gestion quotidienne: accueil des demandes, redaction des devis, preparation des factures et suivi administratif general.</p>
           </article>
         </div>
       </section>
@@ -95,15 +102,15 @@
       <section class="section landing-section landing-section--alt">
         <div class="container landing-split">
           <div>
-            <p class="eyebrow">Candidature</p>
-            <h2>Comment postuler</h2>
-            <p>
+            <p class="eyebrow" data-i18n="apply.eyebrow">Candidature</p>
+            <h2 data-i18n="apply.title">Comment postuler</h2>
+            <p data-i18n="apply.body">
               Si vous souhaitez rejoindre Aventron Technologies, envoyez votre candidature par email
               avec votre CV et une presentation rapide de votre profil.
             </p>
           </div>
           <div class="glass-card landing-panel">
-            <h3>Envoyer votre candidature</h3>
+            <h3 data-i18n="apply.cardTitle">Envoyer votre candidature</h3>
             <div class="landing-link-list">
               <a href="mailto:info@aventrontechnologies.ma?subject=Candidature%20Aventron%20Technologies">info@aventrontechnologies.ma</a>
             </div>
@@ -116,11 +123,11 @@
       <div class="container site-footer__inner">
         <div>
           <img class="site-footer__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
-          <p class="site-footer__text">Recrutement chez Aventron Technologies pour soutenir la croissance de la marque et la qualite de service.</p>
+          <p class="site-footer__text" data-i18n="footer.body">Recrutement chez Aventron Technologies pour soutenir la croissance de la marque et la qualite de service.</p>
         </div>
         <div class="site-footer__socials">
-          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer" data-i18n="footer.facebook">Facebook</a>
+          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer" data-i18n="footer.instagram">Instagram</a>
         </div>
         <div class="site-footer__meta">
           <a href="mailto:info@aventrontechnologies.ma">info@aventrontechnologies.ma</a>
@@ -128,5 +135,159 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      const translations = {
+        fr: {
+          dir: 'ltr',
+          meta: {
+            title: 'Recrutement | Aventron Technologies',
+            description: 'Recrutement chez Aventron Technologies: ingenieur systeme IoT et poste bureau pour relation client, devis et facturation.',
+          },
+          nav: { home: 'Accueil', company: "L'entreprise", team: 'Notre equipe', apply: 'Postuler' },
+          hero: {
+            eyebrow: 'Recrutement',
+            title: "Deux besoins actuels au sein d'Aventron Technologies",
+            lead: "Nous cherchons a renforcer notre equipe avec des profils capables de soutenir a la fois l'evolution technique du produit et la qualite de la gestion client au quotidien.",
+          },
+          roles: {
+            title: 'Postes recherches',
+            item1: 'Ingenieur systeme IoT',
+            item2: 'Poste bureau oriente clients, devis, factures et suivi administratif',
+          },
+          table: {
+            role: "Nom de l'offre",
+            site: 'Site',
+            type: 'Type',
+            deadline: 'Date de fin de candidatures',
+            iotRole: 'Ingenieur systeme IoT',
+            adminRole: 'Assistant(e) Administratif(ve)',
+            location: 'Grand Casablanca',
+            contract: 'CDI',
+          },
+          cards: {
+            iotTitle: 'Ingenieur systeme IoT',
+            iotBody: 'Nous recherchons un profil capable de travailler sur les aspects systeme, connectivite, logique produit et accompagnement technique autour des solutions smart.',
+            adminTitle: 'Poste bureau',
+            adminBody: 'Ce poste est oriente relation client et gestion quotidienne: accueil des demandes, redaction des devis, preparation des factures et suivi administratif general.',
+          },
+          apply: {
+            eyebrow: 'Candidature',
+            title: 'Comment postuler',
+            body: 'Si vous souhaitez rejoindre Aventron Technologies, envoyez votre candidature par email avec votre CV et une presentation rapide de votre profil.',
+            cardTitle: 'Envoyer votre candidature',
+          },
+          footer: { body: 'Recrutement chez Aventron Technologies pour soutenir la croissance de la marque et la qualite de service.', facebook: 'Facebook', instagram: 'Instagram' },
+        },
+        en: {
+          dir: 'ltr',
+          meta: {
+            title: 'Careers | Aventron Technologies',
+            description: 'Recruitment at Aventron Technologies: IoT systems engineer and office role for customer relations, quotations, and invoicing.',
+          },
+          nav: { home: 'Home', company: 'The company', team: 'Our team', apply: 'Apply' },
+          hero: {
+            eyebrow: 'Careers',
+            title: 'Two current hiring needs at Aventron Technologies',
+            lead: 'We are looking to strengthen our team with profiles able to support both the technical evolution of the product and the quality of day-to-day customer management.',
+          },
+          roles: {
+            title: 'Open roles',
+            item1: 'IoT Systems Engineer',
+            item2: 'Office role focused on customers, quotations, invoices, and administrative follow-up',
+          },
+          table: {
+            role: 'Job title',
+            site: 'Location',
+            type: 'Type',
+            deadline: 'Application deadline',
+            iotRole: 'IoT Systems Engineer',
+            adminRole: 'Administrative Assistant',
+            location: 'Greater Casablanca',
+            contract: 'Permanent',
+          },
+          cards: {
+            iotTitle: 'IoT Systems Engineer',
+            iotBody: 'We are looking for a profile able to work on systems, connectivity, product logic, and technical support around smart solutions.',
+            adminTitle: 'Office role',
+            adminBody: 'This role is focused on customer relations and daily management: handling incoming requests, preparing quotations, preparing invoices, and general administrative follow-up.',
+          },
+          apply: {
+            eyebrow: 'Application',
+            title: 'How to apply',
+            body: 'If you would like to join Aventron Technologies, send your application by email with your CV and a short introduction to your profile.',
+            cardTitle: 'Send your application',
+          },
+          footer: { body: 'Recruitment at Aventron Technologies to support brand growth and service quality.', facebook: 'Facebook', instagram: 'Instagram' },
+        },
+        ar: {
+          dir: 'rtl',
+          meta: {
+            title: 'التوظيف | Aventron Technologies',
+            description: 'التوظيف لدى Aventron Technologies: مهندس أنظمة IoT ومنصب مكتبي لعلاقة العملاء وإعداد العروض والفواتير.',
+          },
+          nav: { home: 'الرئيسية', company: 'الشركة', team: 'فريقنا', apply: 'ترشح' },
+          hero: {
+            eyebrow: 'التوظيف',
+            title: 'حاجتان حاليان داخل Aventron Technologies',
+            lead: 'نبحث عن تعزيز فريقنا بأشخاص قادرين على دعم التطور التقني للمنتج وجودة تسيير العلاقة مع العملاء يوميا.',
+          },
+          roles: {
+            title: 'المناصب المطلوبة',
+            item1: 'مهندس أنظمة IoT',
+            item2: 'منصب مكتبي موجه للعملاء والعروض والفواتير والمتابعة الإدارية',
+          },
+          table: {
+            role: 'اسم المنصب',
+            site: 'الموقع',
+            type: 'النوع',
+            deadline: 'آخر موعد للترشح',
+            iotRole: 'مهندس أنظمة IoT',
+            adminRole: 'مساعد(ة) إداري(ة)',
+            location: 'الدار البيضاء الكبرى',
+            contract: 'دائم',
+          },
+          cards: {
+            iotTitle: 'مهندس أنظمة IoT',
+            iotBody: 'نبحث عن شخص قادر على العمل على الجوانب المتعلقة بالأنظمة والاتصال ومنطق المنتج والمواكبة التقنية حول الحلول الذكية.',
+            adminTitle: 'منصب مكتبي',
+            adminBody: 'هذا المنصب موجه لعلاقة العملاء والتسيير اليومي: استقبال الطلبات، إعداد العروض، إعداد الفواتير، والمتابعة الإدارية العامة.',
+          },
+          apply: {
+            eyebrow: 'الترشح',
+            title: 'كيف تترشح',
+            body: 'إذا كنت ترغب في الانضمام إلى Aventron Technologies، أرسل ترشحك عبر البريد الإلكتروني مع سيرتك الذاتية وتقديم سريع لملفك.',
+            cardTitle: 'إرسال ترشحك',
+          },
+          footer: { body: 'التوظيف لدى Aventron Technologies لدعم نمو العلامة وجودة الخدمة.', facebook: 'فيسبوك', instagram: 'إنستغرام' },
+        },
+      };
+
+      const storageKey = 'aventron-language';
+      const languageButtons = Array.from(document.querySelectorAll('[data-lang-switch]'));
+      const translatableNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      function getTranslation(language, key) { return key.split('.').reduce((value, segment) => value?.[segment], translations[language]); }
+      function applyLanguage(language) {
+        const nextLanguage = translations[language] ? language : 'fr';
+        const dictionary = translations[nextLanguage];
+        document.documentElement.lang = nextLanguage;
+        document.documentElement.dir = dictionary.dir;
+        translatableNodes.forEach((node) => {
+          const translatedValue = getTranslation(nextLanguage, node.dataset.i18n);
+          if (typeof translatedValue !== 'string') return;
+          const attributeName = node.dataset.i18nAttr;
+          if (attributeName) { node.setAttribute(attributeName, translatedValue); return; }
+          node.innerHTML = translatedValue;
+        });
+        languageButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.langSwitch === nextLanguage);
+        });
+        window.localStorage.setItem(storageKey, nextLanguage);
+      }
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => applyLanguage(button.dataset.langSwitch || 'fr'));
+      });
+      applyLanguage(window.localStorage.getItem(storageKey) || 'fr');
+    </script>
   </body>
 </html>

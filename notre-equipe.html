@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notre equipe | Aventron Technologies</title>
+    <title data-i18n="meta.title">Notre equipe | Aventron Technologies</title>
     <meta
       name="description"
+      data-i18n-attr="content"
+      data-i18n="meta.description"
       content="Decouvrez l'equipe Aventron Technologies: Yassine Karmoudi, Mohamed Chakir, Oussama Belhaj et Mouhamed Aitali au service du chauffe-eau solaire smart au Maroc."
     />
     <meta name="robots" content="index,follow" />
@@ -18,12 +20,17 @@
         <a class="brand" href="index.html" aria-label="Aventron Technologies">
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
-        <nav class="landing-nav" aria-label="Navigation">
-          <a href="index.html">Accueil</a>
-          <a href="entreprise.html">L'entreprise</a>
-          <a href="recrutement.html">Recrutement</a>
-          <a class="button button--small button--ghost" href="index.html#contact">Contact</a>
+        <nav class="landing-nav" aria-label="Navigation principale">
+          <a href="index.html" data-i18n="nav.home">Accueil</a>
+          <a href="entreprise.html" data-i18n="nav.company">L'entreprise</a>
+          <a href="recrutement.html" data-i18n="nav.careers">Recrutement</a>
+          <a class="button button--small button--ghost" href="index.html#contact" data-i18n="nav.contact">Contact</a>
         </nav>
+        <div class="language-switcher" aria-label="Language switcher">
+          <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="ar">AR</button>
+        </div>
       </div>
     </header>
 
@@ -31,20 +38,20 @@
       <section class="landing-hero">
         <div class="container landing-hero__grid">
           <div>
-            <p class="eyebrow">Notre equipe</p>
-            <h1>Une equipe courte, serieuse et orientee terrain</h1>
-            <p class="landing-lead">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Notre equipe</p>
+            <h1 data-i18n="hero.title">Une equipe courte, serieuse et orientee terrain</h1>
+            <p class="landing-lead" data-i18n="hero.lead">
               Aventron Technologies s'appuie sur une equipe resserree et complementaire, composee de responsables
               techniques et de techniciens specialises, pour assurer la coherence entre le produit, l'installation et le service.
             </p>
           </div>
           <div class="glass-card landing-panel">
-            <h2>Composition actuelle</h2>
+            <h2 data-i18n="composition.title">Composition actuelle</h2>
             <ul class="landing-list">
-              <li>Yassine Karmoudi - Head of Engineering</li>
-              <li>Mohamed Chakir - Ingenieur systeme</li>
-              <li>Oussama Belhaj - Technicien specialise</li>
-              <li>Mouhamed Aitali - Technicien specialise</li>
+              <li data-i18n="composition.item1">Yassine Karmoudi - Responsable ingenierie</li>
+              <li data-i18n="composition.item2">Mohamed Chakir - Ingenieur systeme</li>
+              <li data-i18n="composition.item3">Oussama Belhaj - Technicien specialise</li>
+              <li data-i18n="composition.item4">Mouhamed Aitali - Technicien specialise</li>
             </ul>
           </div>
         </div>
@@ -54,19 +61,19 @@
         <div class="container landing-grid landing-grid--two">
           <article class="glass-card landing-card">
             <h3>Yassine Karmoudi</h3>
-            <p>Head of Engineering, il pilote la vision technique, l'organisation des priorites produit et la coherence entre innovation, fiabilite et execution.</p>
+            <p data-i18n="profiles.yassine">Responsable ingenierie, il pilote la vision technique, l'organisation des priorites produit et la coherence entre innovation, fiabilite et execution.</p>
           </article>
           <article class="glass-card landing-card">
             <h3>Mohamed Chakir</h3>
-            <p>Ingenieur systeme, il contribue au suivi technique, a l'architecture des solutions et a l'amelioration continue de l'experience smart proposee par Aventron.</p>
+            <p data-i18n="profiles.mohamed">Ingenieur systeme, il contribue au suivi technique, a l'architecture des solutions et a l'amelioration continue de l'experience smart proposee par Aventron.</p>
           </article>
           <article class="glass-card landing-card">
             <h3>Oussama Belhaj</h3>
-            <p>Technicien specialise, il assure une mise en place soignee sur le terrain avec un vrai souci de securite, de finition et de bon fonctionnement au quotidien.</p>
+            <p data-i18n="profiles.oussama">Technicien specialise, il assure une mise en place soignee sur le terrain avec un vrai souci de securite, de finition et de bon fonctionnement au quotidien.</p>
           </article>
           <article class="glass-card landing-card">
             <h3>Mouhamed Aitali</h3>
-            <p>Technicien specialise, il participe a la qualite d'installation, au suivi terrain et a la bonne execution des projets chez les clients.</p>
+            <p data-i18n="profiles.mouhamed">Technicien specialise, il participe a la qualite d'installation, au suivi terrain et a la bonne execution des projets chez les clients.</p>
           </article>
         </div>
       </section>
@@ -76,11 +83,11 @@
       <div class="container site-footer__inner">
         <div>
           <img class="site-footer__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
-          <p class="site-footer__text">Une equipe composee de responsables techniques et de techniciens specialises au service du chauffe-eau solaire smart.</p>
+          <p class="site-footer__text" data-i18n="footer.body">Une equipe composee de responsables techniques et de techniciens specialises au service du chauffe-eau solaire smart.</p>
         </div>
         <div class="site-footer__socials">
-          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer" data-i18n="footer.facebook">Facebook</a>
+          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer" data-i18n="footer.instagram">Instagram</a>
         </div>
         <div class="site-footer__meta">
           <a href="mailto:info@aventrontechnologies.ma">info@aventrontechnologies.ma</a>
@@ -88,5 +95,117 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      const translations = {
+        fr: {
+          dir: 'ltr',
+          meta: {
+            title: 'Notre equipe | Aventron Technologies',
+            description: "Decouvrez l'equipe Aventron Technologies: Yassine Karmoudi, Mohamed Chakir, Oussama Belhaj et Mouhamed Aitali au service du chauffe-eau solaire smart au Maroc.",
+          },
+          nav: { home: 'Accueil', company: "L'entreprise", careers: 'Recrutement', contact: 'Contact' },
+          hero: {
+            eyebrow: 'Notre equipe',
+            title: 'Une equipe courte, serieuse et orientee terrain',
+            lead: "Aventron Technologies s'appuie sur une equipe resserree et complementaire, composee de responsables techniques et de techniciens specialises, pour assurer la coherence entre le produit, l'installation et le service.",
+          },
+          composition: {
+            title: 'Composition actuelle',
+            item1: 'Yassine Karmoudi - Responsable ingenierie',
+            item2: 'Mohamed Chakir - Ingenieur systeme',
+            item3: 'Oussama Belhaj - Technicien specialise',
+            item4: 'Mouhamed Aitali - Technicien specialise',
+          },
+          profiles: {
+            yassine: "Responsable ingenierie, il pilote la vision technique, l'organisation des priorites produit et la coherence entre innovation, fiabilite et execution.",
+            mohamed: "Ingenieur systeme, il contribue au suivi technique, a l'architecture des solutions et a l'amelioration continue de l'experience smart proposee par Aventron.",
+            oussama: 'Technicien specialise, il assure une mise en place soignee sur le terrain avec un vrai souci de securite, de finition et de bon fonctionnement au quotidien.',
+            mouhamed: "Technicien specialise, il participe a la qualite d'installation, au suivi terrain et a la bonne execution des projets chez les clients.",
+          },
+          footer: { body: 'Une equipe composee de responsables techniques et de techniciens specialises au service du chauffe-eau solaire smart.', facebook: 'Facebook', instagram: 'Instagram' },
+        },
+        en: {
+          dir: 'ltr',
+          meta: {
+            title: 'Our Team | Aventron Technologies',
+            description: 'Discover the Aventron Technologies team: Yassine Karmoudi, Mohamed Chakir, Oussama Belhaj, and Mouhamed Aitali serving the smart solar water heater market in Morocco.',
+          },
+          nav: { home: 'Home', company: 'The company', careers: 'Careers', contact: 'Contact' },
+          hero: {
+            eyebrow: 'Our team',
+            title: 'A focused, serious, field-oriented team',
+            lead: 'Aventron Technologies relies on a compact and complementary team made up of technical leaders and specialized technicians to ensure consistency between the product, installation, and service.',
+          },
+          composition: {
+            title: 'Current team',
+            item1: 'Yassine Karmoudi - Head of Engineering',
+            item2: 'Mohamed Chakir - Systems Engineer',
+            item3: 'Oussama Belhaj - Specialized Technician',
+            item4: 'Mouhamed Aitali - Specialized Technician',
+          },
+          profiles: {
+            yassine: 'As Head of Engineering, he leads the technical vision, product priorities, and consistency between innovation, reliability, and execution.',
+            mohamed: 'As Systems Engineer, he contributes to technical follow-up, solution architecture, and the continuous improvement of the smart experience offered by Aventron.',
+            oussama: 'As a specialized technician, he ensures careful field installation with strong attention to safety, finishing, and reliable day-to-day operation.',
+            mouhamed: 'As a specialized technician, he contributes to installation quality, field follow-up, and smooth project execution at customer sites.',
+          },
+          footer: { body: 'A team made up of technical leaders and specialized technicians serving the smart solar water heater experience.', facebook: 'Facebook', instagram: 'Instagram' },
+        },
+        ar: {
+          dir: 'rtl',
+          meta: {
+            title: 'فريقنا | Aventron Technologies',
+            description: 'اكتشف فريق Aventron Technologies: ياسين كرموضي، محمد شاكر، أسامة بلحاج، ومهند آيت عالي في خدمة سخانات المياه الشمسية الذكية في المغرب.',
+          },
+          nav: { home: 'الرئيسية', company: 'الشركة', careers: 'التوظيف', contact: 'تواصل' },
+          hero: {
+            eyebrow: 'فريقنا',
+            title: 'فريق صغير وجدي وموجه للعمل الميداني',
+            lead: 'تعتمد Aventron Technologies على فريق متكامل ومترابط يضم مسؤولين تقنيين وتقنيين متخصصين لضمان الانسجام بين المنتج والتركيب والخدمة.',
+          },
+          composition: {
+            title: 'التركيبة الحالية',
+            item1: 'Yassine Karmoudi - مدير الهندسة',
+            item2: 'Mohamed Chakir - مهندس أنظمة',
+            item3: 'Oussama Belhaj - تقني متخصص',
+            item4: 'Mouhamed Aitali - تقني متخصص',
+          },
+          profiles: {
+            yassine: 'بصفته مدير الهندسة، يقود الرؤية التقنية وتنظيم أولويات المنتج والانسجام بين الابتكار والموثوقية والتنفيذ.',
+            mohamed: 'بصفته مهندس أنظمة، يساهم في المتابعة التقنية وبنية الحلول والتحسين المستمر للتجربة الذكية التي تقدمها Aventron.',
+            oussama: 'بصفته تقنيا متخصصا، يضمن تركيبا ميدانيا متقنا مع اهتمام حقيقي بالسلامة والتشطيب وحسن الأداء اليومي.',
+            mouhamed: 'بصفته تقنيا متخصصا، يساهم في جودة التركيب والمتابعة الميدانية والتنفيذ الجيد للمشاريع لدى العملاء.',
+          },
+          footer: { body: 'فريق يضم مسؤولين تقنيين وتقنيين متخصصين في خدمة تجربة سخانات المياه الشمسية الذكية.', facebook: 'فيسبوك', instagram: 'إنستغرام' },
+        },
+      };
+
+      const storageKey = 'aventron-language';
+      const languageButtons = Array.from(document.querySelectorAll('[data-lang-switch]'));
+      const translatableNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      function getTranslation(language, key) { return key.split('.').reduce((value, segment) => value?.[segment], translations[language]); }
+      function applyLanguage(language) {
+        const nextLanguage = translations[language] ? language : 'fr';
+        const dictionary = translations[nextLanguage];
+        document.documentElement.lang = nextLanguage;
+        document.documentElement.dir = dictionary.dir;
+        translatableNodes.forEach((node) => {
+          const translatedValue = getTranslation(nextLanguage, node.dataset.i18n);
+          if (typeof translatedValue !== 'string') return;
+          const attributeName = node.dataset.i18nAttr;
+          if (attributeName) { node.setAttribute(attributeName, translatedValue); return; }
+          node.innerHTML = translatedValue;
+        });
+        languageButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.langSwitch === nextLanguage);
+        });
+        window.localStorage.setItem(storageKey, nextLanguage);
+      }
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => applyLanguage(button.dataset.langSwitch || 'fr'));
+      });
+      applyLanguage(window.localStorage.getItem(storageKey) || 'fr');
+    </script>
   </body>
 </html>

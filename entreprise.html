@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'entreprise | Aventron Technologies</title>
+    <title data-i18n="meta.title">L'entreprise | Aventron Technologies</title>
     <meta
       name="description"
+      data-i18n-attr="content"
+      data-i18n="meta.description"
       content="Decouvrez Aventron Technologies, son positionnement, sa vision et son approche du chauffe-eau solaire smart au Maroc."
     />
     <meta name="robots" content="index,follow" />
@@ -18,12 +20,17 @@
         <a class="brand" href="index.html" aria-label="Aventron Technologies">
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
-        <nav class="landing-nav" aria-label="Navigation">
-          <a href="index.html">Accueil</a>
-          <a href="notre-equipe.html">Notre equipe</a>
-          <a href="recrutement.html">Recrutement</a>
-          <a class="button button--small button--ghost" href="index.html#contact">Contact</a>
+        <nav class="landing-nav" aria-label="Navigation principale">
+          <a href="index.html" data-i18n="nav.home">Accueil</a>
+          <a href="notre-equipe.html" data-i18n="nav.team">Notre equipe</a>
+          <a href="recrutement.html" data-i18n="nav.careers">Recrutement</a>
+          <a class="button button--small button--ghost" href="index.html#contact" data-i18n="nav.contact">Contact</a>
         </nav>
+        <div class="language-switcher" aria-label="Language switcher">
+          <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="ar">AR</button>
+        </div>
       </div>
     </header>
 
@@ -31,9 +38,9 @@
       <section class="landing-hero">
         <div class="container landing-hero__grid">
           <div>
-            <p class="eyebrow">L'entreprise</p>
-            <h1>Aventron Technologies</h1>
-            <p class="landing-lead">
+            <p class="eyebrow" data-i18n="hero.eyebrow">L'entreprise</p>
+            <h1 data-i18n="hero.title">Aventron Technologies</h1>
+            <p class="landing-lead" data-i18n="hero.lead">
               Aventron Technologies developpe une approche claire, premium et serieuse du chauffe-eau solaire smart au Maroc.
               Notre ambition est de proposer un produit performant, bien presente, bien installe et bien accompagne.
             </p>
@@ -47,24 +54,24 @@
       <section class="section landing-section">
         <div class="container landing-split">
           <div>
-            <p class="eyebrow">Vision</p>
-            <h2>Une marque orientee innovation et confiance</h2>
-            <p>
+            <p class="eyebrow" data-i18n="vision.eyebrow">Vision</p>
+            <h2 data-i18n="vision.title">Une marque orientee innovation et confiance</h2>
+            <p data-i18n="vision.body1">
               Nous croyons qu'un chauffe-eau solaire ne doit pas seulement etre utile.
               Il doit aussi inspirer confiance, offrir un bon niveau de finition et s'integrer dans une experience moderne.
             </p>
-            <p>
+            <p data-i18n="vision.body2">
               C'est dans cette logique qu'Aventron Technologies associe produit smart, qualite d'installation,
               accompagnement client et communication claire.
             </p>
           </div>
           <div class="glass-card landing-panel">
-            <h3>Notre approche</h3>
+            <h3 data-i18n="approach.title">Notre approche</h3>
             <ul class="landing-list">
-              <li>Produit solaire smart oriente performance et confort</li>
-              <li>Attention portee a la qualite de presentation et de finition</li>
-              <li>Installation serieuse et accompagnement du client</li>
-              <li>Vision de marque ambitieuse pour le marche marocain</li>
+              <li data-i18n="approach.item1">Produit solaire smart oriente performance et confort</li>
+              <li data-i18n="approach.item2">Attention portee a la qualite de presentation et de finition</li>
+              <li data-i18n="approach.item3">Installation serieuse et accompagnement du client</li>
+              <li data-i18n="approach.item4">Vision de marque ambitieuse pour le marche marocain</li>
             </ul>
           </div>
         </div>
@@ -75,11 +82,11 @@
       <div class="container site-footer__inner">
         <div>
           <img class="site-footer__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
-          <p class="site-footer__text">Aventron Technologies, une marque tournee vers le chauffe-eau solaire smart, la qualite de service et la croissance au Maroc.</p>
+          <p class="site-footer__text" data-i18n="footer.body">Aventron Technologies, une marque tournee vers le chauffe-eau solaire smart, la qualite de service et la croissance au Maroc.</p>
         </div>
         <div class="site-footer__socials">
-          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer" data-i18n="footer.facebook">Facebook</a>
+          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer" data-i18n="footer.instagram">Instagram</a>
         </div>
         <div class="site-footer__meta">
           <a href="mailto:info@aventrontechnologies.ma">info@aventrontechnologies.ma</a>
@@ -87,5 +94,129 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      const translations = {
+        fr: {
+          dir: 'ltr',
+          meta: {
+            title: "L'entreprise | Aventron Technologies",
+            description: 'Decouvrez Aventron Technologies, son positionnement, sa vision et son approche du chauffe-eau solaire smart au Maroc.',
+          },
+          nav: { home: 'Accueil', team: 'Notre equipe', careers: 'Recrutement', contact: 'Contact' },
+          hero: {
+            eyebrow: "L'entreprise",
+            title: 'Aventron Technologies',
+            lead: "Aventron Technologies developpe une approche claire, premium et serieuse du chauffe-eau solaire smart au Maroc. Notre ambition est de proposer un produit performant, bien presente, bien installe et bien accompagne.",
+          },
+          vision: {
+            eyebrow: 'Vision',
+            title: 'Une marque orientee innovation et confiance',
+            body1: "Nous croyons qu'un chauffe-eau solaire ne doit pas seulement etre utile. Il doit aussi inspirer confiance, offrir un bon niveau de finition et s'integrer dans une experience moderne.",
+            body2: "C'est dans cette logique qu'Aventron Technologies associe produit smart, qualite d'installation, accompagnement client et communication claire.",
+          },
+          approach: {
+            title: 'Notre approche',
+            item1: 'Produit solaire smart oriente performance et confort',
+            item2: 'Attention portee a la qualite de presentation et de finition',
+            item3: 'Installation serieuse et accompagnement du client',
+            item4: 'Vision de marque ambitieuse pour le marche marocain',
+          },
+          footer: {
+            body: 'Aventron Technologies, une marque tournee vers le chauffe-eau solaire smart, la qualite de service et la croissance au Maroc.',
+            facebook: 'Facebook',
+            instagram: 'Instagram',
+          },
+        },
+        en: {
+          dir: 'ltr',
+          meta: {
+            title: 'The Company | Aventron Technologies',
+            description: 'Discover Aventron Technologies, its positioning, vision, and approach to smart solar water heaters in Morocco.',
+          },
+          nav: { home: 'Home', team: 'Our team', careers: 'Careers', contact: 'Contact' },
+          hero: {
+            eyebrow: 'The company',
+            title: 'Aventron Technologies',
+            lead: 'Aventron Technologies develops a clear, premium, and serious approach to smart solar water heaters in Morocco. Our ambition is to offer a high-performance product that is well presented, well installed, and well supported.',
+          },
+          vision: {
+            eyebrow: 'Vision',
+            title: 'A brand focused on innovation and trust',
+            body1: 'We believe a solar water heater should not only be useful. It should also inspire trust, deliver a strong level of finish, and fit into a modern experience.',
+            body2: 'That is why Aventron Technologies combines a smart product, installation quality, customer support, and clear communication.',
+          },
+          approach: {
+            title: 'Our approach',
+            item1: 'Smart solar product focused on performance and comfort',
+            item2: 'Strong attention to presentation and finishing quality',
+            item3: 'Serious installation and customer support',
+            item4: 'An ambitious brand vision for the Moroccan market',
+          },
+          footer: {
+            body: 'Aventron Technologies, a brand focused on smart solar water heaters, service quality, and growth in Morocco.',
+            facebook: 'Facebook',
+            instagram: 'Instagram',
+          },
+        },
+        ar: {
+          dir: 'rtl',
+          meta: {
+            title: 'الشركة | Aventron Technologies',
+            description: 'اكتشف Aventron Technologies ورؤيتها وتموقعها ومقاربتها لسخانات المياه الشمسية الذكية في المغرب.',
+          },
+          nav: { home: 'الرئيسية', team: 'فريقنا', careers: 'التوظيف', contact: 'تواصل' },
+          hero: {
+            eyebrow: 'الشركة',
+            title: 'Aventron Technologies',
+            lead: 'تطور Aventron Technologies مقاربة واضحة ومتميزة وجدية لسخانات المياه الشمسية الذكية في المغرب. طموحنا هو تقديم منتج عالي الأداء، جيد التقديم، جيد التركيب، ومصحوب بمرافقة حقيقية.',
+          },
+          vision: {
+            eyebrow: 'الرؤية',
+            title: 'علامة ترتكز على الابتكار والثقة',
+            body1: 'نؤمن أن سخان الماء الشمسي لا يجب أن يكون مفيدا فقط. يجب أيضا أن يمنح الثقة، ويقدم مستوى تشطيب جيد، ويندمج في تجربة حديثة.',
+            body2: 'لهذا تجمع Aventron Technologies بين المنتج الذكي، وجودة التركيب، ومرافقة العميل، والتواصل الواضح.',
+          },
+          approach: {
+            title: 'مقاربتنا',
+            item1: 'منتج شمسي ذكي موجه نحو الأداء والراحة',
+            item2: 'اهتمام قوي بجودة التقديم والتشطيب',
+            item3: 'تركيب جدي ومرافقة للعميل',
+            item4: 'رؤية علامة طموحة للسوق المغربي',
+          },
+          footer: {
+            body: 'Aventron Technologies علامة موجهة نحو سخانات المياه الشمسية الذكية وجودة الخدمة والنمو في المغرب.',
+            facebook: 'فيسبوك',
+            instagram: 'إنستغرام',
+          },
+        },
+      };
+
+      const storageKey = 'aventron-language';
+      const languageButtons = Array.from(document.querySelectorAll('[data-lang-switch]'));
+      const translatableNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      function getTranslation(language, key) { return key.split('.').reduce((value, segment) => value?.[segment], translations[language]); }
+      function applyLanguage(language) {
+        const nextLanguage = translations[language] ? language : 'fr';
+        const dictionary = translations[nextLanguage];
+        document.documentElement.lang = nextLanguage;
+        document.documentElement.dir = dictionary.dir;
+        translatableNodes.forEach((node) => {
+          const translatedValue = getTranslation(nextLanguage, node.dataset.i18n);
+          if (typeof translatedValue !== 'string') return;
+          const attributeName = node.dataset.i18nAttr;
+          if (attributeName) { node.setAttribute(attributeName, translatedValue); return; }
+          node.innerHTML = translatedValue;
+        });
+        languageButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.langSwitch === nextLanguage);
+        });
+        window.localStorage.setItem(storageKey, nextLanguage);
+      }
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => applyLanguage(button.dataset.langSwitch || 'fr'));
+      });
+      applyLanguage(window.localStorage.getItem(storageKey) || 'fr');
+    </script>
   </body>
 </html>

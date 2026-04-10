@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Offre d'emploi – Ingenieur IoT & Mobile | Aventron Technologies</title>
+    <title data-i18n="meta.title">Offre d'emploi - Ingenieur IoT & Mobile | Aventron Technologies</title>
     <meta
       name="description"
+      data-i18n-attr="content"
+      data-i18n="meta.description"
       content="Offre d'emploi chez Aventron Technologies pour un Ingenieur IoT & Mobile charge de l'optimisation, de la securite et de l'evolution de l'application connectee."
     />
     <meta name="robots" content="index,follow" />
@@ -18,11 +20,16 @@
         <a class="brand" href="index.html" aria-label="Aventron Technologies">
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
-        <nav class="landing-nav" aria-label="Navigation">
-          <a href="index.html">Accueil</a>
-          <a href="recrutement.html">Recrutement</a>
-          <a class="button button--small button--ghost" href="mailto:info@aventrontechnologies.ma">Postuler</a>
+        <nav class="landing-nav" aria-label="Navigation principale">
+          <a href="index.html" data-i18n="nav.home">Accueil</a>
+          <a href="recrutement.html" data-i18n="nav.careers">Recrutement</a>
+          <a class="button button--small button--ghost" href="mailto:info@aventrontechnologies.ma" data-i18n="nav.apply">Postuler</a>
         </nav>
+        <div class="language-switcher" aria-label="Language switcher">
+          <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
+          <button class="language-switcher__button" type="button" data-lang-switch="ar">AR</button>
+        </div>
       </div>
     </header>
 
@@ -30,18 +37,18 @@
       <section class="landing-hero">
         <div class="container landing-hero__grid">
           <div>
-            <p class="eyebrow">Offre d'emploi</p>
-            <h1>Ingenieur IoT & Mobile (Optimisation & Securite)</h1>
-            <p class="landing-lead">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Offre d'emploi</p>
+            <h1 data-i18n="hero.title">Ingenieur IoT & Mobile (Optimisation & Securite)</h1>
+            <p class="landing-lead" data-i18n="hero.lead">
               Rejoignez Aventron Technologies pour optimiser, securiser et faire evoluer une application mobile connectee a des chauffe-eau solaires intelligents.
             </p>
             <div class="glass-card offer-quick-info">
-              <h2>Informations rapides</h2>
+              <h2 data-i18n="quick.title">Informations rapides</h2>
               <ul class="landing-list">
-                <li>Localisation: Hybride</li>
-                <li>Type: CDI</li>
-                <li>Site: Grand Casablanca</li>
-                <li>Candidature: info@aventrontechnologies.ma</li>
+                <li data-i18n="quick.item1">Localisation: Hybride</li>
+                <li data-i18n="quick.item2">Type: CDI</li>
+                <li data-i18n="quick.item3">Site: Grand Casablanca</li>
+                <li data-i18n="quick.item4">Candidature: info@aventrontechnologies.ma</li>
               </ul>
             </div>
           </div>
@@ -59,21 +66,21 @@
       <section class="section landing-section">
         <div class="container landing-split">
           <div>
-            <p class="eyebrow">A propos de nous</p>
-            <h2>Une entreprise specialisee dans les chauffe-eau solaires intelligents</h2>
-            <p>
+            <p class="eyebrow" data-i18n="company.eyebrow">A propos de nous</p>
+            <h2 data-i18n="company.title">Une entreprise specialisee dans les chauffe-eau solaires intelligents</h2>
+            <p data-i18n="company.body1">
               Nous sommes une entreprise specialisee dans les systemes de chauffe-eau solaires intelligents,
               integrant des technologies IoT pour permettre le controle, le suivi et l'optimisation a distance.
             </p>
-            <p>
+            <p data-i18n="company.body2">
               Nos solutions reposent sur des dispositifs connectes WiFi et une application mobile developpee avec Flutter,
               offrant une experience moderne et fiable a nos clients.
             </p>
           </div>
           <div class="glass-card landing-panel">
-            <p class="eyebrow">Mission principale</p>
-            <h3>Optimiser, securiser et ameliorer une application existante</h3>
-            <p>
+            <p class="eyebrow" data-i18n="mission.eyebrow">Mission principale</p>
+            <h3 data-i18n="mission.title">Optimiser, securiser et ameliorer une application existante</h3>
+            <p data-i18n="mission.body">
               Le poste consiste a faire evoluer une application mobile qui permet de controler et superviser des chauffe-eau solaires connectes.
             </p>
           </div>
@@ -83,26 +90,26 @@
       <section class="section landing-section landing-section--alt">
         <div class="container landing-grid landing-grid--two">
           <article class="glass-card landing-card">
-            <h3>Missions principales</h3>
+            <h3 data-i18n="tasks.title">Missions principales</h3>
             <ul class="landing-list">
-              <li>Optimiser les performances de l'application mobile Android et iOS</li>
-              <li>Renforcer la securite des communications entre l'application et les dispositifs WiFi</li>
-              <li>Gerer et ameliorer la communication reseau API, HTTP, MQTT et protocoles associes</li>
-              <li>Ameliorer l'interface utilisateur et l'experience client</li>
-              <li>Identifier et corriger les bugs et points faibles existants</li>
-              <li>Mettre en place de bonnes pratiques de securite: authentification, chiffrement, stockage securise</li>
-              <li>Participer a l'evolution technique du produit</li>
+              <li data-i18n="tasks.item1">Optimiser les performances de l'application mobile Android et iOS</li>
+              <li data-i18n="tasks.item2">Renforcer la securite des communications entre l'application et les dispositifs WiFi</li>
+              <li data-i18n="tasks.item3">Gerer et ameliorer la communication reseau API, HTTP, MQTT et protocoles associes</li>
+              <li data-i18n="tasks.item4">Ameliorer l'interface utilisateur et l'experience client</li>
+              <li data-i18n="tasks.item5">Identifier et corriger les bugs et points faibles existants</li>
+              <li data-i18n="tasks.item6">Mettre en place de bonnes pratiques de securite: authentification, chiffrement, stockage securise</li>
+              <li data-i18n="tasks.item7">Participer a l'evolution technique du produit</li>
             </ul>
           </article>
           <article class="glass-card landing-card">
-            <h3>Profil recherche</h3>
+            <h3 data-i18n="profile.title">Profil recherche</h3>
             <ul class="landing-list">
-              <li>Experience avancee avec Flutter</li>
-              <li>Bonne maitrise du developpement mobile Android et iOS</li>
-              <li>Connaissances solides en IoT et objets connectes</li>
-              <li>Maitrise des API REST, MQTT ou protocoles reseau</li>
-              <li>Competences en cybersecurite: HTTPS, tokens, encryption</li>
-              <li>Esprit analytique et capacite a travailler sur un projet existant</li>
+              <li data-i18n="profile.item1">Experience avancee avec Flutter</li>
+              <li data-i18n="profile.item2">Bonne maitrise du developpement mobile Android et iOS</li>
+              <li data-i18n="profile.item3">Connaissances solides en IoT et objets connectes</li>
+              <li data-i18n="profile.item4">Maitrise des API REST, MQTT ou protocoles reseau</li>
+              <li data-i18n="profile.item5">Competences en cybersecurite: HTTPS, tokens, encryption</li>
+              <li data-i18n="profile.item6">Esprit analytique et capacite a travailler sur un projet existant</li>
             </ul>
           </article>
         </div>
@@ -111,21 +118,21 @@
       <section class="section landing-section">
         <div class="container landing-grid landing-grid--two">
           <article class="glass-card landing-card">
-            <h3>Atouts</h3>
+            <h3 data-i18n="extras.title">Atouts</h3>
             <ul class="landing-list">
-              <li>Experience avec des dispositifs IoT WiFi</li>
-              <li>Connaissance des systemes energetiques ou solaires</li>
-              <li>Experience backend Node.js, Python ou equivalent</li>
-              <li>Experience en optimisation d'applications mobiles</li>
+              <li data-i18n="extras.item1">Experience avec des dispositifs IoT WiFi</li>
+              <li data-i18n="extras.item2">Connaissance des systemes energetiques ou solaires</li>
+              <li data-i18n="extras.item3">Experience backend Node.js, Python ou equivalent</li>
+              <li data-i18n="extras.item4">Experience en optimisation d'applications mobiles</li>
             </ul>
           </article>
           <article class="glass-card landing-card">
-            <h3>Pourquoi nous rejoindre</h3>
+            <h3 data-i18n="why.title">Pourquoi nous rejoindre</h3>
             <ul class="landing-list">
-              <li>Projet innovant dans l'energie solaire</li>
-              <li>Produit deja en production</li>
-              <li>Impact direct sur la consommation energetique</li>
-              <li>Environnement technique moderne</li>
+              <li data-i18n="why.item1">Projet innovant dans l'energie solaire</li>
+              <li data-i18n="why.item2">Produit deja en production</li>
+              <li data-i18n="why.item3">Impact direct sur la consommation energetique</li>
+              <li data-i18n="why.item4">Environnement technique moderne</li>
             </ul>
           </article>
         </div>
@@ -134,14 +141,14 @@
       <section class="section landing-section landing-section--alt">
         <div class="container landing-split">
           <div>
-            <p class="eyebrow">Candidature</p>
-            <h2>Envoyer votre CV</h2>
-            <p>
+            <p class="eyebrow" data-i18n="apply.eyebrow">Candidature</p>
+            <h2 data-i18n="apply.title">Envoyer votre CV</h2>
+            <p data-i18n="apply.body">
               Merci d'envoyer votre CV a l'adresse suivante avec un court message de presentation.
             </p>
           </div>
           <div class="glass-card landing-panel">
-            <h3>Postuler maintenant</h3>
+            <h3 data-i18n="apply.cardTitle">Postuler maintenant</h3>
             <div class="landing-link-list">
               <a href="mailto:info@aventrontechnologies.ma?subject=Candidature%20Ingenieur%20IoT%20et%20Mobile">info@aventrontechnologies.ma</a>
             </div>
@@ -154,11 +161,11 @@
       <div class="container site-footer__inner">
         <div>
           <img class="site-footer__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
-          <p class="site-footer__text">Offre d'emploi Aventron Technologies pour renforcer le produit smart, la securite et la qualite de service.</p>
+          <p class="site-footer__text" data-i18n="footer.body">Offre d'emploi Aventron Technologies pour renforcer le produit smart, la securite et la qualite de service.</p>
         </div>
         <div class="site-footer__socials">
-          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/aventrontech" target="_blank" rel="noreferrer" data-i18n="footer.facebook">Facebook</a>
+          <a href="https://www.instagram.com/aventrontechnologies" target="_blank" rel="noreferrer" data-i18n="footer.instagram">Instagram</a>
         </div>
         <div class="site-footer__meta">
           <a href="mailto:info@aventrontechnologies.ma">info@aventrontechnologies.ma</a>
@@ -166,5 +173,249 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      const translations = {
+        fr: {
+          dir: 'ltr',
+          meta: {
+            title: "Offre d'emploi - Ingenieur IoT & Mobile | Aventron Technologies",
+            description: "Offre d'emploi chez Aventron Technologies pour un Ingenieur IoT & Mobile charge de l'optimisation, de la securite et de l'evolution de l'application connectee.",
+          },
+          nav: { home: 'Accueil', careers: 'Recrutement', apply: 'Postuler' },
+          hero: {
+            eyebrow: "Offre d'emploi",
+            title: 'Ingenieur IoT & Mobile (Optimisation & Securite)',
+            lead: "Rejoignez Aventron Technologies pour optimiser, securiser et faire evoluer une application mobile connectee a des chauffe-eau solaires intelligents.",
+          },
+          quick: {
+            title: 'Informations rapides',
+            item1: 'Localisation: Hybride',
+            item2: 'Type: CDI',
+            item3: 'Site: Grand Casablanca',
+            item4: 'Candidature: info@aventrontechnologies.ma',
+          },
+          company: {
+            eyebrow: 'A propos de nous',
+            title: 'Une entreprise specialisee dans les chauffe-eau solaires intelligents',
+            body1: "Nous sommes une entreprise specialisee dans les systemes de chauffe-eau solaires intelligents, integrant des technologies IoT pour permettre le controle, le suivi et l'optimisation a distance.",
+            body2: "Nos solutions reposent sur des dispositifs connectes WiFi et une application mobile developpee avec Flutter, offrant une experience moderne et fiable a nos clients.",
+          },
+          mission: {
+            eyebrow: 'Mission principale',
+            title: 'Optimiser, securiser et ameliorer une application existante',
+            body: 'Le poste consiste a faire evoluer une application mobile qui permet de controler et superviser des chauffe-eau solaires connectes.',
+          },
+          tasks: {
+            title: 'Missions principales',
+            item1: "Optimiser les performances de l'application mobile Android et iOS",
+            item2: "Renforcer la securite des communications entre l'application et les dispositifs WiFi",
+            item3: 'Gerer et ameliorer la communication reseau API, HTTP, MQTT et protocoles associes',
+            item4: "Ameliorer l'interface utilisateur et l'experience client",
+            item5: 'Identifier et corriger les bugs et points faibles existants',
+            item6: 'Mettre en place de bonnes pratiques de securite: authentification, chiffrement, stockage securise',
+            item7: "Participer a l'evolution technique du produit",
+          },
+          profile: {
+            title: 'Profil recherche',
+            item1: 'Experience avancee avec Flutter',
+            item2: 'Bonne maitrise du developpement mobile Android et iOS',
+            item3: 'Connaissances solides en IoT et objets connectes',
+            item4: 'Maitrise des API REST, MQTT ou protocoles reseau',
+            item5: 'Competences en cybersecurite: HTTPS, tokens, encryption',
+            item6: 'Esprit analytique et capacite a travailler sur un projet existant',
+          },
+          extras: {
+            title: 'Atouts',
+            item1: 'Experience avec des dispositifs IoT WiFi',
+            item2: 'Connaissance des systemes energetiques ou solaires',
+            item3: 'Experience backend Node.js, Python ou equivalent',
+            item4: "Experience en optimisation d'applications mobiles",
+          },
+          why: {
+            title: 'Pourquoi nous rejoindre',
+            item1: "Projet innovant dans l'energie solaire",
+            item2: 'Produit deja en production',
+            item3: 'Impact direct sur la consommation energetique',
+            item4: 'Environnement technique moderne',
+          },
+          apply: {
+            eyebrow: 'Candidature',
+            title: 'Envoyer votre CV',
+            body: "Merci d'envoyer votre CV a l'adresse suivante avec un court message de presentation.",
+            cardTitle: 'Postuler maintenant',
+          },
+          footer: { body: "Offre d'emploi Aventron Technologies pour renforcer le produit smart, la securite et la qualite de service.", facebook: 'Facebook', instagram: 'Instagram' },
+        },
+        en: {
+          dir: 'ltr',
+          meta: {
+            title: 'Job Opening - IoT & Mobile Engineer | Aventron Technologies',
+            description: 'Job opening at Aventron Technologies for an IoT & Mobile Engineer responsible for optimization, security, and development of the connected application.',
+          },
+          nav: { home: 'Home', careers: 'Careers', apply: 'Apply' },
+          hero: {
+            eyebrow: 'Job opening',
+            title: 'IoT & Mobile Engineer (Optimization & Security)',
+            lead: 'Join Aventron Technologies to optimize, secure, and evolve a mobile app connected to smart solar water heaters.',
+          },
+          quick: {
+            title: 'Quick information',
+            item1: 'Location: Hybrid',
+            item2: 'Type: Permanent',
+            item3: 'Region: Greater Casablanca',
+            item4: 'Application: info@aventrontechnologies.ma',
+          },
+          company: {
+            eyebrow: 'About us',
+            title: 'A company specialized in smart solar water heaters',
+            body1: 'We are a company specialized in smart solar water heating systems, integrating IoT technologies to enable remote control, monitoring, and optimization.',
+            body2: 'Our solutions rely on WiFi-connected devices and a mobile application developed with Flutter, offering a modern and reliable experience to our customers.',
+          },
+          mission: {
+            eyebrow: 'Main mission',
+            title: 'Optimize, secure, and improve an existing application',
+            body: 'The role focuses on evolving a mobile application that controls and supervises connected solar water heaters.',
+          },
+          tasks: {
+            title: 'Main responsibilities',
+            item1: 'Optimize the performance of the Android and iOS mobile application',
+            item2: 'Strengthen the security of communications between the application and WiFi devices',
+            item3: 'Manage and improve API, HTTP, MQTT, and related network communication',
+            item4: 'Improve the user interface and customer experience',
+            item5: 'Identify and correct existing bugs and weaknesses',
+            item6: 'Implement strong security practices: authentication, encryption, secure storage',
+            item7: 'Contribute to the technical evolution of the product',
+          },
+          profile: {
+            title: 'Profile sought',
+            item1: 'Advanced experience with Flutter',
+            item2: 'Strong command of Android and iOS mobile development',
+            item3: 'Solid knowledge of IoT and connected devices',
+            item4: 'Mastery of REST APIs, MQTT, or network protocols',
+            item5: 'Cybersecurity skills: HTTPS, tokens, encryption',
+            item6: 'Analytical mindset and ability to work on an existing product',
+          },
+          extras: {
+            title: 'Nice to have',
+            item1: 'Experience with WiFi IoT devices',
+            item2: 'Knowledge of energy or solar systems',
+            item3: 'Backend experience with Node.js, Python, or equivalent',
+            item4: 'Experience optimizing mobile applications',
+          },
+          why: {
+            title: 'Why join us',
+            item1: 'Innovative project in solar energy',
+            item2: 'A product already in production',
+            item3: 'Direct impact on energy consumption',
+            item4: 'Modern technical environment',
+          },
+          apply: {
+            eyebrow: 'Application',
+            title: 'Send your CV',
+            body: 'Please send your CV to the following address with a short introduction message.',
+            cardTitle: 'Apply now',
+          },
+          footer: { body: 'Aventron Technologies job opening to strengthen the smart product, security, and service quality.', facebook: 'Facebook', instagram: 'Instagram' },
+        },
+        ar: {
+          dir: 'rtl',
+          meta: {
+            title: 'عرض عمل - مهندس IoT وMobile | Aventron Technologies',
+            description: 'عرض عمل لدى Aventron Technologies لمنصب مهندس IoT وMobile مكلف بالتحسين والأمن وتطوير التطبيق المتصل.',
+          },
+          nav: { home: 'الرئيسية', careers: 'التوظيف', apply: 'ترشح' },
+          hero: {
+            eyebrow: 'عرض عمل',
+            title: 'مهندس IoT وMobile (التحسين والأمن)',
+            lead: 'انضم إلى Aventron Technologies من أجل تحسين وتأمين وتطوير تطبيق للهاتف مرتبط بسخانات مياه شمسية ذكية.',
+          },
+          quick: {
+            title: 'معلومات سريعة',
+            item1: 'مكان العمل: هجين',
+            item2: 'النوع: دائم',
+            item3: 'المنطقة: الدار البيضاء الكبرى',
+            item4: 'الترشح: info@aventrontechnologies.ma',
+          },
+          company: {
+            eyebrow: 'من نحن',
+            title: 'شركة متخصصة في سخانات المياه الشمسية الذكية',
+            body1: 'نحن شركة متخصصة في أنظمة سخانات المياه الشمسية الذكية، وندمج تقنيات IoT لتمكين التحكم والمتابعة والتحسين عن بعد.',
+            body2: 'تعتمد حلولنا على أجهزة WiFi متصلة وتطبيق للهاتف مطور باستخدام Flutter، مما يوفر تجربة حديثة وموثوقة لعملائنا.',
+          },
+          mission: {
+            eyebrow: 'المهمة الرئيسية',
+            title: 'تحسين وتأمين وتطوير تطبيق موجود',
+            body: 'يرتكز هذا المنصب على تطوير تطبيق للهاتف يسمح بالتحكم والإشراف على سخانات مياه شمسية متصلة.',
+          },
+          tasks: {
+            title: 'المهام الرئيسية',
+            item1: 'تحسين أداء تطبيق الهاتف على Android وiOS',
+            item2: 'تعزيز أمن الاتصالات بين التطبيق والأجهزة المرتبطة عبر WiFi',
+            item3: 'إدارة وتحسين اتصالات الشبكة API وHTTP وMQTT والبروتوكولات المرتبطة',
+            item4: 'تحسين واجهة المستخدم وتجربة العميل',
+            item5: 'تحديد الأخطاء ونقاط الضعف الحالية وتصحيحها',
+            item6: 'وضع ممارسات أمنية جيدة: التحقق من الهوية، التشفير، والتخزين الآمن',
+            item7: 'المساهمة في التطور التقني للمنتج',
+          },
+          profile: {
+            title: 'الملف المطلوب',
+            item1: 'خبرة متقدمة في Flutter',
+            item2: 'إتقان جيد لتطوير تطبيقات الهاتف على Android وiOS',
+            item3: 'معرفة قوية في IoT والأجهزة المتصلة',
+            item4: 'إتقان REST APIs وMQTT أو بروتوكولات الشبكة',
+            item5: 'مهارات في الأمن السيبراني: HTTPS وtokens وencryption',
+            item6: 'روح تحليلية وقدرة على العمل على منتج قائم',
+          },
+          extras: {
+            title: 'نقاط إضافية',
+            item1: 'خبرة مع أجهزة IoT عبر WiFi',
+            item2: 'معرفة بأنظمة الطاقة أو الأنظمة الشمسية',
+            item3: 'خبرة Backend في Node.js أو Python أو ما يعادلها',
+            item4: 'خبرة في تحسين تطبيقات الهاتف',
+          },
+          why: {
+            title: 'لماذا تنضم إلينا',
+            item1: 'مشروع مبتكر في الطاقة الشمسية',
+            item2: 'منتج موجود بالفعل في السوق',
+            item3: 'أثر مباشر على استهلاك الطاقة',
+            item4: 'بيئة تقنية حديثة',
+          },
+          apply: {
+            eyebrow: 'الترشح',
+            title: 'أرسل سيرتك الذاتية',
+            body: 'يرجى إرسال سيرتك الذاتية إلى العنوان التالي مع رسالة تقديم قصيرة.',
+            cardTitle: 'ترشح الآن',
+          },
+          footer: { body: 'عرض عمل لدى Aventron Technologies لتعزيز المنتج الذكي والأمن وجودة الخدمة.', facebook: 'فيسبوك', instagram: 'إنستغرام' },
+        },
+      };
+
+      const storageKey = 'aventron-language';
+      const languageButtons = Array.from(document.querySelectorAll('[data-lang-switch]'));
+      const translatableNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+      function getTranslation(language, key) { return key.split('.').reduce((value, segment) => value?.[segment], translations[language]); }
+      function applyLanguage(language) {
+        const nextLanguage = translations[language] ? language : 'fr';
+        const dictionary = translations[nextLanguage];
+        document.documentElement.lang = nextLanguage;
+        document.documentElement.dir = dictionary.dir;
+        translatableNodes.forEach((node) => {
+          const translatedValue = getTranslation(nextLanguage, node.dataset.i18n);
+          if (typeof translatedValue !== 'string') return;
+          const attributeName = node.dataset.i18nAttr;
+          if (attributeName) { node.setAttribute(attributeName, translatedValue); return; }
+          node.innerHTML = translatedValue;
+        });
+        languageButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.langSwitch === nextLanguage);
+        });
+        window.localStorage.setItem(storageKey, nextLanguage);
+      }
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => applyLanguage(button.dataset.langSwitch || 'fr'));
+      });
+      applyLanguage(window.localStorage.getItem(storageKey) || 'fr');
+    </script>
   </body>
 </html>

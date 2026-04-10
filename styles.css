@@ -425,6 +425,10 @@ html[dir="rtl"] .site-nav {
   flex-direction: row-reverse;
 }
 
+html[dir="rtl"] .site-nav {
+  direction: ltr;
+}
+
 html[dir="rtl"] .nav-dropdown__menu {
   left: auto;
   right: 0;
@@ -433,6 +437,11 @@ html[dir="rtl"] .nav-dropdown__menu {
 html[dir="rtl"] .hero__overlay {
   direction: ltr;
   justify-content: flex-start;
+}
+
+html[dir="rtl"] .nav-dropdown__menu {
+  left: auto;
+  right: 0;
 }
 
 html[dir="rtl"] .hero__banner {
@@ -1645,6 +1654,31 @@ html[dir="rtl"] .testimonial-card {
 
 .landing-nav {
   gap: 18px;
+}
+
+.landing-header .language-switcher {
+  margin-inline-start: 0;
+}
+
+html[dir="rtl"] .landing-nav {
+  direction: ltr;
+}
+
+html[dir="rtl"] .landing-hero,
+html[dir="rtl"] .landing-section,
+html[dir="rtl"] .landing-panel,
+html[dir="rtl"] .landing-card,
+html[dir="rtl"] .landing-lead,
+html[dir="rtl"] .landing-list,
+html[dir="rtl"] .landing-link-list,
+html[dir="rtl"] .seo-table th,
+html[dir="rtl"] .seo-table td {
+  text-align: right;
+}
+
+html[dir="rtl"] .landing-list {
+  padding-left: 0;
+  padding-right: 20px;
 }
 
 .landing-hero {
