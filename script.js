@@ -154,7 +154,7 @@
       dot3: 'Avis 3',
       quote1:
         "Le produit donne une impression très moderne, et l'application rend le contrôle vraiment pratique. Le confort est visible tous les jours.",
-      author1: 'Sarah L.',
+      author1: 'Imane',
       quote2:
         'Installation rapide, bonne finition et vraie différence sur la consommation. On sent une approche sérieuse du début à la fin.',
       author2: 'Karim B.',
@@ -172,6 +172,11 @@
       item1: 'Conseil produit adapté à votre besoin',
       item2: 'Vente et installation partout au Maroc',
       item3: 'Application mobile et accompagnement après pose',
+      direct: {
+        eyebrow: 'Contact direct',
+        title: 'Preferez WhatsApp ? Scannez le QR code ou ouvrez la discussion.',
+        whatsapp: 'WhatsApp',
+      },
       form: {
         name: 'Nom',
         email: 'Email',
@@ -344,7 +349,7 @@
       dot3: 'الرأي 3',
       quote1:
         'المنتج يعطي إحساسا عصريا جدا، والتطبيق يجعل التحكم عمليا للغاية. الراحة واضحة كل يوم.',
-      author1: 'Sarah L.',
+      author1: 'Imane',
       quote2:
         'التركيب كان سريعا، والتشطيب جيد، وهناك فرق حقيقي في الاستهلاك. نشعر بجدية واضحة من البداية إلى النهاية.',
       author2: 'Karim B.',
@@ -362,6 +367,11 @@
       item1: 'نصيحة مناسبة لاحتياجك',
       item2: 'بيع وتركيب في جميع أنحاء المغرب',
       item3: 'تطبيق للهاتف ومرافقة بعد التركيب',
+      direct: {
+        eyebrow: 'تواصل مباشر',
+        title: 'تفضل واتساب؟ امسح رمز QR أو افتح المحادثة مباشرة.',
+        whatsapp: 'واتساب',
+      },
       form: {
         name: 'الاسم',
         email: 'البريد الإلكتروني',

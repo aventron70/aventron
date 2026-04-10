@@ -166,6 +166,7 @@ p {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(12px);
+  margin-inline-start: auto;
 }
 
 .language-switcher__button {
@@ -1059,6 +1060,55 @@ html[dir="rtl"] .testimonial-card {
   padding: 28px;
 }
 
+.contact-direct {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 22px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    radial-gradient(circle at top right, rgba(37, 211, 102, 0.16), transparent 36%);
+}
+
+.contact-direct__copy h3,
+.contact-direct__copy p {
+  margin: 0;
+}
+
+.contact-direct__eyebrow {
+  margin-bottom: 8px;
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-direct__copy h3 {
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.contact-direct__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.contact-direct__whatsapp {
+  white-space: nowrap;
+}
+
+.contact-direct__qr {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+}
+
 .contact-form {
   display: grid;
   gap: 16px;
@@ -1301,20 +1351,6 @@ html[dir="rtl"] .testimonial-card {
     min-height: 32px;
   }
 
-  .header-link span {
-    display: none;
-  }
-
-  .header-link {
-    min-height: 42px;
-    padding: 0 13px;
-  }
-
-  .header-qr {
-    width: 48px;
-    height: 48px;
-  }
-
   .hero__copy h1,
   .section-heading h2,
   .contact__copy h2 {
@@ -1364,6 +1400,14 @@ html[dir="rtl"] .testimonial-card {
 
   .testimonial-slider__control {
     display: none;
+  }
+
+  .contact-direct {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-direct__actions {
+    justify-content: space-between;
   }
 }
 
@@ -1451,16 +1495,6 @@ html[dir="rtl"] .testimonial-card {
     gap: 8px;
   }
 
-  .header-link {
-    padding: 0 12px;
-  }
-
-  .header-qr {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-  }
-
   .hero__copy h1 {
     font-size: 2.15rem;
     line-height: 0.96;
@@ -1474,6 +1508,24 @@ html[dir="rtl"] .testimonial-card {
     min-height: 36px;
     padding: 0 12px;
     font-size: 0.88rem;
+  }
+
+  .contact-direct__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-direct__whatsapp {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-direct__qr {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0 auto;
   }
 
   .metric-card,
