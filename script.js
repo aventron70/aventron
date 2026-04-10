@@ -7,6 +7,10 @@
         'Aventron Technologies vend et installe des chauffe-eau solaires smart partout au Maroc avec application mobile, garantie 5 ans et accompagnement complet.',
     },
     nav: {
+      about: 'À propos',
+      aboutCompany: "L'entreprise",
+      aboutTeam: 'Notre équipe',
+      aboutCareers: 'Recrutement',
       features: 'Avantages',
       product: 'Produit',
       applications: 'Applications',
@@ -46,6 +50,25 @@
       item3Body: 'Suivi et contrôle intelligents sur mobile',
       item4Title: 'Installation rapide',
       item4Body: "Accompagnement du choix jusqu'a la mise en service",
+    },
+    about: {
+      eyebrow: 'À propos',
+      title: "Une presentation claire de l'entreprise, de l'equipe et du recrutement",
+      body:
+        "Aventron Technologies reste une marque one-page claire, premium et directe, avec les informations essentielles regroupées dans une seule experience.",
+      companyEyebrow: "L'entreprise",
+      companyTitle: 'Aventron Technologies',
+      companyBody:
+        "Nous proposons des chauffe-eau solaires smart pensés pour le marché marocain avec une attention forte portée à la performance, au design, à la durabilité et à la qualité d'installation.",
+      teamEyebrow: 'Notre équipe',
+      teamTitle: 'Une equipe orientee produit et service',
+      teamBody:
+        "Notre équipe réunit conseil, accompagnement commercial, suivi technique et sens du détail pour offrir une expérience sérieuse du premier contact jusqu'au service après installation.",
+      careersEyebrow: 'Recrutement',
+      careersTitle: 'Rejoindre une entreprise en croissance',
+      careersBody:
+        "Nous recherchons des profils motivés par l'énergie solaire, la qualité de service et le développement d'une marque ambitieuse au Maroc. Contactez-nous pour toute candidature spontanée.",
+      careersLink: 'Envoyer une candidature',
     },
     features: {
       eyebrow: 'Avantages',
@@ -177,6 +200,10 @@
         'تقوم Aventron Technologies ببيع وتركيب سخانات المياه الشمسية الذكية في جميع أنحاء المغرب مع تطبيق للهاتف وضمان 5 سنوات ومرافقة كاملة.',
     },
     nav: {
+      about: 'حول',
+      aboutCompany: 'الشركة',
+      aboutTeam: 'فريقنا',
+      aboutCareers: 'التوظيف',
       features: 'المزايا',
       product: 'المنتج',
       applications: 'الاستخدامات',
@@ -216,6 +243,25 @@
       item3Body: 'متابعة وتحكم ذكيان عبر الهاتف',
       item4Title: 'تركيب سريع',
       item4Body: 'مرافقة من اختيار المنتج إلى التشغيل',
+    },
+    about: {
+      eyebrow: 'حول',
+      title: 'عرض واضح للشركة والفريق والتوظيف',
+      body:
+        'تبقى Aventron Technologies علامة واضحة ومباشرة داخل صفحة واحدة تجمع المعلومات الأساسية في تجربة واحدة.',
+      companyEyebrow: 'الشركة',
+      companyTitle: 'Aventron Technologies',
+      companyBody:
+        'نقدم سخانات مياه شمسية ذكية موجهة للسوق المغربي مع اهتمام قوي بالأداء والتصميم والمتانة وجودة التركيب.',
+      teamEyebrow: 'فريقنا',
+      teamTitle: 'فريق موجه نحو المنتج والخدمة',
+      teamBody:
+        'يجمع فريقنا بين الاستشارة والمواكبة التجارية والمتابعة التقنية والاهتمام بالتفاصيل لتقديم تجربة جدية من أول تواصل حتى ما بعد التركيب.',
+      careersEyebrow: 'التوظيف',
+      careersTitle: 'الانضمام إلى شركة في نمو',
+      careersBody:
+        'نبحث عن أشخاص متحمسين للطاقة الشمسية وجودة الخدمة وتطوير علامة طموحة في المغرب. تواصل معنا من أجل أي ترشيح تلقائي.',
+      careersLink: 'إرسال ترشيح',
     },
     features: {
       eyebrow: 'المزايا',
