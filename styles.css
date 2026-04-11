@@ -1625,13 +1625,13 @@ html[dir="rtl"] .testimonial-card {
     min-height: 36px;
     align-content: flex-start;
     flex-wrap: nowrap;
-    gap: 6px;
+    gap: 4px;
   }
 
   .chip {
-    min-height: 32px;
-    padding: 0 8px;
-    font-size: 0.76rem;
+    min-height: 30px;
+    padding: 0 6px;
+    font-size: 0.68rem;
     white-space: nowrap;
   }
 
