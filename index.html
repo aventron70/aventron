@@ -100,9 +100,22 @@
           <a href="#product" data-i18n="nav.product">Produit</a>
           <a href="#applications" data-i18n="nav.applications">Applications</a>
           <a href="#testimonials" data-i18n="nav.testimonials">Avis</a>
-          <a href="entreprise.html" data-i18n="nav.aboutCompany">L'entreprise</a>
-          <a href="notre-equipe.html" data-i18n="nav.aboutTeam">Notre équipe</a>
-          <a href="recrutement.html" data-i18n="nav.aboutCareers">Recrutement</a>
+          <div class="mobile-submenu" data-mobile-submenu>
+            <button
+              class="mobile-submenu__toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="mobile-company-menu"
+              data-mobile-submenu-toggle
+            >
+              <span data-i18n="nav.about">À propos</span>
+            </button>
+            <div class="mobile-submenu__panel" id="mobile-company-menu">
+              <a href="entreprise.html" data-i18n="nav.aboutCompany">L'entreprise</a>
+              <a href="notre-equipe.html" data-i18n="nav.aboutTeam">Notre équipe</a>
+              <a href="recrutement.html" data-i18n="nav.aboutCareers">Recrutement</a>
+            </div>
+          </div>
           <a href="#contact" data-i18n="nav.contact">Contact</a>
           <a class="mobile-menu__quote" href="https://wa.me/212722667235" target="_blank" rel="noreferrer" data-i18n="nav.quote">Demander un devis</a>
         </nav>

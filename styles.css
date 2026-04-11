@@ -242,6 +242,20 @@ html[dir="rtl"] .language-switcher__select-wrap::after {
   left: 9px;
 }
 
+html[dir="rtl"] .mobile-submenu__toggle {
+  text-align: right;
+}
+
+html[dir="rtl"] .mobile-submenu__toggle::after {
+  right: auto;
+  left: 18px;
+}
+
+html[dir="rtl"] .mobile-submenu__panel {
+  padding-inline-start: 0;
+  padding-inline-end: 14px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -291,6 +305,51 @@ html[dir="rtl"] .language-switcher__select-wrap::after {
 .mobile-menu__panel {
   display: grid;
   gap: 10px;
+}
+
+.mobile-submenu {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-submenu__toggle {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-weight: 700;
+  text-align: start;
+  cursor: pointer;
+  position: relative;
+}
+
+.mobile-submenu__toggle::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.mobile-submenu.is-open .mobile-submenu__toggle::after {
+  transform: translateY(-35%) rotate(-135deg);
+}
+
+.mobile-submenu__panel {
+  display: none;
+  gap: 10px;
+  padding-inline-start: 14px;
+}
+
+.mobile-submenu.is-open .mobile-submenu__panel {
+  display: grid;
 }
 
 .mobile-menu__panel a {
@@ -1505,6 +1564,12 @@ html[dir="rtl"] .testimonial-card {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
   }
 
+  .mobile-submenu__toggle {
+    background: rgba(7, 17, 29, 0.88);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  }
+
   .proofbar__grid,
   .card-grid--three,
   .card-grid--four,
@@ -1554,6 +1619,17 @@ html[dir="rtl"] .testimonial-card {
   .hero__overlay {
     align-items: end;
     padding: 126px 18px 26px;
+  }
+
+  .hero__chips {
+    min-height: 92px;
+    align-content: flex-start;
+  }
+
+  .chip {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.94rem;
   }
 
   .hero__lead,
@@ -1686,6 +1762,14 @@ html[dir="rtl"] .testimonial-card {
     min-width: 48px;
     min-height: 26px;
     padding-inline-start: 8px;
+  }
+
+  .hero__chips {
+    min-height: 98px;
+  }
+
+  .chip {
+    font-size: 0.88rem;
   }
 
   .mobile-menu__panel {

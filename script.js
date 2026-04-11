@@ -666,6 +666,8 @@ const productControl = document.querySelector('[data-product-control]');
 const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
 const mobileMenu = document.querySelector('[data-mobile-menu]');
 const mobileMenuLinks = Array.from(document.querySelectorAll('.mobile-menu a'));
+const mobileSubmenu = document.querySelector('[data-mobile-submenu]');
+const mobileSubmenuToggle = document.querySelector('[data-mobile-submenu-toggle]');
 const storageKey = 'aventron-language';
 const productStorageKey = 'aventron-product-selection';
 
@@ -774,6 +776,19 @@ function setMobileMenuState(isOpen) {
   mobileMenu.classList.toggle('is-open', isOpen);
   mobileMenuToggle.classList.toggle('is-open', isOpen);
   mobileMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+  if (!isOpen) {
+    setMobileSubmenuState(false);
+  }
+}
+
+function setMobileSubmenuState(isOpen) {
+  if (!mobileSubmenu || !mobileSubmenuToggle) {
+    return;
+  }
+
+  mobileSubmenu.classList.toggle('is-open', isOpen);
+  mobileSubmenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 }
 
 const revealObserver = new IntersectionObserver(
@@ -839,6 +854,12 @@ if (mobileMenuToggle && mobileMenu) {
   mobileMenuToggle.addEventListener('click', () => {
     setMobileMenuState(!mobileMenu.classList.contains('is-open'));
   });
+
+  if (mobileSubmenu && mobileSubmenuToggle) {
+    mobileSubmenuToggle.addEventListener('click', () => {
+      setMobileSubmenuState(!mobileSubmenu.classList.contains('is-open'));
+    });
+  }
 
   mobileMenuLinks.forEach((link) => {
     link.addEventListener('click', () => {
