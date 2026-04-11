@@ -20,8 +20,9 @@
     },
     hero: {
       eyebrow: 'Aventron Technologies',
-      chipSizes: 'Made in Europe',
+      chipSizes: '150L, 200L, 300L',
       chipWarranty: '5 ans de garantie',
+      chipOrigin: 'Made in Europe',
       title: 'Le chauffe-eau solaire smart qui donne à votre maison une nouvelle énergie',
       lead:
         "Aventron Technologies vend et installe des chauffe-eau solaires smart partout au Maroc avec une expérience plus moderne, plus propre et plus confortable.",
@@ -221,8 +222,9 @@
     },
     hero: {
       eyebrow: 'Aventron Technologies',
-      chipSizes: 'Made in Europe',
+      chipSizes: '150L, 200L, 300L',
       chipWarranty: '5-year warranty',
+      chipOrigin: 'Made in Europe',
       title: 'The smart solar water heater that brings new energy to your home',
       lead:
         'Aventron Technologies sells and installs smart solar water heaters across Morocco with a cleaner, more modern, and more comfortable experience.',
@@ -422,8 +424,9 @@
     },
     hero: {
       eyebrow: 'Aventron Technologies',
-      chipSizes: 'صنع في أوروبا',
+      chipSizes: '150L، 200L، 300L',
       chipWarranty: 'ضمان 5 سنوات',
+      chipOrigin: 'صنع في أوروبا',
       title: 'سخان الماء الشمسي الذكي الذي يمنح منزلك طاقة جديدة',
       lead:
         'تقوم Aventron Technologies ببيع وتركيب سخانات المياه الشمسية الذكية في جميع أنحاء المغرب بتجربة أكثر حداثة ونظافة وراحة.',

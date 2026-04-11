@@ -1485,12 +1485,15 @@ html[dir="rtl"] .testimonial-card {
     max-height: 80vh;
     opacity: 1;
     pointer-events: auto;
+    background: rgba(7, 17, 29, 0.96);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.34);
   }
 
   .mobile-menu__panel {
     width: min(100vw - 32px, 1180px);
     margin: 0 auto;
-    padding: 0 0 14px;
+    padding: 14px 0 16px;
   }
 
   .proofbar__grid,
@@ -1542,6 +1545,10 @@ html[dir="rtl"] .testimonial-card {
   .hero__overlay {
     align-items: end;
     padding: 126px 18px 26px;
+  }
+
+  html[dir="rtl"] .hero__overlay {
+    padding: 96px 18px 26px;
   }
 
   .hero__lead,
