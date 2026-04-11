@@ -1899,6 +1899,11 @@ html[dir="rtl"] .testimonial-card {
   gap: 12px;
 }
 
+.site-footer__links-title {
+  color: var(--text);
+  font-weight: 800;
+}
+
 .site-footer__links a {
   color: var(--muted);
 }

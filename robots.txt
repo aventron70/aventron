@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aventrontechnologies.ma/sitemap.xml
+Sitemap: https://www.aventrontechnologies.ma/sitemap.xml

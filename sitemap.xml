@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aventrontechnologies.ma/</loc>
+    <loc>https://www.aventrontechnologies.ma/</loc>
   </url>
   <url>
-    <loc>https://aventrontechnologies.ma/chauffe-eau-solaire-maroc/</loc>
+    <loc>https://www.aventrontechnologies.ma/en/</loc>
   </url>
   <url>
-    <loc>https://aventrontechnologies.ma/prix-chauffe-eau-solaire-maroc/</loc>
+    <loc>https://www.aventrontechnologies.ma/ar/</loc>
   </url>
   <url>
-    <loc>https://aventrontechnologies.ma/comment-fonctionne-un-chauffe-eau-solaire/</loc>
+    <loc>https://www.aventrontechnologies.ma/chauffe-eau-solaire-maroc/</loc>
   </url>
   <url>
-    <loc>https://aventrontechnologies.ma/privacy-policy/</loc>
+    <loc>https://www.aventrontechnologies.ma/prix-chauffe-eau-solaire-maroc/</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/comment-fonctionne-un-chauffe-eau-solaire/</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/entreprise.html</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/notre-equipe.html</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/recrutement.html</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/offre-ingenieur-iot-mobile.html</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/offre-assistante-administrative.html</loc>
+  </url>
+  <url>
+    <loc>https://www.aventrontechnologies.ma/privacy-policy</loc>
   </url>
 </urlset>

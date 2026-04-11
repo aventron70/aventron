@@ -2,9 +2,9 @@
   fr: {
     dir: 'ltr',
     meta: {
-      title: 'Aventron Technologies | Chauffe-eau solaire smart',
+      title: 'Chauffe-eau solaire smart au Maroc | Vente, installation et maintenance | Aventron Technologies',
       description:
-        'Aventron Technologies vend et installe des chauffe-eau solaires smart partout au Maroc avec application mobile, garantie 5 ans et accompagnement complet.',
+        "Aventron Technologies assure la vente, l'installation et la maintenance de chauffe-eaux solaires smart au Maroc avec application mobile, garantie 5 ans et accompagnement complet.",
     },
     nav: {
       about: 'À propos',
@@ -198,6 +198,10 @@
       facebook: 'Facebook',
       twitter: 'Twitter',
       instagram: 'Instagram',
+      guidesTitle: 'Guides utiles',
+      guide1: 'Chauffe-eau solaire au Maroc',
+      guide2: 'Prix chauffe-eau solaire au Maroc',
+      guide3: 'Comment fonctionne un chauffe-eau solaire',
       copyright: '&copy; 2026 Aventron Technologies. Tous droits réservés.',
     },
   },
@@ -400,6 +404,10 @@
       facebook: 'Facebook',
       twitter: 'Twitter',
       instagram: 'Instagram',
+      guidesTitle: 'Useful guides',
+      guide1: 'Solar water heater in Morocco',
+      guide2: 'Solar water heater prices in Morocco',
+      guide3: 'How a solar water heater works',
       copyright: '&copy; 2026 Aventron Technologies. All rights reserved.',
     },
   },
@@ -599,6 +607,10 @@
       facebook: 'فيسبوك',
       twitter: 'تويتر',
       instagram: 'إنستغرام',
+      guidesTitle: 'أدلة مفيدة',
+      guide1: 'سخان الماء الشمسي في المغرب',
+      guide2: 'أسعار سخان الماء الشمسي في المغرب',
+      guide3: 'كيف يعمل سخان الماء الشمسي',
       copyright: '&copy; 2026 Aventron Technologies. جميع الحقوق محفوظة.',
     },
   },
@@ -668,6 +680,12 @@ const mobileMenu = document.querySelector('[data-mobile-menu]');
 const mobileMenuLinks = Array.from(document.querySelectorAll('.mobile-menu a'));
 const mobileSubmenu = document.querySelector('[data-mobile-submenu]');
 const mobileSubmenuToggle = document.querySelector('[data-mobile-submenu-toggle]');
+const forcedLanguage = document.body?.dataset.forceLang || '';
+const languageUrlMap = {
+  fr: document.body?.dataset.langUrlFr || '',
+  en: document.body?.dataset.langUrlEn || '',
+  ar: document.body?.dataset.langUrlAr || '',
+};
 const storageKey = 'aventron-language';
 const productStorageKey = 'aventron-product-selection';
 
@@ -791,6 +809,19 @@ function setMobileSubmenuState(isOpen) {
   mobileSubmenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 }
 
+function changeLanguage(language) {
+  const nextLanguage = ['fr', 'en', 'ar'].includes(language) ? language : 'fr';
+  const targetUrl = languageUrlMap[nextLanguage];
+
+  if (targetUrl) {
+    window.localStorage.setItem(storageKey, nextLanguage);
+    window.location.href = targetUrl;
+    return;
+  }
+
+  applyLanguage(nextLanguage);
+}
+
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -826,13 +857,13 @@ function setTestimonial(index) {
 
 languageButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    applyLanguage(button.dataset.langSwitch || 'fr');
+    changeLanguage(button.dataset.langSwitch || 'fr');
   });
 });
 
 if (languageSelect) {
   languageSelect.addEventListener('change', () => {
-    applyLanguage(languageSelect.value || 'fr');
+    changeLanguage(languageSelect.value || 'fr');
   });
 }
 
@@ -960,4 +991,4 @@ try {
   activeProduct = { size: '150', variant: 'N' };
 }
 
-applyLanguage(window.localStorage.getItem(storageKey) || 'fr');
+applyLanguage(forcedLanguage || window.localStorage.getItem(storageKey) || 'fr');
