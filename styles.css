@@ -1618,18 +1618,21 @@ html[dir="rtl"] .testimonial-card {
 
   .hero__overlay {
     align-items: end;
-    padding: 126px 18px 26px;
+    padding: 136px 18px 26px;
   }
 
   .hero__chips {
-    min-height: 92px;
+    min-height: 36px;
     align-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 6px;
   }
 
   .chip {
-    min-height: 38px;
-    padding: 0 12px;
-    font-size: 0.94rem;
+    min-height: 32px;
+    padding: 0 8px;
+    font-size: 0.76rem;
+    white-space: nowrap;
   }
 
   .hero__lead,
@@ -1765,11 +1768,13 @@ html[dir="rtl"] .testimonial-card {
   }
 
   .hero__chips {
-    min-height: 98px;
+    min-height: 34px;
   }
 
   .chip {
-    font-size: 0.88rem;
+    min-height: 30px;
+    padding: 0 7px;
+    font-size: 0.68rem;
   }
 
   .mobile-menu__panel {
