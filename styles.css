@@ -1622,17 +1622,22 @@ html[dir="rtl"] .testimonial-card {
   }
 
   .hero__chips {
-    min-height: 36px;
-    align-content: flex-start;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-height: 40px;
     gap: 4px;
+    width: 100%;
   }
 
   .chip {
-    min-height: 30px;
-    padding: 0 6px;
-    font-size: 0.68rem;
-    white-space: nowrap;
+    min-width: 0;
+    min-height: 40px;
+    justify-content: center;
+    padding: 6px 4px;
+    font-size: 0.62rem;
+    line-height: 1.1;
+    text-align: center;
+    white-space: normal;
   }
 
   .hero__lead,
@@ -1768,13 +1773,13 @@ html[dir="rtl"] .testimonial-card {
   }
 
   .hero__chips {
-    min-height: 34px;
+    min-height: 38px;
   }
 
   .chip {
-    min-height: 30px;
-    padding: 0 7px;
-    font-size: 0.68rem;
+    min-height: 38px;
+    padding: 5px 3px;
+    font-size: 0.56rem;
   }
 
   .mobile-menu__panel {
