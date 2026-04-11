@@ -169,6 +169,18 @@ p {
   margin-inline-start: auto;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .language-switcher__button {
   min-width: 44px;
   min-height: 34px;
@@ -188,9 +200,112 @@ p {
   color: #07111d;
 }
 
+.language-switcher__select-wrap {
+  display: none;
+  position: relative;
+}
+
+.language-switcher__select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+
+.language-switcher__select {
+  min-width: 52px;
+  min-height: 28px;
+  padding: 0 22px 0 8px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--gold), #ffd477);
+  color: #07111d;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  appearance: none;
+  cursor: pointer;
+}
+
+html[dir="rtl"] .language-switcher__select {
+  padding: 0 8px 0 22px;
+}
+
+html[dir="rtl"] .language-switcher__select-wrap::after {
+  right: auto;
+  left: 9px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+.mobile-menu-toggle span {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.mobile-menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu__panel {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-menu__panel a {
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.mobile-menu__quote {
+  background: linear-gradient(135deg, var(--gold), #ffd477);
+  color: #07111d;
+  border-color: transparent;
 }
 
 .brand__logo {
@@ -1324,9 +1439,58 @@ html[dir="rtl"] .testimonial-card {
     display: none;
   }
 
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: 46px 1fr 52px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+    justify-self: start;
+  }
+
+  .brand {
+    margin-inline: auto;
+  }
+
   .site-header__actions {
-    margin-inline-start: auto;
+    justify-self: end;
     gap: 10px;
+  }
+
+  .language-switcher {
+    padding: 2px;
+  }
+
+  .language-switcher__button {
+    display: none;
+  }
+
+  .language-switcher__select-wrap {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+  }
+
+  .mobile-menu.is-open {
+    max-height: 80vh;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu__panel {
+    width: min(100vw - 32px, 1180px);
+    margin: 0 auto;
+    padding: 0 0 14px;
   }
 
   .proofbar__grid,
@@ -1377,7 +1541,7 @@ html[dir="rtl"] .testimonial-card {
 
   .hero__overlay {
     align-items: end;
-    padding: 78px 18px 26px;
+    padding: 126px 18px 26px;
   }
 
   .hero__lead,
@@ -1494,6 +1658,8 @@ html[dir="rtl"] .testimonial-card {
 
   .site-header__inner {
     min-height: 72px;
+    grid-template-columns: 46px 1fr 48px;
+    gap: 10px;
   }
 
   .brand__logo {
@@ -1502,6 +1668,16 @@ html[dir="rtl"] .testimonial-card {
 
   .site-header__actions {
     gap: 8px;
+  }
+
+  .language-switcher__select {
+    min-width: 48px;
+    min-height: 26px;
+    padding-inline-start: 8px;
+  }
+
+  .mobile-menu__panel {
+    width: min(100vw - 20px, 100%);
   }
 
   .hero__copy h1 {

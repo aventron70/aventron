@@ -41,6 +41,21 @@
   <body>
     <header class="site-header">
       <div class="container site-header__inner">
+        <button
+          class="mobile-menu-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-mobile-menu-toggle
+          data-i18n="mobileMenu.toggle"
+          data-i18n-attr="aria-label"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
         <a class="brand" href="#hero" aria-label="Aventron Technologies">
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
@@ -67,8 +82,30 @@
             <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
             <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
             <button class="language-switcher__button" type="button" data-lang-switch="ar">AR</button>
+            <label class="language-switcher__select-wrap" for="mobile-language-switch">
+              <span class="sr-only">Language</span>
+              <select class="language-switcher__select" id="mobile-language-switch" data-lang-select>
+                <option value="fr">FR</option>
+                <option value="en">EN</option>
+                <option value="ar">AR</option>
+              </select>
+            </label>
           </div>
         </div>
+      </div>
+
+      <div class="mobile-menu" id="mobile-menu" data-mobile-menu>
+        <nav class="mobile-menu__panel" aria-label="Mobile navigation">
+          <a href="#features" data-i18n="nav.features">Avantages</a>
+          <a href="#product" data-i18n="nav.product">Produit</a>
+          <a href="#applications" data-i18n="nav.applications">Applications</a>
+          <a href="#testimonials" data-i18n="nav.testimonials">Avis</a>
+          <a href="entreprise.html" data-i18n="nav.aboutCompany">L'entreprise</a>
+          <a href="notre-equipe.html" data-i18n="nav.aboutTeam">Notre équipe</a>
+          <a href="recrutement.html" data-i18n="nav.aboutCareers">Recrutement</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
+          <a class="mobile-menu__quote" href="https://wa.me/212722667235" target="_blank" rel="noreferrer" data-i18n="nav.quote">Demander un devis</a>
+        </nav>
       </div>
     </header>
 
@@ -85,9 +122,8 @@
               <div class="hero__overlay">
                 <div class="hero__copy">
                   <div class="hero__banner">
-                    <p class="eyebrow" data-i18n="hero.eyebrow">Aventron Technologies</p>
                     <div class="hero__chips">
-                      <span class="chip chip--warm" data-i18n="hero.chipSizes">150L, 200L, 300L</span>
+                      <span class="chip chip--warm" data-i18n="hero.chipSizes">Made in Europe</span>
                       <span class="chip chip--cool" data-i18n="hero.chipWarranty">5 ans de garantie</span>
                     </div>
                     <h1 data-i18n="hero.title">Le chauffe-eau solaire smart qui donne à votre maison une nouvelle énergie</h1>
@@ -103,7 +139,7 @@
                     </p>
 
                     <div class="hero__actions">
-                      <a class="button button--primary" href="#contact" data-i18n="hero.ctaPrimary">Obtenir un devis gratuit</a>
+                      <a class="button button--primary" href="https://wa.me/212722667235" target="_blank" rel="noreferrer" data-i18n="hero.ctaPrimary">Obtenir un devis gratuit</a>
                       <a class="button button--secondary" href="#product" data-i18n="hero.ctaSecondary">Découvrir nos modèles</a>
                     </div>
                   </div>
@@ -456,7 +492,7 @@
       </section>
     </main>
 
-    <a class="mobile-cta" href="#contact" data-i18n="mobileCta">Obtenir un devis gratuit</a>
+    <a class="mobile-cta" href="https://wa.me/212722667235" target="_blank" rel="noreferrer" data-i18n="mobileCta">Obtenir un devis gratuit</a>
 
     <footer class="site-footer">
       <div class="container site-footer__inner">

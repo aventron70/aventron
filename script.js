@@ -20,7 +20,7 @@
     },
     hero: {
       eyebrow: 'Aventron Technologies',
-      chipSizes: '150L, 200L, 300L',
+      chipSizes: 'Made in Europe',
       chipWarranty: '5 ans de garantie',
       title: 'Le chauffe-eau solaire smart qui donne à votre maison une nouvelle énergie',
       lead:
@@ -188,6 +188,9 @@
         error: "L'envoi a échoué. Merci de réessayer.",
       },
     },
+    mobileMenu: {
+      toggle: 'Ouvrir le menu',
+    },
     mobileCta: 'Obtenir un devis gratuit',
     footer: {
       body: 'Chauffe-eau solaire smart pour une expérience plus propre, plus connectée et plus confortable.',
@@ -218,7 +221,7 @@
     },
     hero: {
       eyebrow: 'Aventron Technologies',
-      chipSizes: '150L, 200L, 300L',
+      chipSizes: 'Made in Europe',
       chipWarranty: '5-year warranty',
       title: 'The smart solar water heater that brings new energy to your home',
       lead:
@@ -386,6 +389,9 @@
         error: 'Sending failed. Please try again.',
       },
     },
+    mobileMenu: {
+      toggle: 'Open menu',
+    },
     mobileCta: 'Get a free quote',
     footer: {
       body: 'Smart solar water heater for a cleaner, more connected, and more comfortable experience.',
@@ -416,7 +422,7 @@
     },
     hero: {
       eyebrow: 'Aventron Technologies',
-      chipSizes: '150L، 200L، 300L',
+      chipSizes: 'صنع في أوروبا',
       chipWarranty: 'ضمان 5 سنوات',
       title: 'سخان الماء الشمسي الذكي الذي يمنح منزلك طاقة جديدة',
       lead:
@@ -581,6 +587,9 @@
         error: 'تعذر الإرسال. يرجى المحاولة مرة أخرى.',
       },
     },
+    mobileMenu: {
+      toggle: 'افتح القائمة',
+    },
     mobileCta: 'احصل على عرض سعر مجاني',
     footer: {
       body: 'سخان ماء شمسي ذكي لتجربة أنظف وأكثر اتصالا وراحة.',
@@ -641,6 +650,7 @@ const contactSuccess = document.querySelector('#contact-success');
 const contactSubmitButton = document.querySelector('.contact-form__submit');
 const heroBackground = document.querySelector('.hero__bg');
 const languageButtons = Array.from(document.querySelectorAll('[data-lang-switch]'));
+const languageSelect = document.querySelector('[data-lang-select]');
 const translatableNodes = Array.from(document.querySelectorAll('[data-i18n]'));
 const productSizeButtons = Array.from(document.querySelectorAll('[data-product-size]'));
 const productVariantButtons = Array.from(document.querySelectorAll('[data-product-variant]'));
@@ -650,6 +660,9 @@ const productBadge = document.querySelector('[data-product-badge]');
 const productCapacity = document.querySelector('[data-product-capacity]');
 const productCollector = document.querySelector('[data-product-collector]');
 const productControl = document.querySelector('[data-product-control]');
+const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+const mobileMenu = document.querySelector('[data-mobile-menu]');
+const mobileMenuLinks = Array.from(document.querySelectorAll('.mobile-menu a'));
 const storageKey = 'aventron-language';
 const productStorageKey = 'aventron-product-selection';
 
@@ -742,8 +755,22 @@ function applyLanguage(language) {
     button.classList.toggle('is-active', button.dataset.langSwitch === nextLanguage);
   });
 
+  if (languageSelect) {
+    languageSelect.value = nextLanguage;
+  }
+
   window.localStorage.setItem(storageKey, nextLanguage);
   updateProductConfigurator();
+}
+
+function setMobileMenuState(isOpen) {
+  if (!mobileMenuToggle || !mobileMenu) {
+    return;
+  }
+
+  mobileMenu.classList.toggle('is-open', isOpen);
+  mobileMenuToggle.classList.toggle('is-open', isOpen);
+  mobileMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 }
 
 const revealObserver = new IntersectionObserver(
@@ -785,6 +812,12 @@ languageButtons.forEach((button) => {
   });
 });
 
+if (languageSelect) {
+  languageSelect.addEventListener('change', () => {
+    applyLanguage(languageSelect.value || 'fr');
+  });
+}
+
 productSizeButtons.forEach((button) => {
   button.addEventListener('click', () => {
     activeProduct = { ...activeProduct, size: button.dataset.productSize || '150' };
@@ -798,6 +831,40 @@ productVariantButtons.forEach((button) => {
     updateProductConfigurator();
   });
 });
+
+if (mobileMenuToggle && mobileMenu) {
+  mobileMenuToggle.addEventListener('click', () => {
+    setMobileMenuState(!mobileMenu.classList.contains('is-open'));
+  });
+
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      setMobileMenuState(false);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (
+      mobileMenu.classList.contains('is-open') &&
+      !mobileMenu.contains(event.target) &&
+      !mobileMenuToggle.contains(event.target)
+    ) {
+      setMobileMenuState(false);
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMobileMenuState(false);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860) {
+      setMobileMenuState(false);
+    }
+  });
+}
 
 if (prevButton && nextButton && testimonialCards.length) {
   prevButton.addEventListener('click', () => setTestimonial(testimonialIndex - 1));
