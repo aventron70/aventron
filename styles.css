@@ -1485,7 +1485,10 @@ html[dir="rtl"] .testimonial-card {
     max-height: 80vh;
     opacity: 1;
     pointer-events: auto;
-    background: rgba(7, 17, 29, 0.96);
+    background:
+      radial-gradient(circle at top left, rgba(103, 228, 255, 0.08), transparent 28%),
+      radial-gradient(circle at top right, rgba(247, 170, 43, 0.12), transparent 24%),
+      linear-gradient(180deg, rgba(7, 17, 29, 0.985) 0%, rgba(13, 24, 39, 0.985) 45%, rgba(18, 24, 42, 0.985) 100%);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 22px 40px rgba(0, 0, 0, 0.34);
   }
@@ -1494,6 +1497,12 @@ html[dir="rtl"] .testimonial-card {
     width: min(100vw - 32px, 1180px);
     margin: 0 auto;
     padding: 14px 0 16px;
+  }
+
+  .mobile-menu__panel a {
+    background: rgba(7, 17, 29, 0.88);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
   }
 
   .proofbar__grid,
@@ -1545,10 +1554,6 @@ html[dir="rtl"] .testimonial-card {
   .hero__overlay {
     align-items: end;
     padding: 126px 18px 26px;
-  }
-
-  html[dir="rtl"] .hero__overlay {
-    padding: 96px 18px 26px;
   }
 
   .hero__lead,
