@@ -21,11 +21,28 @@
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
         <nav class="landing-nav" aria-label="Navigation principale">
-          <a href="index.html" data-i18n="nav.home">Accueil</a>
-          <a href="entreprise.html" data-i18n="nav.company">L'entreprise</a>
-          <a href="notre-equipe.html" data-i18n="nav.team">Notre equipe</a>
-          <a class="button button--small button--ghost" href="mailto:info@aventrontechnologies.ma" data-i18n="nav.apply">Postuler</a>
+          <div class="nav-dropdown">
+            <a class="nav-dropdown__trigger" href="solutions.html" data-i18n="nav.solutions">Solutions</a>
+            <div class="nav-dropdown__menu" role="menu" aria-label="Solutions">
+              <a href="chauffe-eau-solaires.html">Chauffe-eau solaires</a>
+              <a href="chauffe-eau-electriques.html">Chauffe-eau électriques</a>
+              <a href="solutions-industrielles.html">Chauffe-eau industriels</a>
+              <a href="photovoltaique.html">Photovoltaïque</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a class="nav-dropdown__trigger" href="secteurs.html" data-i18n="nav.sectors">Secteurs</a>
+            <div class="nav-dropdown__menu" role="menu" aria-label="Secteurs">
+              <a href="particuliers.html">Particuliers</a>
+              <a href="professionnels.html">Professionnels</a>
+              <a href="industriel.html">Industriel</a>
+            </div>
+          </div>
+          <a href="projets.html" data-i18n="nav.projects">Projets</a>
+          <a href="entreprise.html" data-i18n="nav.company">Entreprise</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
+        <a class="button button--small button--ghost" href="mailto:info@aventrontechnologies.ma" data-i18n="nav.cta">Postuler</a>
         <div class="language-switcher" aria-label="Language switcher">
           <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
           <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
@@ -144,7 +161,14 @@
             title: 'Recrutement | Aventron Technologies',
             description: 'Recrutement chez Aventron Technologies: ingenieur systeme IoT et poste bureau pour relation client, devis et facturation.',
           },
-          nav: { home: 'Accueil', company: "L'entreprise", team: 'Notre equipe', apply: 'Postuler' },
+          nav: {
+            solutions: 'Solutions',
+            sectors: 'Secteurs',
+            projects: 'Projets',
+            company: 'Entreprise',
+            contact: 'Contact',
+            cta: 'Postuler',
+          },
           hero: {
             eyebrow: 'Recrutement',
             title: "Deux besoins actuels au sein d'Aventron Technologies",
@@ -185,7 +209,14 @@
             title: 'Careers | Aventron Technologies',
             description: 'Recruitment at Aventron Technologies: IoT systems engineer and office role for customer relations, quotations, and invoicing.',
           },
-          nav: { home: 'Home', company: 'The company', team: 'Our team', apply: 'Apply' },
+          nav: {
+            solutions: 'Solutions',
+            sectors: 'Sectors',
+            projects: 'Projects',
+            company: 'Company',
+            contact: 'Contact',
+            cta: 'Apply',
+          },
           hero: {
             eyebrow: 'Careers',
             title: 'Two current hiring needs at Aventron Technologies',
@@ -226,7 +257,14 @@
             title: 'التوظيف | Aventron Technologies',
             description: 'التوظيف لدى Aventron Technologies: مهندس أنظمة IoT ومنصب مكتبي لعلاقة العملاء وإعداد العروض والفواتير.',
           },
-          nav: { home: 'الرئيسية', company: 'الشركة', team: 'فريقنا', apply: 'ترشح' },
+          nav: {
+            solutions: 'الحلول',
+            sectors: 'القطاعات',
+            projects: 'المشاريع',
+            company: 'الشركة',
+            contact: 'تواصل',
+            cta: 'ترشح',
+          },
           hero: {
             eyebrow: 'التوظيف',
             title: 'حاجتان حاليان داخل Aventron Technologies',

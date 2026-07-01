@@ -21,11 +21,28 @@
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
         </a>
         <nav class="landing-nav" aria-label="Navigation principale">
-          <a href="index.html" data-i18n="nav.home">Accueil</a>
-          <a href="entreprise.html" data-i18n="nav.company">L'entreprise</a>
-          <a href="recrutement.html" data-i18n="nav.careers">Recrutement</a>
-          <a class="button button--small button--ghost" href="index.html#contact" data-i18n="nav.contact">Contact</a>
+          <div class="nav-dropdown">
+            <a class="nav-dropdown__trigger" href="solutions.html" data-i18n="nav.solutions">Solutions</a>
+            <div class="nav-dropdown__menu" role="menu" aria-label="Solutions">
+              <a href="chauffe-eau-solaires.html">Chauffe-eau solaires</a>
+              <a href="chauffe-eau-electriques.html">Chauffe-eau électriques</a>
+              <a href="solutions-industrielles.html">Chauffe-eau industriels</a>
+              <a href="photovoltaique.html">Photovoltaïque</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a class="nav-dropdown__trigger" href="secteurs.html" data-i18n="nav.sectors">Secteurs</a>
+            <div class="nav-dropdown__menu" role="menu" aria-label="Secteurs">
+              <a href="particuliers.html">Particuliers</a>
+              <a href="professionnels.html">Professionnels</a>
+              <a href="industriel.html">Industriel</a>
+            </div>
+          </div>
+          <a href="projets.html" data-i18n="nav.projects">Projets</a>
+          <a href="entreprise.html" data-i18n="nav.company">Entreprise</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
+        <a class="button button--small button--ghost" href="contact.html" data-i18n="nav.cta">Demander un devis</a>
         <div class="language-switcher" aria-label="Language switcher">
           <button class="language-switcher__button is-active" type="button" data-lang-switch="fr">FR</button>
           <button class="language-switcher__button" type="button" data-lang-switch="en">EN</button>
@@ -104,7 +121,14 @@
             title: 'Notre equipe | Aventron Technologies',
             description: "Decouvrez l'equipe Aventron Technologies: Yassine Karmoudi, Mohamed Chakir, Oussama Belhaj et Mouhamed Aitali au service du chauffe-eau solaire smart au Maroc.",
           },
-          nav: { home: 'Accueil', company: "L'entreprise", careers: 'Recrutement', contact: 'Contact' },
+          nav: {
+            solutions: 'Solutions',
+            sectors: 'Secteurs',
+            projects: 'Projets',
+            company: 'Entreprise',
+            contact: 'Contact',
+            cta: 'Demander un devis',
+          },
           hero: {
             eyebrow: 'Notre equipe',
             title: 'Une equipe courte, serieuse et orientee terrain',
@@ -131,7 +155,14 @@
             title: 'Our Team | Aventron Technologies',
             description: 'Discover the Aventron Technologies team: Yassine Karmoudi, Mohamed Chakir, Oussama Belhaj, and Mouhamed Aitali serving the smart solar water heater market in Morocco.',
           },
-          nav: { home: 'Home', company: 'The company', careers: 'Careers', contact: 'Contact' },
+          nav: {
+            solutions: 'Solutions',
+            sectors: 'Sectors',
+            projects: 'Projects',
+            company: 'Company',
+            contact: 'Contact',
+            cta: 'Request a quote',
+          },
           hero: {
             eyebrow: 'Our team',
             title: 'A focused, serious, field-oriented team',
@@ -158,7 +189,14 @@
             title: 'فريقنا | Aventron Technologies',
             description: 'اكتشف فريق Aventron Technologies: ياسين كرموضي، محمد شاكر، أسامة بلحاج، ومهند آيت عالي في خدمة سخانات المياه الشمسية الذكية في المغرب.',
           },
-          nav: { home: 'الرئيسية', company: 'الشركة', careers: 'التوظيف', contact: 'تواصل' },
+          nav: {
+            solutions: 'الحلول',
+            sectors: 'القطاعات',
+            projects: 'المشاريع',
+            company: 'الشركة',
+            contact: 'تواصل',
+            cta: 'اطلب عرض سعر',
+          },
           hero: {
             eyebrow: 'فريقنا',
             title: 'فريق صغير وجدي وموجه للعمل الميداني',

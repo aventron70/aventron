@@ -1,0 +1,8 @@
+.app-link-reset {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}
