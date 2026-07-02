@@ -801,6 +801,8 @@ body.homepage::before {
 
 .homepage .signal-strip {
   padding: 24px 0 40px;
+  display: flex;
+  justify-content: center;
 }
 
 .homepage .signal-strip__grid,
@@ -811,7 +813,10 @@ body.homepage::before {
 }
 
 .homepage .signal-strip__grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(280px, 320px));
+  justify-content: center;
+  width: min(100%, 1040px);
+  margin: 0 auto;
 }
 
 .homepage .signal-strip__item {
@@ -1653,10 +1658,6 @@ body.homepage::before {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .homepage .signal-strip__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .homepage .shortcut-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1840,3 +1841,16 @@ body.homepage::before {
     display: inline-flex;
   }
 }
+
+/* Homepage spacing and sector card styling */
+.homepage .section { padding: 56px 0; }
+.homepage .section.sector-studio { padding-top: 32px; }
+.homepage .section.trust-gallery { padding-top: 32px; }
+.homepage .section-heading { margin-bottom: 18px; }
+.homepage .shortcut-grid { gap: 12px; }
+.homepage .sector-card { padding: 22px; }
+.homepage .shortcut-grid .button,
+.homepage .shortcut-grid .button--secondary {
+  color: #000000 !important;
+}
+.homepage .cta-banner-zone { display: none; }
