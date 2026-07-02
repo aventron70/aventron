@@ -68,9 +68,9 @@ solar-water-heater-configurator {
 
 .solar-configurator__main {
   display: grid;
-  gap: 28px;
+  gap: 18px;
   min-width: 0;
-  padding: 30px;
+  padding: 26px 30px 30px;
   border-radius: 32px;
   border: 1px solid rgba(15, 23, 42, 0.08);
   background:
@@ -79,9 +79,18 @@ solar-water-heater-configurator {
   box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
 }
 
+.solar-configurator__main.solar-configurator__main--plain {
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
 .solar-configurator__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 18px;
 }
@@ -93,6 +102,10 @@ solar-water-heater-configurator {
 .solar-payment-panel h4 {
   margin: 0 0 10px;
   color: #0f172a;
+}
+
+.solar-configurator__header h3 {
+  margin-bottom: 0;
 }
 
 .solar-configurator__header p,
@@ -332,7 +345,7 @@ solar-water-heater-configurator {
 
 .solar-step {
   display: grid;
-  gap: 18px;
+  gap: 14px;
 }
 
 .solar-step__heading {
@@ -392,9 +405,9 @@ solar-water-heater-configurator {
 
 .solar-field-group {
   display: grid;
-  gap: 22px;
-  padding: 30px 32px;
-  border-radius: 30px;
+  gap: 16px;
+  padding: 22px 24px;
+  border-radius: 26px;
   border: 1px solid rgba(226, 232, 240, 0.95);
   background: linear-gradient(180deg, #ffffff 0%, #fffdfa 100%);
   box-shadow: 0 16px 44px rgba(15, 23, 42, 0.06);
@@ -402,7 +415,7 @@ solar-water-heater-configurator {
 
 .solar-field-group__header {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .solar-field-group__header h5,
@@ -1647,8 +1660,8 @@ solar-water-heater-configurator {
 }
 
 .solar-location-card {
-  gap: 18px;
-  padding: 24px;
+  gap: 12px;
+  padding: 18px 20px;
 }
 
 .solar-location-card__intro,
@@ -1720,8 +1733,8 @@ solar-water-heater-configurator {
 .solar-flash {
   display: grid;
   gap: 12px;
-  padding: 20px 22px;
-  border-radius: 24px;
+  padding: 14px 18px;
+  border-radius: 20px;
   border: 1px solid transparent;
   background: #ffffff;
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.04);
@@ -2102,10 +2115,60 @@ solar-water-heater-configurator {
 
 .solar-input-shell--location {
   min-height: 70px;
+  gap: 10px;
 }
 
 .solar-input-shell--location input {
   width: 100%;
+}
+
+.solar-input-shell--location select {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.solar-input-shell__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  border: 1px solid rgba(37, 99, 235, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  color: #1f43bf;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    0 10px 24px rgba(37, 99, 235, 0.08);
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    color 0.22s ease;
+}
+
+.solar-input-shell__action:hover,
+.solar-input-shell__action:focus-visible {
+  border-color: rgba(37, 99, 235, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    0 12px 26px rgba(37, 99, 235, 0.12);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.solar-input-shell__action:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.solar-input-shell__action-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
 }
 
 .solar-payment-breakdown {
@@ -2429,6 +2492,19 @@ solar-water-heater-configurator {
     radial-gradient(circle at top left, rgba(103, 228, 255, 0.08), transparent 28%),
     radial-gradient(circle at top right, rgba(247, 170, 43, 0.12), transparent 24%),
     linear-gradient(180deg, #07111d 0%, #0d1827 45%, #12182a 100%);
+}
+
+.page-payment-white .landing-header a,
+.page-payment-white .landing-nav > a,
+.page-payment-white .nav-dropdown__trigger,
+.page-payment-white .site-footer__links-title {
+  color: #f4f7fd;
+}
+
+.page-payment-white .site-footer__text,
+.page-payment-white .site-footer__links a,
+.page-payment-white .site-footer__meta a {
+  color: rgba(236, 243, 255, 0.84);
 }
 
 .page-payment-white main,
@@ -4453,17 +4529,18 @@ solar-water-heater-configurator {
     background: transparent;
   }
 
-  .solar-step--wizard .solar-step__heading {
-    padding: 0 2px;
-  }
+.solar-step--wizard .solar-step__heading {
+  gap: 10px;
+  padding: 0;
+}
 
   .solar-step--wizard .solar-step__intro {
     display: none;
   }
 
-  .solar-step--wizard .solar-step__body {
-    gap: 16px;
-  }
+.solar-step--wizard .solar-step__body {
+  gap: 12px;
+}
 
   .solar-section-card,
   .solar-summary-card,
@@ -5501,5 +5578,1727 @@ solar-water-heater-configurator {
 
   .solar-price-modal__promo-value {
     font-size: clamp(1.42rem, 11vw, 2.05rem);
+  }
+}
+
+.solar-price-modal {
+  width: min(100%, 680px);
+  max-height: min(88vh, 760px);
+  gap: 18px;
+  padding: 30px 28px 26px;
+}
+
+.solar-price-modal__hero {
+  justify-items: center;
+  gap: 10px;
+  padding-right: 0;
+  text-align: center;
+}
+
+.solar-price-modal__hero,
+.solar-price-modal__amount,
+.solar-price-modal__note,
+.solar-price-modal__actions {
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.solar-price-modal .solar-panel-copy,
+.solar-price-modal .solar-panel-copy h4,
+.solar-price-modal .solar-panel-copy p,
+.solar-price-modal .solar-summary-price__label,
+.solar-price-modal__amount,
+.solar-price-modal__amount-main,
+.solar-price-modal__promo,
+.solar-price-modal__promo-current,
+.solar-price-modal__promo-save,
+.solar-price-modal__note,
+.solar-price-modal__actions {
+  text-align: center;
+}
+
+.solar-price-modal__amount {
+  justify-items: center;
+  gap: 10px;
+  padding: 20px 22px;
+  border-radius: 24px;
+}
+
+.solar-price-modal__amount--promo {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.solar-price-modal__amount-main,
+.solar-price-modal__promo {
+  justify-items: center;
+  gap: 12px;
+}
+
+.solar-price-modal__promo-old {
+  width: auto;
+  margin-inline: auto;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+.solar-price-modal__promo-current {
+  justify-content: center;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.solar-price-modal__promo-value {
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+}
+
+.solar-price-modal__promo-currency {
+  padding-bottom: 0;
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+}
+
+.solar-price-modal__promo-save {
+  margin-inline: auto;
+  min-height: 48px;
+  padding: 0 14px;
+  font-size: 0.88rem;
+}
+
+.solar-price-modal__amount strong {
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
+  text-align: center;
+}
+
+.solar-price-modal__amount small {
+  max-width: 44ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.solar-price-modal__decor {
+  display: none;
+}
+
+.solar-price-modal__note {
+  max-width: 44ch;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.solar-price-modal__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  gap: 12px;
+}
+
+.solar-price-modal .solar-payment-cta,
+.solar-price-modal__secondary {
+  width: 100%;
+  max-width: 100%;
+  min-height: 56px;
+  margin: 0 auto;
+  padding: 0 18px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+}
+
+.solar-price-modal .solar-payment-cta {
+  justify-content: center;
+  gap: 10px;
+}
+
+.solar-price-modal .solar-payment-cta__group,
+.solar-price-modal .solar-payment-cta__arrow {
+  gap: 10px;
+}
+
+.solar-price-modal__secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 18px;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+@media (max-width: 760px) {
+  .solar-price-modal__actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .solar-price-modal {
+    width: min(100%, 390px);
+    max-height: min(96dvh, 100dvh);
+    gap: 12px;
+    padding: 18px 16px calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .solar-price-modal .solar-panel-copy h4 {
+    font-size: 0.96rem;
+    line-height: 1.14;
+  }
+
+  .solar-price-modal .solar-panel-copy p,
+  .solar-price-modal__note,
+  .solar-price-modal__amount small {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .solar-price-modal__amount {
+    gap: 8px;
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .solar-price-modal__promo-old {
+    font-size: clamp(0.96rem, 5.2vw, 1.28rem);
+  }
+
+  .solar-price-modal__promo-current {
+    gap: 8px;
+  }
+
+  .solar-price-modal__promo-value {
+    font-size: clamp(1.95rem, 10vw, 2.65rem);
+  }
+
+  .solar-price-modal__promo-currency {
+    font-size: 0.72rem;
+  }
+
+  .solar-price-modal__promo-save {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.66rem;
+  }
+
+  .solar-price-modal__amount strong {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+  }
+
+  .solar-price-modal .solar-payment-cta,
+  .solar-price-modal__secondary {
+    width: min(100%, 280px);
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 14px;
+    font-size: 0.76rem;
+  }
+
+  .solar-price-modal__secondary {
+    padding: 9px 14px;
+  }
+}
+
+@media (max-width: 640px), (max-height: 760px) {
+  .solar-price-modal {
+    gap: 10px;
+    padding: 16px 14px calc(14px + env(safe-area-inset-bottom));
+  }
+
+  .solar-price-modal__hero {
+    gap: 6px;
+  }
+
+  .solar-price-modal .solar-panel-badge {
+    padding: 4px 6px;
+    font-size: 0.42rem;
+    gap: 4px;
+  }
+
+  .solar-price-modal .solar-panel-badge__icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .solar-price-modal .solar-panel-copy h4 {
+    font-size: 0.88rem;
+    line-height: 1.12;
+  }
+
+  .solar-price-modal .solar-panel-copy p,
+  .solar-price-modal__note,
+  .solar-price-modal__amount small {
+    font-size: 0.62rem;
+    line-height: 1.24;
+  }
+
+  .solar-price-modal__amount {
+    gap: 6px;
+    padding: 13px 12px;
+    border-radius: 16px;
+  }
+
+  .solar-price-modal .solar-summary-price__label {
+    font-size: 0.48rem;
+    letter-spacing: 0.08em;
+  }
+
+  .solar-price-modal__promo-old {
+    font-size: clamp(0.88rem, 4.6vw, 1.14rem);
+  }
+
+  .solar-price-modal__promo-current {
+    gap: 6px;
+  }
+
+  .solar-price-modal__promo-value {
+    font-size: clamp(1.78rem, 8.8vw, 2.35rem);
+  }
+
+  .solar-price-modal__promo-currency {
+    font-size: 0.68rem;
+  }
+
+  .solar-price-modal__promo-save {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.6rem;
+    gap: 6px;
+  }
+
+  .solar-price-modal__promo-save-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .solar-price-modal__promo-save-glyph {
+    width: 9px;
+    height: 9px;
+  }
+
+  .solar-price-modal__amount strong {
+    font-size: clamp(1.52rem, 7.4vw, 2.05rem);
+  }
+
+  .solar-price-modal__note .solar-panel-footnote__icon,
+  .solar-price-modal .solar-payment-cta__glyph,
+  .solar-price-modal__secondary .solar-action-button__icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .solar-price-modal__actions {
+    gap: 8px;
+  }
+
+  .solar-price-modal .solar-payment-cta,
+  .solar-price-modal__secondary {
+    width: min(100%, 258px);
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 12px;
+    font-size: 0.68rem;
+  }
+
+  .solar-price-modal__secondary {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-height: 680px) {
+  .solar-price-modal {
+    max-height: calc(100dvh - 4px);
+    gap: 8px;
+    padding: 14px 12px calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .solar-price-modal .solar-panel-copy h4 {
+    font-size: 0.8rem;
+  }
+
+  .solar-price-modal .solar-panel-copy p,
+  .solar-price-modal__note,
+  .solar-price-modal__amount small {
+    font-size: 0.58rem;
+    line-height: 1.18;
+  }
+
+  .solar-price-modal__amount {
+    padding: 12px 10px;
+  }
+
+  .solar-price-modal__promo-old {
+    font-size: clamp(0.8rem, 4vw, 1rem);
+  }
+
+  .solar-price-modal__promo-value {
+    font-size: clamp(1.62rem, 8vw, 2.05rem);
+  }
+
+  .solar-price-modal__promo-currency {
+    font-size: 0.64rem;
+  }
+
+  .solar-price-modal__promo-save {
+    min-height: 30px;
+    font-size: 0.56rem;
+  }
+
+  .solar-price-modal__actions {
+    gap: 6px;
+  }
+
+  .solar-price-modal .solar-payment-cta,
+  .solar-price-modal__secondary {
+    width: min(100%, 236px);
+    min-height: 36px;
+    font-size: 0.64rem;
+  }
+}
+
+.payment-page-hero-card,
+.payment-page-summary-card,
+.payment-step-card {
+  display: grid;
+  gap: 24px;
+}
+
+.payment-page-hero-card {
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  grid-template-areas:
+    "content panel"
+    "actions panel";
+  align-items: stretch;
+  padding: 34px;
+  border-radius: 32px;
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  background:
+    radial-gradient(circle at top right, rgba(247, 170, 43, 0.12), transparent 26%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.06), transparent 22%),
+    #ffffff;
+  box-shadow: 0 24px 56px rgba(15, 23, 42, 0.08);
+}
+
+.payment-page-hero-card--callback {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(247, 170, 43, 0.08), transparent 22%),
+    #ffffff;
+}
+
+.payment-page-hero-card__content,
+.payment-page-summary-card__header,
+.payment-step-card__header {
+  display: grid;
+  gap: 14px;
+}
+
+.payment-page-hero-card__content {
+  grid-area: content;
+}
+
+.payment-page-hero-card__content h1,
+.payment-page-summary-card__header h2,
+.payment-step-card__header h2 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.payment-page-hero-card__content h1 {
+  font-size: clamp(2.25rem, 4vw, 3.45rem);
+  line-height: 0.98;
+}
+
+.payment-page-hero-card__subtitle {
+  margin: 0;
+  color: #475569;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.payment-page-hero-card__price {
+  display: grid;
+  gap: 8px;
+  padding: 24px 26px;
+  border-radius: 26px;
+  border: 1px solid rgba(247, 170, 43, 0.24);
+  background: linear-gradient(180deg, #fff8ea 0%, #ffffff 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.payment-page-hero-card__price span {
+  color: #9a5d00;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.payment-page-hero-card__price strong {
+  color: #0f172a;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 4vw, 3.4rem);
+  line-height: 0.95;
+}
+
+.payment-page-hero-card__price small {
+  color: #475569;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.payment-page-hero-card__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.payment-page-hero-card__panel {
+  grid-area: panel;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid rgba(30, 64, 175, 0.1);
+  background: linear-gradient(180deg, rgba(240, 246, 255, 0.95) 0%, #ffffff 100%);
+}
+
+.payment-page-hero-card__panel-title {
+  margin: 0;
+  color: #163060;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.payment-page-hero-card__panel-copy {
+  margin: 0;
+  color: #3f4e68;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.payment-page-hero-card__steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: payment-hero-steps;
+}
+
+.payment-page-hero-card__steps li {
+  counter-increment: payment-hero-steps;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+.payment-page-hero-card__steps li::before {
+  content: counter(payment-hero-steps);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f7b733 0%, #f2a81c 100%);
+  color: #061019;
+  font-weight: 800;
+  box-shadow: 0 12px 24px rgba(247, 170, 43, 0.18);
+}
+
+.payment-page-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-areas: "main sidebar";
+  gap: 24px;
+  align-items: start;
+}
+
+.payment-page-sidebar {
+  grid-area: sidebar;
+}
+
+.payment-page-main {
+  grid-area: main;
+  display: grid;
+  gap: 24px;
+}
+
+.payment-page-summary-card {
+  position: sticky;
+  top: 108px;
+  padding: 28px;
+  border-radius: 30px;
+}
+
+.payment-step-card {
+  scroll-margin-top: 110px;
+  padding: 30px;
+  border-radius: 30px;
+}
+
+.payment-step-card__eyebrow {
+  margin: 0;
+  color: #9a5d00;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.payment-step-card--callback {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 24%),
+    #ffffff;
+}
+
+.payment-step-card--callback-teaser {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 24%),
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.payment-step-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.payment-bank-card {
+  display: grid;
+  gap: 0;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 24px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  overflow: hidden;
+}
+
+.payment-bank-card--hero {
+  border-radius: 22px;
+  border-color: rgba(37, 99, 235, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 28px rgba(15, 23, 42, 0.05);
+}
+
+.payment-bank-card__row {
+  display: grid;
+  grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.payment-bank-card__row:last-child {
+  border-bottom: 0;
+}
+
+.payment-bank-card__row span {
+  color: #475569;
+  font-size: 0.92rem;
+}
+
+.payment-bank-card__row strong {
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.payment-bank-card__note {
+  margin: 0;
+  color: #475569;
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.payment-bank-card__note--hero {
+  font-size: 0.88rem;
+  line-height: 1.52;
+}
+
+.payment-summary {
+  display: grid;
+  gap: 18px;
+}
+
+.payment-order-summary-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.payment-order-summary-list div {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  background: linear-gradient(180deg, #ffffff 0%, #fffdfa 100%);
+}
+
+.payment-order-summary-list dt {
+  color: #0f172a;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.payment-order-summary-list dd {
+  margin: 0;
+  color: #475569;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.payment-order-summary-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.payment-order-summary-options li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(247, 170, 43, 0.12);
+  color: #6b3f00;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.payment-order-summary-empty {
+  color: #64748b;
+  font-style: italic;
+}
+
+.payment-booking-form,
+.payment-information-form {
+  display: grid;
+  gap: 18px;
+}
+
+.payment-booking-form__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.payment-booking-form__footer .button {
+  width: max-content;
+  min-width: 320px;
+}
+
+.payment-callback-submit {
+  width: max-content;
+}
+
+.payment-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: #15803d;
+}
+
+.payment-status--error {
+  color: #b42318;
+}
+
+.payment-status--success {
+  color: #15803d;
+}
+
+@media (max-width: 1120px) {
+  .payment-page-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "main";
+  }
+
+  .payment-page-layout--callback-direct {
+    grid-template-areas:
+      "main"
+      "sidebar";
+  }
+
+  .payment-page-summary-card {
+    position: static;
+  }
+}
+
+@media (max-width: 860px) {
+  .payment-page-hero-card,
+  .payment-step-card,
+  .payment-page-summary-card {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .payment-page-hero-card {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "panel"
+      "actions";
+    gap: 20px;
+  }
+
+  .payment-page-hero-card__price {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .payment-page-hero-card__price strong {
+    font-size: clamp(2rem, 8vw, 2.9rem);
+  }
+
+  .payment-bank-card__row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 16px 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .payment-page-hero-card__content h1 {
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+  }
+
+  .payment-page-hero-card__subtitle,
+  .payment-page-hero-card__price small,
+  .payment-bank-card__note,
+  .payment-order-summary-list dd {
+    font-size: 0.9rem;
+  }
+
+  .payment-page-hero-card__steps li {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .payment-page-hero-card__steps li::before {
+    width: 32px;
+    height: 32px;
+    font-size: 0.88rem;
+  }
+
+  .payment-booking-form__footer .button,
+  .payment-step-card__actions .button,
+  .payment-callback-submit,
+  .payment-page-hero-card__actions .button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .solar-step {
+    gap: 12px;
+  }
+
+  .solar-step__heading {
+    gap: 8px;
+  }
+
+  .solar-step__heading h4 {
+    font-size: 1.16rem;
+    line-height: 1.12;
+  }
+
+  .solar-step__meta {
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 0.72rem;
+  }
+
+  .solar-step__body {
+    gap: 14px;
+  }
+
+  .solar-field-group,
+  .solar-field-group--wifi {
+    gap: 14px;
+    padding: 16px 14px;
+    border-radius: 22px;
+  }
+
+  .solar-field-group__header p {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .solar-version-note {
+    display: none;
+  }
+
+  .solar-wizard-nav {
+    gap: 10px;
+    padding-top: 2px;
+  }
+
+  .solar-wizard-nav__button {
+    min-width: 0;
+    min-height: 48px;
+  }
+
+  .solar-wifi-panel__header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .solar-wifi-panel__icon,
+  .solar-wifi-card__icon {
+    display: none;
+  }
+
+  .solar-wifi-panel__copy h5 {
+    font-size: 1.12rem;
+  }
+
+  .solar-wifi-panel__copy p {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .solar-wifi-card {
+    min-height: 0;
+    gap: 6px;
+    padding: 10px 28px 10px 10px;
+    border-radius: 18px;
+  }
+
+  .solar-wifi-card::after {
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    background-size: 12px 12px;
+  }
+
+  .solar-wifi-card__content {
+    gap: 4px;
+    padding-right: 0;
+  }
+
+  .solar-wifi-card__content strong {
+    font-size: 0.82rem;
+    line-height: 1.12;
+  }
+
+  .solar-wifi-card__content span {
+    font-size: 0.6rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 520px) {
+  .solar-configurator__main {
+    gap: 16px;
+  }
+
+  .solar-field-group,
+  .solar-field-group--wifi {
+    gap: 12px;
+    padding: 14px 12px;
+    border-radius: 20px;
+  }
+
+  .solar-field-group__header h5 {
+    font-size: 1.05rem;
+  }
+
+  .solar-field-group__header p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .solar-choice-grid,
+  .solar-version-grid,
+  .solar-wifi-grid {
+    gap: 8px;
+  }
+
+  .solar-choice-card {
+    gap: 6px;
+    padding: 10px 28px 10px 10px;
+    border-radius: 18px;
+  }
+
+  .solar-choice-card::after {
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    box-shadow: inset 0 0 0 1.4px rgba(148, 163, 184, 0.82);
+  }
+
+  .solar-choice-card__title strong {
+    font-size: 0.84rem;
+    line-height: 1.12;
+  }
+
+  .solar-choice-card__title span,
+  .solar-choice-card__meta,
+  .solar-choice-card__hint {
+    font-size: 0.6rem;
+    line-height: 1.2;
+  }
+
+  .solar-choice-card--capacity {
+    gap: 4px;
+    padding: 10px 8px;
+    border-radius: 18px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__symbol {
+    min-height: 40px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__title strong {
+    font-size: 0.96rem;
+    line-height: 1.05;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__title span {
+    display: none;
+  }
+
+  .solar-choice-card__symbol-image--150 {
+    width: 34px;
+  }
+
+  .solar-choice-card__symbol-image--200 {
+    width: 38px;
+  }
+
+  .solar-choice-card__symbol-image--300 {
+    width: 44px;
+  }
+
+  .solar-choice-card--feature,
+  .solar-choice-card--installation {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 10px 28px 10px 10px;
+    column-gap: 0;
+    row-gap: 4px;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__symbol,
+  .solar-choice-card--installation .solar-choice-card__symbol {
+    display: none;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__top,
+  .solar-choice-card--installation .solar-choice-card__top {
+    gap: 4px;
+    padding-right: 0;
+  }
+
+  .solar-choice-card--installation .solar-choice-card__title strong {
+    font-size: 0.8rem;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__meta,
+  .solar-choice-card--feature .solar-choice-card__hint,
+  .solar-choice-card--installation .solar-choice-card__meta,
+  .solar-choice-card--installation .solar-choice-card__hint {
+    display: none;
+  }
+
+  .solar-version-card {
+    gap: 5px;
+    padding: 8px 24px 8px 8px;
+    border-radius: 16px;
+  }
+
+  .solar-version-card__header {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .solar-version-card__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .solar-version-card__icon-svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .solar-version-card__icon .solar-choice-card__symbol-image--filter {
+    width: 19px;
+  }
+
+  .solar-version-card__icon .solar-choice-card__symbol-image--mixer {
+    width: 21px;
+  }
+
+  .solar-version-card__icon .solar-choice-card__symbol-cross {
+    font-size: 1rem;
+  }
+
+  .solar-version-card__copy {
+    gap: 2px;
+  }
+
+  .solar-version-card__title-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding-right: 0;
+  }
+
+  .solar-version-card__title-row strong {
+    font-size: 0.74rem;
+    line-height: 1.08;
+  }
+
+  .solar-version-card__subtitle {
+    font-size: 0.54rem;
+    line-height: 1.16;
+  }
+
+  .solar-version-card__chips {
+    display: none;
+  }
+
+  .solar-version-card--technical {
+    gap: 5px;
+    padding: 8px 24px 8px 8px;
+    border-radius: 16px;
+  }
+
+  .solar-version-card--technical .solar-version-card__header {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .solar-version-card--technical .solar-version-card__copy {
+    gap: 2px;
+  }
+
+  .solar-version-card--technical .solar-version-card__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .solar-version-card--technical .solar-version-card__icon-svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .solar-version-card--technical .solar-version-card__title-row {
+    gap: 2px;
+    padding-right: 26px;
+  }
+
+  .solar-version-card--technical .solar-version-card__title-row strong {
+    font-size: 0.68rem;
+    line-height: 1.08;
+  }
+
+  .solar-version-card--technical .solar-version-card__subtitle {
+    font-size: 0.49rem;
+    line-height: 1.16;
+  }
+}
+
+@media (max-width: 460px) {
+  .solar-progress-sidebar__card {
+    padding: 10px 10px 8px;
+  }
+
+  .solar-progress-sidebar__header p,
+  .solar-progress__helper {
+    display: none;
+  }
+
+  .solar-field-group__header p {
+    display: none;
+  }
+
+  .solar-wizard-nav__button {
+    min-height: 44px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 920px) {
+  .solar-configurator {
+    gap: 18px;
+  }
+
+  .solar-configurator__main.solar-configurator__main--plain {
+    gap: 10px;
+  }
+
+  .solar-progress-sidebar__card {
+    gap: 16px;
+    padding: 20px 18px;
+    border-radius: 24px;
+  }
+
+  .solar-progress-sidebar__header h4 {
+    font-size: 1.16rem;
+  }
+
+  .solar-progress-sidebar__header p {
+    font-size: 0.84rem;
+  }
+
+  .solar-progress__content {
+    padding: 8px 0 14px;
+  }
+
+  .solar-progress__content strong {
+    font-size: 0.9rem;
+  }
+
+  .solar-progress__helper {
+    font-size: 0.7rem;
+  }
+
+  .solar-step {
+    gap: 10px;
+  }
+
+  .solar-step--wizard {
+    min-height: calc(100dvh - 184px);
+    align-content: start;
+  }
+
+  .solar-step__heading {
+    gap: 8px;
+    align-items: center;
+  }
+
+  .solar-step__heading h4 {
+    margin-bottom: 0;
+    font-size: 1.28rem;
+    line-height: 1.14;
+  }
+
+  .solar-step--wizard .solar-step__intro {
+    display: none;
+  }
+
+  .solar-step__index {
+    min-width: 38px;
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 0.84rem;
+  }
+
+  .solar-step__meta {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.76rem;
+  }
+
+  .solar-step__body {
+    gap: 12px;
+    grid-template-rows: 1fr auto;
+  }
+
+  .solar-field-group,
+  .solar-field-group--wifi {
+    gap: 14px;
+    padding: 18px 18px 16px;
+    border-radius: 22px;
+  }
+
+  .solar-field-group__header h5 {
+    font-size: 1.32rem;
+  }
+
+  .solar-field-group__header p {
+    font-size: 0.88rem;
+    line-height: 1.42;
+  }
+
+  .solar-choice-grid,
+  .solar-choice-grid--feature,
+  .solar-choice-grid--decision,
+  .solar-version-grid,
+  .solar-wifi-grid {
+    gap: 12px;
+  }
+
+  .solar-choice-card {
+    gap: 8px;
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .solar-choice-card::after {
+    top: 14px;
+    right: 14px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .solar-choice-card__title strong {
+    font-size: 1rem;
+  }
+
+  .solar-choice-card__title span,
+  .solar-choice-card__meta,
+  .solar-choice-card__hint {
+    font-size: 0.82rem;
+    line-height: 1.42;
+  }
+
+  .solar-choice-card--capacity {
+    gap: 10px;
+    min-height: 198px;
+    padding: 18px 14px 16px;
+    border-radius: 24px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__symbol {
+    min-height: 76px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__title {
+    gap: 6px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__title strong {
+    font-size: 1.58rem;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__title span {
+    font-size: 0.84rem;
+  }
+
+  .solar-choice-card__symbol-image--150 {
+    width: 76px;
+  }
+
+  .solar-choice-card__symbol-image--200 {
+    width: 86px;
+  }
+
+  .solar-choice-card__symbol-image--300 {
+    width: 100px;
+  }
+
+  .solar-choice-card--feature {
+    min-height: 126px;
+    grid-template-columns: 68px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 8px;
+    padding: 16px;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__symbol {
+    width: 68px;
+    min-width: 68px;
+    height: 68px;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__top {
+    padding-right: 34px;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__title strong {
+    font-size: 1.08rem;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__title span {
+    font-size: 0.84rem;
+  }
+
+  .solar-choice-card--feature .solar-choice-card__feature-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .solar-choice-card--installation {
+    min-height: 134px;
+  }
+
+  .solar-choice-card--installation .solar-choice-card__symbol {
+    width: 64px;
+    min-width: 64px;
+    height: 64px;
+  }
+
+  .solar-choice-card--installation .solar-choice-card__top {
+    gap: 6px;
+    padding-right: 40px;
+  }
+
+  .solar-choice-card--installation .solar-choice-card__title strong {
+    font-size: 1rem;
+  }
+
+  .solar-choice-card--installation .solar-choice-card__title span {
+    font-size: 0.82rem;
+    line-height: 1.38;
+  }
+
+  .solar-choice-card--installation .solar-choice-card__badge {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.66rem;
+  }
+
+  .solar-version-card {
+    gap: 14px;
+    min-height: 214px;
+    padding: 20px 18px 18px;
+    border-radius: 24px;
+  }
+
+  .solar-version-card__header {
+    gap: 14px;
+    min-height: 82px;
+  }
+
+  .solar-version-card__icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .solar-version-card__icon-svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .solar-version-card__icon .solar-choice-card__symbol-image--filter {
+    width: 34px;
+  }
+
+  .solar-version-card__icon .solar-choice-card__symbol-image--mixer {
+    width: 40px;
+  }
+
+  .solar-version-card__copy {
+    min-height: 82px;
+    gap: 6px;
+  }
+
+  .solar-version-card__title-row {
+    gap: 10px;
+    padding-right: 34px;
+    min-height: 42px;
+  }
+
+  .solar-version-card__title-row strong {
+    font-size: 1.44rem;
+    line-height: 1.14;
+  }
+
+  .solar-version-card__subtitle {
+    font-size: 0.9rem;
+    line-height: 1.42;
+  }
+
+  .solar-version-card__chips {
+    gap: 8px;
+  }
+
+  .solar-version-card__chip {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 0.84rem;
+  }
+
+  .solar-version-card--technical {
+    min-height: 194px;
+    gap: 14px;
+    padding: 18px 18px 16px;
+  }
+
+  .solar-version-card--technical .solar-version-card__header,
+  .solar-version-card--technical .solar-version-card__copy {
+    min-height: 74px;
+  }
+
+  .solar-version-card--technical .solar-version-card__icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .solar-version-card--technical .solar-version-card__icon-svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .solar-version-card--technical .solar-version-card__title-row {
+    padding-right: 42px;
+  }
+
+  .solar-version-card--technical .solar-version-card__title-row strong {
+    font-size: 1.18rem;
+  }
+
+  .solar-version-card--technical .solar-version-card__subtitle {
+    font-size: 0.84rem;
+    line-height: 1.36;
+  }
+
+  .solar-version-card--technical .solar-version-card__chips {
+    gap: 8px;
+  }
+
+  .solar-version-card--technical .solar-version-card__chip {
+    min-height: 34px;
+    font-size: 0.8rem;
+  }
+
+  .solar-version-compare {
+    font-size: 0.94rem;
+  }
+
+  .solar-version-note {
+    padding-top: 12px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .solar-wifi-panel__header {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .solar-wifi-panel__icon {
+    width: 68px;
+    height: 68px;
+  }
+
+  .solar-wifi-panel__icon-svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .solar-wifi-panel__copy h5 {
+    font-size: 1.4rem;
+  }
+
+  .solar-wifi-panel__copy p {
+    font-size: 0.88rem;
+    line-height: 1.42;
+  }
+
+  .solar-wifi-card {
+    min-height: 154px;
+    gap: 12px;
+    padding: 16px 16px 14px;
+    border-radius: 22px;
+  }
+
+  .solar-wifi-card::after {
+    top: 14px;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+    background-size: 14px 14px;
+  }
+
+  .solar-wifi-card__icon {
+    width: 62px;
+    height: 62px;
+  }
+
+  .solar-wifi-card__icon-svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .solar-wifi-card__content {
+    gap: 6px;
+    padding-right: 34px;
+  }
+
+  .solar-wifi-card__content strong {
+    font-size: 1.18rem;
+    line-height: 1.14;
+  }
+
+  .solar-wifi-card__content span {
+    font-size: 0.84rem;
+    line-height: 1.36;
+  }
+
+  .solar-wizard-nav {
+    gap: 10px;
+    padding-top: 0;
+  }
+
+  .solar-wizard-nav__button {
+    min-width: 160px;
+    min-height: 52px;
+  }
+
+  .payment-page-layout,
+  .payment-page-main {
+    gap: 18px;
+  }
+
+  .payment-page-hero-card {
+    gap: 18px;
+    padding: 26px;
+    border-radius: 28px;
+  }
+
+  .payment-page-hero-card__content h1 {
+    font-size: clamp(2rem, 3vw, 2.8rem);
+  }
+
+  .payment-page-hero-card__subtitle {
+    font-size: 0.94rem;
+  }
+
+  .payment-page-hero-card__price {
+    gap: 6px;
+    padding: 18px 20px;
+    border-radius: 22px;
+  }
+
+  .payment-page-hero-card__price strong {
+    font-size: clamp(2rem, 3.4vw, 2.9rem);
+  }
+
+  .payment-page-hero-card__price small {
+    font-size: 0.88rem;
+    line-height: 1.42;
+  }
+
+  .payment-page-hero-card__panel {
+    gap: 14px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .payment-page-hero-card__steps {
+    gap: 10px;
+  }
+
+  .payment-page-hero-card__steps li {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    line-height: 1.46;
+  }
+
+  .payment-page-hero-card__steps li::before {
+    width: 34px;
+    height: 34px;
+  }
+
+  .payment-page-summary-card,
+  .payment-step-card {
+    padding: 24px;
+    border-radius: 26px;
+  }
+
+  .payment-page-summary-card {
+    top: 92px;
+  }
+
+  .payment-step-card {
+    scroll-margin-top: 92px;
+  }
+
+  .payment-bank-card__row {
+    padding: 14px 18px;
+  }
+
+  .payment-bank-card__note,
+  .payment-order-summary-list dd {
+    font-size: 0.88rem;
+    line-height: 1.46;
+  }
+
+  .payment-order-summary-list {
+    gap: 10px;
+  }
+
+  .payment-order-summary-list div {
+    gap: 6px;
+    padding: 14px 16px;
+    border-radius: 18px;
+  }
+
+  .payment-booking-form,
+  .payment-information-form {
+    gap: 14px;
+  }
+
+  .payment-booking-form__footer .button,
+  .payment-callback-submit {
+    min-width: 260px;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 840px) {
+  .solar-step--wizard {
+    min-height: calc(100dvh - 168px);
+  }
+
+  .solar-field-group__header p,
+  .solar-wifi-panel__copy p,
+  .solar-version-note {
+    display: none;
+  }
+
+  .solar-choice-card--capacity {
+    min-height: 182px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__symbol {
+    min-height: 68px;
+  }
+
+  .solar-choice-card--capacity .solar-choice-card__title strong {
+    font-size: 1.44rem;
+  }
+
+  .solar-version-card {
+    min-height: 196px;
+  }
+
+  .solar-version-card__chips {
+    gap: 6px;
+  }
+
+  .solar-version-card__chip {
+    min-height: 32px;
+    font-size: 0.78rem;
+  }
+
+  .solar-version-card--technical {
+    min-height: 182px;
+  }
+
+  .solar-wifi-card {
+    min-height: 138px;
+  }
+
+  .solar-wizard-nav__button {
+    min-height: 48px;
+  }
+
+  .payment-page-hero-card {
+    padding: 22px;
+  }
+
+  .payment-page-hero-card__content h1 {
+    font-size: clamp(1.78rem, 2.8vw, 2.45rem);
+  }
+
+  .payment-page-hero-card__panel,
+  .payment-page-summary-card,
+  .payment-step-card {
+    padding: 20px;
   }
 }

@@ -8,7 +8,11 @@
   const successModalBackdrop = successModal?.querySelector(".payment-success-modal__backdrop");
   const successModalCloseButton = successModal?.querySelector(".payment-success-modal__close");
   const summaryNode = document.querySelector("[data-payment-summary]");
+  const heroPriceNode = document.querySelector("[data-payment-hero-price]");
+  const callbackPageLinks = document.querySelectorAll("[data-callback-page-link]");
+  const bankTransferPageLinks = document.querySelectorAll("[data-bank-transfer-page-link]");
   const params = new URLSearchParams(window.location.search);
+
   let bookingSubmissionPending = false;
   let bookingSubmissionTimer = null;
 
@@ -25,6 +29,18 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  function trackMetaCustomEvent(eventName) {
+    if (typeof window.fbq === "undefined") {
+      return;
+    }
+
+    try {
+      window.fbq("trackCustom", eventName);
+    } catch (error) {
+      console.error("Meta Pixel custom event failed:", error);
+    }
   }
 
   function getNumberParam(key) {
@@ -56,6 +72,40 @@
       console.error("Impossible de lire les options de la commande :", error);
       return [];
     }
+  }
+
+  function buildCurrentFlowUrl(path) {
+    const url = new URL(path, window.location.href);
+    url.search = params.toString();
+    return url.toString();
+  }
+
+  function getFinalPrice(summary) {
+    return summary.payNowPrice ?? summary.standardPrice;
+  }
+
+  function getPriceNote(summary) {
+    if (summary.discount > 0 && summary.paymentMode === "payNow") {
+      return `La remise immédiate de ${formatCurrency(summary.discount)} DHS est déjà incluse dans ce montant.`;
+    }
+
+    if (summary.paymentMode === "payLater") {
+      return "Ce montant correspond au prix final TTC à régler par virement.";
+    }
+
+    return "Ce montant correspond au prix final TTC de votre commande.";
+  }
+
+  function getSelectedOptions(summary) {
+    const baseItems = new Set([
+      `${summary.capacity} ${summary.model}`.trim(),
+      summary.installation,
+    ]);
+
+    return summary.features.filter((feature) => {
+      const normalizedFeature = String(feature || "").trim();
+      return normalizedFeature && !baseItems.has(normalizedFeature);
+    });
   }
 
   function setHiddenField(form, fieldName, value) {
@@ -129,44 +179,32 @@
     document.body.style.overflow = "";
   }
 
-  function validatePreinstallationPhotos(form, statusNode) {
-    const photoInput = form?.querySelector("#payment-preinstallation-photos");
+  function validateTransferReceipt(form, statusNode) {
+    const receiptInput = form?.querySelector("#payment-transfer-receipt");
 
-    if (!photoInput) {
+    if (!receiptInput || !receiptInput.files?.length) {
       return true;
     }
 
-    if (!photoInput.files?.length) {
-      return true;
-    }
+    const files = Array.from(receiptInput.files || []);
 
-    const files = Array.from(photoInput.files || []);
-
-    if (!files.length) {
-      setStatus(statusNode, "Merci d'ajouter au moins une photo de préinstallation.", "error");
-      photoInput.focus();
+    if (files.length > 1) {
+      setStatus(statusNode, "Merci d'ajouter une seule photo du reçu bancaire.", "error");
+      receiptInput.focus();
       return false;
     }
 
-    if (files.length > 5) {
-      setStatus(statusNode, "Merci de sélectionner au maximum 5 photos de préinstallation.", "error");
-      photoInput.focus();
+    const [file] = files;
+
+    if ((file.size || 0) > 10 * 1024 * 1024) {
+      setStatus(statusNode, "La photo du reçu bancaire doit rester inférieure à 10 Mo.", "error");
+      receiptInput.focus();
       return false;
     }
 
-    const totalSize = files.reduce((sum, file) => sum + (file.size || 0), 0);
-
-    if (totalSize > 10 * 1024 * 1024) {
-      setStatus(statusNode, "La taille totale des photos doit rester inférieure à 10 Mo.", "error");
-      photoInput.focus();
-      return false;
-    }
-
-    const invalidFile = files.find((file) => file.type && !file.type.startsWith("image/"));
-
-    if (invalidFile) {
-      setStatus(statusNode, "Merci d'ajouter uniquement des photos au format image.", "error");
-      photoInput.focus();
+    if (file.type && !file.type.startsWith("image/")) {
+      setStatus(statusNode, "Merci d'ajouter uniquement une photo du reçu bancaire.", "error");
+      receiptInput.focus();
       return false;
     }
 
@@ -184,7 +222,7 @@
     setHiddenField(form, "selected_distance", summary.distance);
     setHiddenField(form, "selected_distance_band", summary.distanceBand);
     setHiddenField(form, "selected_installation_mode", summary.installation);
-    setHiddenField(form, "selected_features", summary.features.join(" | "));
+    setHiddenField(form, "selected_features", getSelectedOptions(summary).join(" | "));
     setHiddenField(form, "standard_price_ttc", summary.standardPrice !== null ? `${summary.standardPrice} DHS TTC` : "");
     setHiddenField(form, "pay_now_total_ttc", summary.payNowPrice !== null ? `${summary.payNowPrice} DHS TTC` : "");
     setHiddenField(form, "discount_value", summary.discount > 0 ? `${summary.discount} DHS` : "");
@@ -200,6 +238,13 @@
     setHiddenField(bookingForm, "_next", getBookingSuccessUrl());
   }
 
+  function hydrateInformationForm(summary) {
+    fillSummaryFields(informationForm, summary);
+    fillVisibleField(informationForm, "#information-full-name", summary.fullName);
+    fillVisibleField(informationForm, "#information-phone", summary.phone);
+    setHiddenField(informationForm, "email", summary.email);
+  }
+
   function clearBookingPendingState() {
     bookingSubmissionPending = false;
 
@@ -213,9 +258,10 @@
 
   function finalizeBookingSuccess(summary) {
     clearBookingPendingState();
+    trackMetaCustomEvent("BankTransferSubmitted");
     setStatus(
       bookingStatus,
-      bookingForm?.dataset.successMessage || "Merci. Votre demande liée au virement a bien été reçue.",
+      bookingForm?.dataset.successMessage || "Merci. Votre confirmation de virement a bien été reçue.",
       "success",
     );
 
@@ -224,12 +270,12 @@
     openSuccessModal();
   }
 
-  async function submitForm(form, statusNode) {
+  async function submitForm(form, statusNode, summary) {
     const submitButton = form.querySelector('[type="submit"]');
     const sendingMessage = form.dataset.sendingMessage || "Envoi en cours...";
     const successMessage = form.dataset.successMessage || "Merci. Votre demande a bien été reçue.";
     const errorMessage = form.dataset.errorMessage || "L'envoi n'a pas abouti. Merci de réessayer.";
-    const defaultLabel = submitButton?.textContent || "Envoyer";
+    const defaultLabel = submitButton?.textContent?.trim() || "Envoyer";
 
     setStatus(statusNode, "");
 
@@ -253,6 +299,8 @@
         form.reset();
 
         if (form === informationForm) {
+          trackMetaCustomEvent("NeedMoreInfo");
+          hydrateInformationForm(summary);
           openSuccessModal();
         }
       } else {
@@ -264,9 +312,138 @@
     } finally {
       if (submitButton) {
         submitButton.disabled = false;
-        submitButton.textContent = defaultLabel.trim();
+        submitButton.textContent = defaultLabel;
       }
     }
+  }
+
+  function renderHeroPrice(summary) {
+    if (!heroPriceNode) {
+      return;
+    }
+
+    const finalPrice = getFinalPrice(summary);
+
+    if (finalPrice === null) {
+      heroPriceNode.innerHTML = `
+        <span>Montant final</span>
+        <strong>À confirmer</strong>
+        <small>Revenez au configurateur pour afficher le montant final de votre commande.</small>
+      `;
+      return;
+    }
+
+    heroPriceNode.innerHTML = `
+      <span>Montant final</span>
+      <strong>${formatCurrency(finalPrice)} DHS TTC</strong>
+      <small>${escapeHtml(getPriceNote(summary))}</small>
+    `;
+  }
+
+  function renderSummary(summary) {
+    if (!summaryNode) {
+      return;
+    }
+
+    const finalPrice = getFinalPrice(summary);
+
+    if (finalPrice === null) {
+      summaryNode.innerHTML = `
+        <p class="payment-empty-state">
+          Reprenez le configurateur pour calculer votre commande avant de confirmer votre virement.
+        </p>
+      `;
+      return;
+    }
+
+    const selectedOptions = getSelectedOptions(summary);
+    const optionsMarkup = selectedOptions.length
+      ? `
+          <ul class="payment-order-summary-options">
+            ${selectedOptions.map((option) => `<li>${escapeHtml(option)}</li>`).join("")}
+          </ul>
+        `
+      : '<span class="payment-order-summary-empty">Aucune option supplémentaire</span>';
+
+    summaryNode.innerHTML = `
+      <div class="payment-summary-price">
+        <span class="payment-summary-price__label">Prix final TTC</span>
+        <strong>${formatCurrency(finalPrice)} DHS TTC</strong>
+        <p>${escapeHtml(getPriceNote(summary))}</p>
+      </div>
+
+      <dl class="payment-order-summary-list">
+        <div>
+          <dt>Produit</dt>
+          <dd>Chauffe-eau solaire</dd>
+        </div>
+        <div>
+          <dt>Capacité</dt>
+          <dd>${escapeHtml(summary.capacity)}</dd>
+        </div>
+        <div>
+          <dt>Version</dt>
+          <dd>${escapeHtml(summary.model)}</dd>
+        </div>
+        <div>
+          <dt>Ville / site</dt>
+          <dd>${escapeHtml(summary.location)}</dd>
+        </div>
+        <div>
+          <dt>Installation</dt>
+          <dd>${escapeHtml(summary.installation)}</dd>
+        </div>
+        <div>
+          <dt>Options sélectionnées</dt>
+          <dd>${optionsMarkup}</dd>
+        </div>
+      </dl>
+    `;
+  }
+
+  function hydratePageLinks() {
+    const callbackUrl = buildCurrentFlowUrl("rappel-avant-paiement.html");
+    const bankTransferUrl = buildCurrentFlowUrl("paiement-virement-installation.html");
+
+    callbackPageLinks.forEach((link) => {
+      link.href = callbackUrl;
+    });
+
+    bankTransferPageLinks.forEach((link) => {
+      link.href = bankTransferUrl;
+    });
+  }
+
+  function trackPaymentIntent(summary) {
+    const finalPrice = getFinalPrice(summary);
+
+    if (document.body.dataset.paymentFlow !== "bank-transfer") {
+      return;
+    }
+
+    if (summary.paymentMode !== "payNow" || finalPrice === null) {
+      return;
+    }
+
+    const trackingKey = [
+      "aventron-payment-intent",
+      summary.capacity,
+      summary.model,
+      summary.location,
+      String(finalPrice),
+    ].join("|");
+
+    try {
+      if (window.sessionStorage.getItem(trackingKey)) {
+        return;
+      }
+
+      window.sessionStorage.setItem(trackingKey, "1");
+    } catch (error) {
+      console.warn("Session storage unavailable for PaymentIntent tracking:", error);
+    }
+
+    trackMetaCustomEvent("PaymentIntent");
   }
 
   const summary = {
@@ -286,66 +463,12 @@
     email: getTextParam("email"),
   };
 
-  if (summaryNode) {
-    if (summary.standardPrice === null && summary.payNowPrice === null) {
-      summaryNode.innerHTML = `
-        <p class="payment-empty-state">
-          Reprenez le configurateur pour calculer votre commande avant de payer ou de demander plus d'informations.
-        </p>
-      `;
-    } else {
-      summaryNode.innerHTML = `
-        <div class="payment-summary-price">
-          <span class="payment-summary-price__label">Montant final TTC</span>
-          <strong>${formatCurrency(summary.payNowPrice ?? summary.standardPrice)} DHS TTC</strong>
-          <p>
-            ${
-              summary.discount > 0
-                ? `La remise immédiate de ${formatCurrency(summary.discount)} DHS est déjà incluse dans ce montant.`
-                : summary.paymentMode === "payLater"
-                  ? "Vous pourrez payer ce montant plus tard par virement."
-                  : "Ce montant correspond à votre prix final TTC."
-            }
-          </p>
-        </div>
-
-        <dl class="payment-summary-list">
-          <div>
-            <dt>Produit</dt>
-            <dd>${escapeHtml(summary.capacity)} ${escapeHtml(summary.model)}</dd>
-          </div>
-          <div>
-            <dt>Ville / site</dt>
-            <dd>${escapeHtml(summary.location)}</dd>
-          </div>
-          <div>
-            <dt>Installation</dt>
-            <dd>${escapeHtml(summary.installation)}</dd>
-          </div>
-        </dl>
-
-        ${
-          summary.features.length
-            ? `
-                <div>
-                  <h3>Ce que vous recevrez</h3>
-                  <ul class="payment-feature-list">
-                    ${summary.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join("")}
-                  </ul>
-                </div>
-              `
-            : ""
-        }
-      `;
-    }
-  }
-
+  renderHeroPrice(summary);
+  renderSummary(summary);
+  hydratePageLinks();
   hydrateBookingForm(summary);
-  fillSummaryFields(informationForm, summary);
-
-  fillVisibleField(informationForm, "#information-full-name", summary.fullName);
-  fillVisibleField(informationForm, "#information-phone", summary.phone);
-  fillVisibleField(informationForm, "#information-email", summary.email);
+  hydrateInformationForm(summary);
+  trackPaymentIntent(summary);
 
   if (bookingForm && bookingStatus && bookingFrame) {
     window.addEventListener("message", (event) => {
@@ -361,7 +484,7 @@
     bookingForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      if (!validatePreinstallationPhotos(bookingForm, bookingStatus)) {
+      if (!validateTransferReceipt(bookingForm, bookingStatus)) {
         return;
       }
 
@@ -411,7 +534,7 @@
   if (informationForm && informationStatus) {
     informationForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      await submitForm(informationForm, informationStatus);
+      await submitForm(informationForm, informationStatus, summary);
     });
   }
 })();

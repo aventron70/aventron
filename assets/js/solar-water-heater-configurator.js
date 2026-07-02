@@ -29,6 +29,7 @@
 
   const CALLBACK_ACCESS_KEY = "4de3406d-49da-47a1-9e30-e5f9ae41aace";
   const BANK_TRANSFER_PAGE_PATH = "paiement-virement-installation.html";
+  const CALLBACK_PAGE_PATH = "rappel-avant-paiement.html";
 
   const CITY_REFERENCE_DATA = [
     { label: "Casablanca", aliases: ["casa"], latitude: 33.5731, longitude: -7.5898 },
@@ -112,6 +113,18 @@
     return new Intl.NumberFormat("fr-MA", {
       maximumFractionDigits: 0,
     }).format(value);
+  }
+
+  function trackMetaCustomEvent(eventName) {
+    if (typeof window === "undefined" || typeof window.fbq !== "function") {
+      return;
+    }
+
+    try {
+      window.fbq("trackCustom", eventName);
+    } catch (error) {
+      console.error("Meta Pixel custom event failed:", error);
+    }
   }
 
   function haversineDistance(fromLatitude, fromLongitude, toLatitude, toLongitude) {
@@ -251,11 +264,7 @@
         priceSummary: null,
         validationErrors: [],
         customerErrors: [],
-        configMessage: {
-          type: "info",
-          title: "",
-          text: "Répondez aux questions pour afficher uniquement le prix final TTC.",
-        },
+        configMessage: null,
         customerMessage: null,
         customer: {
           fullName: "",
@@ -425,11 +434,12 @@
           this.render();
           break;
         case "price-popup-more-info":
+          trackMetaCustomEvent("IneedmoreInfo");
           this.state.isPricePopupOpen = false;
-          this.goToWizardStep("payment", { force: true });
+          this.goToCallbackFlow(this.getImmediatePaymentOfferSummary(this.state.priceSummary) ? "payNow" : "payLater");
           break;
         case "request-callback":
-          this.submitCallbackRequest();
+          this.goToCallbackFlow(this.getImmediatePaymentOfferSummary(this.state.priceSummary) ? "payNow" : "payLater");
           break;
         case "previous-step":
           this.goToPreviousStep();
@@ -775,11 +785,7 @@
     resetPriceIfConfigurationChanges() {
       if (!this.state.priceCalculated) {
         if (!this.state.validationErrors.length) {
-          this.state.configMessage = {
-            type: "info",
-            title: "",
-            text: "Répondez aux questions pour afficher uniquement le prix final TTC.",
-          };
+          this.state.configMessage = null;
         }
         return;
       }
@@ -1151,6 +1157,8 @@
       };
       this.state.currentStepId = "payment";
 
+      trackMetaCustomEvent("ConfigurationCompleted");
+
       this.render();
       this.scrollToStep("payment");
     }
@@ -1255,11 +1263,11 @@
       return items;
     }
 
-    buildBankTransferPageUrl(paymentMode = "payNow") {
+    buildCustomerFlowPageUrl(path, paymentMode = "payNow") {
       const summary = this.getDisplayedSummary();
       const paymentOffer = this.getImmediatePaymentOfferSummary(summary);
       const deferredTransfer = this.getDeferredBankTransferSummary(summary);
-      const url = new URL(BANK_TRANSFER_PAGE_PATH, window.location.href);
+      const url = new URL(path, window.location.href);
 
       if (!summary) {
         return url.toString();
@@ -1300,6 +1308,14 @@
       return url.toString();
     }
 
+    buildBankTransferPageUrl(paymentMode = "payNow") {
+      return this.buildCustomerFlowPageUrl(BANK_TRANSFER_PAGE_PATH, paymentMode);
+    }
+
+    buildCallbackPageUrl(paymentMode = "payNow") {
+      return this.buildCustomerFlowPageUrl(CALLBACK_PAGE_PATH, paymentMode);
+    }
+
     goToBankTransferFlow(paymentMode = "payNow") {
       if (!this.state.priceCalculated) {
         this.state.customerMessage = {
@@ -1337,7 +1353,15 @@
         }
       }
 
+      if (paymentMode === "payNow") {
+        trackMetaCustomEvent("PayNow");
+      }
+
       window.location.assign(this.buildBankTransferPageUrl(paymentMode));
+    }
+
+    goToCallbackFlow(paymentMode = "payNow") {
+      window.location.assign(this.buildCallbackPageUrl(paymentMode));
     }
 
     scrollToFinalPrice() {
@@ -1624,7 +1648,7 @@
           name: "model",
           selectedValue: this.state.model,
           compareLabel: "Comparer les fonctionnalités",
-          noteText: "Vous pourrez continuer la configuration après avoir choisi une version.",
+          noteText: "",
           cards: [
             {
               value: "standard",
@@ -1872,10 +1896,16 @@
             ${renderUiIcon("arrow-right", "solar-version-compare__arrow")}
           </button>
 
-          <p class="solar-version-note">
-            ${renderUiIcon("info", "solar-version-note__icon")}
-            <span>${escapeHtml(config.noteText)}</span>
-          </p>
+          ${
+            config.noteText
+              ? `
+                  <p class="solar-version-note">
+                    ${renderUiIcon("info", "solar-version-note__icon")}
+                    <span>${escapeHtml(config.noteText)}</span>
+                  </p>
+                `
+              : ""
+          }
         </div>
       `;
     }
@@ -2957,13 +2987,6 @@
               "Choisissez la ville dans la liste ou laissez-nous la détecter via GPS.",
               `
                 <div class="solar-location-card">
-                  <div class="solar-location-card__intro">
-                    <div class="solar-panel-badge solar-panel-badge--amber">
-                      ${renderUiIcon("pin", "solar-panel-badge__icon")}
-                      <span>Ville d'installation</span>
-                    </div>
-                    <p>Sélectionnez votre ville dans la liste ou utilisez votre localisation GPS.</p>
-                  </div>
                   <div class="contact-form__field solar-contact-field solar-contact-field--location">
                     <label for="solar-installation-city">Ville d'installation</label>
                     <div class="solar-input-shell solar-input-shell--location">
@@ -2982,20 +3005,17 @@
                             `<option value="${escapeHtml(city)}" ${this.state.city === city ? "selected" : ""}>${escapeHtml(city)}</option>`
                         ).join("")}
                       </select>
+                      <button
+                        type="button"
+                        class="solar-input-shell__action"
+                        data-action="use-location"
+                        aria-label="${this.state.isLocating ? "Localisation GPS en cours" : "Utiliser ma localisation GPS"}"
+                        title="${this.state.isLocating ? "Localisation GPS en cours" : "Utiliser ma localisation GPS"}"
+                        ${this.state.isLocating ? "disabled" : ""}
+                      >
+                        ${renderUiIcon("target", "solar-input-shell__action-icon")}
+                      </button>
                     </div>
-                  </div>
-                  <div class="solar-location-actions solar-location-actions--single">
-                    <button
-                      type="button"
-                      class="button button--secondary solar-action-button"
-                      data-action="use-location"
-                      ${this.state.isLocating ? "disabled" : ""}
-                    >
-                      <span class="solar-action-button__group">
-                        ${renderUiIcon("target", "solar-action-button__icon")}
-                        <span>${this.state.isLocating ? "Localisation GPS en cours..." : "Utiliser ma localisation GPS"}</span>
-                      </span>
-                    </button>
                   </div>
                 </div>
               `,
@@ -4109,14 +4129,7 @@
 
       this.innerHTML = `
         <div class="solar-configurator">
-          <div class="glass-card solar-configurator__main">
-            <div class="solar-configurator__header">
-              <div>
-                <h3>Commencez la configuration</h3>
-              </div>
-              <span class="solar-configurator__status">${headerStatus}</span>
-            </div>
-
+          <div class="solar-configurator__main solar-configurator__main--plain">
             ${this.renderFlashMessage(this.state.configMessage, this.state.validationErrors)}
             ${this.renderCurrentWizardStep()}
           </div>

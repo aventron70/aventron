@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rappel avant paiement | Aventron Technologies</title>
+    <meta
+      name="description"
+      content="Demandez un rappel avant de payer votre chauffe-eau solaire Aventron Technologies."
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.aventrontechnologies.ma/rappel-avant-paiement.html" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/css/pages.css" />
+    <link rel="stylesheet" href="assets/css/solar-configurator.css" />
+    <style>
+      /* Prevent page-level scrolling and make the main card fit the viewport */
+      html, body { height: 100%; overflow: hidden; }
+      /* Hide header/footer on this page to maximize available vertical space */
+      .landing-header, .site-footer { display: none !important; }
+      .payment-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem 0; }
+      .payment-page-layout { width: 100%; max-width: 1200px; display: flex; gap: 1rem; }
+      .payment-page-main { flex: 1; }
+      .payment-step-card { width: 100%; max-height: calc(100vh - 20px); padding: 20px 28px; box-sizing: border-box; display:flex; flex-direction:column; justify-content:space-between; }
+      .payment-step-card__header h2 { font-size: 1.6rem; line-height:1.1; }
+      .contact-form__grid { gap: 12px; }
+      .payment-step-card__actions { margin-top: 12px; display:flex; gap:16px; }
+    </style>
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "988197560578933");
+      fbq("track", "PageView");
+    </script>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body class="landing-page page-shell page-payment-white" data-payment-flow="callback">
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=988197560578933&amp;ev=PageView&amp;noscript=1"
+        alt=""
+      />
+    </noscript>
+
+    <header class="landing-header">
+      <div class="container landing-header__inner">
+        <a class="brand" href="index.html" aria-label="Aventron Technologies">
+          <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
+        </a>
+        <nav class="landing-nav" aria-label="Navigation principale">
+          <a href="index.html">Accueil</a>
+          <div class="nav-dropdown">
+            <a class="nav-dropdown__trigger" href="solutions.html">Solutions</a>
+            <div class="nav-dropdown__menu" role="menu" aria-label="Solutions">
+              <a href="chauffe-eau-solaires.html">Chauffe-eau solaires</a>
+              <a href="chauffe-eau-electriques.html">Chauffe-eau &eacute;lectriques</a>
+              <a href="solutions-industrielles.html">Chauffe-eau industriels</a>
+              <a href="photovoltaique.html">Photovolta&iuml;que</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <a class="nav-dropdown__trigger" href="secteurs.html">Secteurs</a>
+            <div class="nav-dropdown__menu" role="menu" aria-label="Secteurs">
+              <a href="particuliers.html">Particuliers</a>
+              <a href="professionnels.html">Professionnels</a>
+              <a href="industriel.html">Industriel</a>
+            </div>
+          </div>
+          <a href="projets.html">Projets</a>
+          <a href="entreprise.html">Entreprise</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="button button--small button--ghost" href="contact.html">Nous contacter</a>
+      </div>
+    </header>
+
+    <main class="payment-page">
+      <section class="section">
+        <div class="container payment-page-layout payment-page-layout--callback-direct">
+          <!-- Sidebar removed as requested: 'Votre commande' column omitted -->
+
+          <div class="payment-page-main">
+            <article class="glass-card payment-step-card payment-step-card--callback" id="formulaire-rappel">
+              <div class="payment-step-card__header">
+                <p class="payment-step-card__eyebrow">Demande de rappel avant virement</p>
+                <h2>Vous pr&eacute;f&eacute;rez &ecirc;tre rappel&eacute; avant de payer ?</h2>
+                <p style="color:#000000;">
+                  Vous avez une question avant de faire le virement ? Laissez vos coordonn&eacute;es et notre &eacute;quipe
+                  vous rappelle rapidement.
+                </p>
+              </div>
+
+              <form
+                class="contact-form payment-information-form"
+                id="payment-information-form"
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                data-sending-message="Envoi en cours..."
+                data-success-message="Merci. Votre demande de rappel a bien &eacute;t&eacute; re&ccedil;ue."
+                data-error-message="L&#39;envoi n&#39;a pas abouti. Merci de r&eacute;essayer."
+              >
+                <input type="hidden" name="access_key" value="4de3406d-49da-47a1-9e30-e5f9ae41aace" />
+                <input type="hidden" name="subject" value="Demande de rappel avant paiement - Chauffe-eau solaire" />
+                <input type="hidden" name="from_name" value="Aventron Technologies Website" />
+                <input type="hidden" name="source_page" value="Rappel avant paiement chauffe-eau solaire" />
+                <input type="hidden" name="selected_capacity" />
+                <input type="hidden" name="selected_model" />
+                <input type="hidden" name="selected_location" />
+                <input type="hidden" name="selected_distance_band" />
+                <input type="hidden" name="selected_features" />
+                <input type="hidden" name="standard_price_ttc" />
+                <input type="hidden" name="payment_mode" />
+                <input type="hidden" name="email" />
+
+                <div class="contact-form__grid">
+                  <div class="contact-form__field">
+                    <label for="information-full-name">Nom complet</label>
+                    <input id="information-full-name" name="full_name" type="text" required />
+                  </div>
+                  <div class="contact-form__field">
+                    <label for="information-phone">T&eacute;l&eacute;phone</label>
+                    <input id="information-phone" name="phone" type="tel" required />
+                  </div>
+                  <div class="contact-form__field contact-form__field--full">
+                    <label for="information-message">Message optionnel</label>
+                    <textarea
+                      id="information-message"
+                      name="message"
+                      rows="4"
+                      placeholder="Dites-nous ce que vous souhaitez clarifier avant le paiement."
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="payment-step-card__actions">
+                  <button class="button button--primary payment-callback-submit" type="submit">
+                    Envoyer
+                  </button>
+                  <a class="button button--ghost" href="paiement-virement-installation.html" data-bank-transfer-page-link>
+                    Retour &agrave; la page de virement
+                  </a>
+                </div>
+
+                <p class="contact-form__success payment-status" id="payment-information-status" aria-live="polite"></p>
+              </form>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="payment-success-modal" id="payment-success-modal" hidden>
+      <button class="payment-success-modal__backdrop" type="button" aria-label="Fermer la confirmation"></button>
+      <div class="payment-success-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="payment-success-title">
+        <button class="payment-success-modal__close" type="button" aria-label="Fermer la confirmation">&times;</button>
+        <div class="payment-success-modal__hero" aria-hidden="true">
+          <span class="payment-success-modal__sun"></span>
+          <span class="payment-success-modal__spark payment-success-modal__spark--left"></span>
+          <span class="payment-success-modal__spark payment-success-modal__spark--right"></span>
+          <span class="payment-success-modal__leaf payment-success-modal__leaf--left"></span>
+          <span class="payment-success-modal__leaf payment-success-modal__leaf--right"></span>
+          <div class="payment-success-modal__badge">
+            <span class="payment-success-modal__badge-ring"></span>
+            <span class="payment-success-modal__check"></span>
+          </div>
+        </div>
+        <div class="payment-success-modal__copy">
+          <h2 id="payment-success-title">Nous avons bien re&ccedil;u votre demande</h2>
+          <span class="payment-success-modal__divider"></span>
+          <p>On va vous contacter d&egrave;s que possible.</p>
+        </div>
+        <div class="payment-success-modal__scene" aria-hidden="true">
+          <span class="payment-success-modal__hill payment-success-modal__hill--one"></span>
+          <span class="payment-success-modal__hill payment-success-modal__hill--two"></span>
+          <span class="payment-success-modal__cloud"></span>
+          <span class="payment-success-modal__plant payment-success-modal__plant--right"></span>
+          <span class="payment-success-modal__plant payment-success-modal__plant--left"></span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <img class="site-footer__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
+          <p class="site-footer__text">
+            Aventron Technologies propose des chauffe-eau solaires avec &eacute;tude, installation et accompagnement au Maroc.
+          </p>
+        </div>
+        <div class="site-footer__links">
+          <strong class="site-footer__links-title">Solutions</strong>
+          <a href="solutions.html">Toutes les solutions</a>
+          <a href="chauffe-eau-solaires.html">Chauffe-eau solaires</a>
+          <a href="photovoltaique.html">Photovolta&iuml;que</a>
+        </div>
+        <div class="site-footer__meta">
+          <a href="contact.html">Nous contacter</a>
+          <a href="tel:+212722667235">+212 722 667 235</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/solar-bank-transfer-page.js" defer></script>
+  </body>
+</html>
