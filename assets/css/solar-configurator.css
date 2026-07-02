@@ -209,6 +209,15 @@ solar-water-heater-configurator {
   outline: none;
 }
 
+.solar-progress__item:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.solar-progress__item--available .solar-progress__content strong {
+  color: #475569;
+}
+
 .solar-progress__marker {
   position: relative;
   display: flex;
@@ -346,9 +355,39 @@ solar-water-heater-configurator {
   font-weight: 800;
 }
 
+.solar-step__meta {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(247, 170, 43, 0.1);
+  color: #9a5d00;
+  font-size: 0.84rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .solar-step__body {
   display: grid;
   gap: 22px;
+}
+
+.solar-wizard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 6px;
+}
+
+.solar-wizard-nav__spacer {
+  flex: 1 1 0;
+}
+
+.solar-wizard-nav__button {
+  min-width: 180px;
 }
 
 .solar-field-group {
@@ -1861,6 +1900,13 @@ solar-water-heater-configurator {
   color: #0f172a;
 }
 
+.contact-form__hint {
+  margin: 0;
+  color: #667085;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 .solar-configurator .contact-form input,
 .solar-configurator .contact-form textarea,
 .solar-configurator .contact-form select,
@@ -1870,6 +1916,11 @@ solar-water-heater-configurator {
   border: 1px solid rgba(15, 23, 42, 0.12);
   background: #ffffff;
   color: #0f172a;
+}
+
+.solar-configurator .contact-form input[type="file"],
+.page-payment-white .contact-form input[type="file"] {
+  padding: 12px 14px;
 }
 
 .solar-configurator .contact-form input:focus,
@@ -2027,8 +2078,14 @@ solar-water-heater-configurator {
 }
 
 .solar-panel-copy--info h4 {
-  font-size: clamp(1.5rem, 1.9vw, 2.02rem);
-  line-height: 1.16;
+  max-width: 14ch;
+  font-size: clamp(1.36rem, 1.62vw, 1.78rem);
+  line-height: 1.18;
+}
+
+.solar-panel-copy--info p {
+  max-width: 42ch;
+  font-size: 0.98rem;
 }
 
 .solar-summary-card__price,
@@ -2053,10 +2110,10 @@ solar-water-heater-configurator {
 
 .solar-payment-breakdown {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 22px;
-  align-items: center;
-  padding: 22px 24px;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: start;
+  padding: 18px;
   border-radius: 28px;
   border: 1px solid rgba(247, 170, 43, 0.18);
   background: linear-gradient(180deg, rgba(255, 248, 235, 0.86) 0%, #ffffff 100%);
@@ -2065,57 +2122,116 @@ solar-water-heater-configurator {
 .solar-payment-breakdown__icon {
   display: grid;
   place-items: center;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
   color: #d99000;
   background: linear-gradient(180deg, #fff9ee 0%, #fff4d8 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 18px 34px rgba(247, 170, 43, 0.16);
+    0 12px 24px rgba(247, 170, 43, 0.14);
 }
 
 .solar-payment-breakdown__glyph {
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
 }
 
 .solar-payment-breakdown__rows {
   display: grid;
+  gap: 10px;
 }
 
 .solar-payment-breakdown__row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 18px;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #ffffff;
 }
 
 .solar-payment-breakdown__row:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
+  padding-bottom: 14px;
 }
 
 .solar-payment-breakdown__row:first-child {
-  padding-top: 0;
+  padding-top: 14px;
 }
 
-.solar-payment-breakdown__row span {
-  color: #22304a;
+.solar-payment-breakdown__row--primary {
+  border-color: rgba(247, 170, 43, 0.22);
+  background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%);
+}
+
+.solar-payment-breakdown__old-price {
+  position: relative;
+  display: inline-block;
+  width: max-content;
+  max-width: 100%;
+  color: #667085;
+  font-family: var(--font-display);
   font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
-.solar-payment-breakdown__row strong {
+.solar-payment-breakdown__old-price::after {
+  content: "";
+  position: absolute;
+  left: -3%;
+  right: -3%;
+  top: 50%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff4036 0%, #ff1d1d 100%);
+  transform: rotate(-10deg);
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.18);
+}
+
+.solar-payment-breakdown__row--secondary {
+  border-color: rgba(148, 163, 184, 0.14);
+}
+
+.solar-payment-breakdown__row--discount {
+  border-color: rgba(22, 163, 74, 0.14);
+  background: linear-gradient(180deg, #f4fff7 0%, #ffffff 100%);
+}
+
+.solar-payment-breakdown__row--surcharge {
+  border-color: rgba(214, 137, 0, 0.16);
+  background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%);
+}
+
+.solar-payment-breakdown__label {
+  color: #8a5a00;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.solar-payment-breakdown__row--secondary .solar-payment-breakdown__label {
+  color: #5b6577;
+}
+
+.solar-payment-breakdown__value {
   color: #0f172a;
-  font-size: 1.04rem;
-  text-align: right;
-  white-space: nowrap;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+.solar-payment-breakdown__row--primary .solar-payment-breakdown__value {
+  font-size: clamp(1.52rem, 2.2vw, 1.9rem);
+  line-height: 1.08;
 }
 
 .solar-payment-breakdown__value--success {
   color: #16a34a;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .solar-payment-breakdown__value--accent {
@@ -2246,7 +2362,7 @@ solar-water-heater-configurator {
 .solar-customer-actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
+  gap: 0;
 }
 
 .solar-info-button,
@@ -2259,26 +2375,33 @@ solar-water-heater-configurator {
 }
 
 .solar-info-button {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  width: 100%;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 14px;
-  color: #1f45c6;
-  border-color: rgba(37, 99, 235, 0.1);
-  background: linear-gradient(180deg, #f5f8ff 0%, #eef4ff 100%);
-  box-shadow: none;
+  color: #ffffff;
+  border: 0;
+  background: linear-gradient(135deg, #2f58de 0%, #1f43bf 100%);
+  box-shadow: 0 18px 34px rgba(37, 99, 235, 0.24);
 }
 
 .solar-info-button:disabled {
-  opacity: 0.72;
+  opacity: 0.78;
   cursor: progress;
+  box-shadow: none;
 }
 
 .solar-info-button span:last-child {
   display: block;
-  text-align: left;
-  line-height: 1.38;
+  max-width: 22ch;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.32;
+}
+
+.solar-info-button__icon {
+  opacity: 0.96;
 }
 
 .solar-contact-link {
@@ -2302,13 +2425,15 @@ solar-water-heater-configurator {
 }
 
 .page-payment-white {
-  background: #ffffff;
+  background:
+    radial-gradient(circle at top left, rgba(103, 228, 255, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(247, 170, 43, 0.12), transparent 24%),
+    linear-gradient(180deg, #07111d 0%, #0d1827 45%, #12182a 100%);
 }
 
-.page-payment-white .page-shell,
 .page-payment-white main,
 .page-payment-white .section {
-  background: #ffffff;
+  background: transparent;
 }
 
 .payment-page-hero {
@@ -2431,6 +2556,435 @@ solar-water-heater-configurator {
 .payment-status {
   min-height: 1.4em;
   color: #15803d;
+}
+
+.payment-status--error {
+  color: #b42318;
+}
+
+.payment-status--success {
+  color: #15803d;
+}
+
+.payment-success-modal[hidden] {
+  display: none !important;
+}
+
+.payment-success-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.payment-success-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(15, 23, 42, 0.36);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+}
+
+.payment-success-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 860px);
+  min-height: min(78vh, 840px);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 22px;
+  padding: 34px 34px 0;
+  border-radius: 36px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(circle at top right, rgba(247, 170, 43, 0.08), transparent 20%),
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.06), transparent 18%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
+  box-shadow: 0 42px 90px rgba(15, 23, 42, 0.24);
+}
+
+.payment-success-modal__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  background: transparent;
+  color: #667085;
+  font-size: 3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.payment-success-modal__hero {
+  position: relative;
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.payment-success-modal__badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(218, 241, 228, 0.95) 0%, rgba(234, 247, 239, 0.88) 58%, rgba(255, 255, 255, 0) 59%);
+}
+
+.payment-success-modal__badge-ring {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 4px solid #1f6f4d;
+}
+
+.payment-success-modal__check {
+  position: absolute;
+  width: 36px;
+  height: 18px;
+  border-left: 5px solid #1f6f4d;
+  border-bottom: 5px solid #1f6f4d;
+  transform: rotate(-45deg) translateY(-4px);
+}
+
+.payment-success-modal__sun {
+  position: absolute;
+  top: 8px;
+  right: 31%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffd566 0%, #f7b52b 100%);
+  box-shadow: 0 0 0 10px rgba(247, 181, 43, 0.12);
+}
+
+.payment-success-modal__sun::before,
+.payment-success-modal__sun::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 3px dashed rgba(247, 181, 43, 0.86);
+}
+
+.payment-success-modal__sun::after {
+  inset: -20px;
+  border-width: 2px;
+  opacity: 0.7;
+}
+
+.payment-success-modal__spark {
+  position: absolute;
+  top: 72px;
+  width: 54px;
+  height: 4px;
+  border-radius: 999px;
+  background: #1f6f4d;
+}
+
+.payment-success-modal__spark--left {
+  left: 31%;
+  transform: rotate(42deg);
+}
+
+.payment-success-modal__spark--right {
+  right: 29%;
+  transform: rotate(-22deg);
+}
+
+.payment-success-modal__leaf {
+  position: absolute;
+  width: 46px;
+  height: 24px;
+  background: linear-gradient(135deg, #8bc37f 0%, #4d8d54 100%);
+  border-radius: 100% 0;
+}
+
+.payment-success-modal__leaf::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 16%;
+  width: 68%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.72);
+  transform: rotate(34deg);
+  transform-origin: left center;
+}
+
+.payment-success-modal__leaf--left {
+  left: 36%;
+  bottom: 28px;
+  transform: rotate(24deg);
+}
+
+.payment-success-modal__leaf--right {
+  left: 33%;
+  bottom: 14px;
+  transform: rotate(72deg) scale(0.88);
+}
+
+.payment-success-modal__copy {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.payment-success-modal__copy h2 {
+  margin: 0;
+  max-width: 14ch;
+  color: #1f6f4d;
+  font-size: clamp(2.2rem, 4.4vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.payment-success-modal__divider {
+  width: 108px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8bc37f 0%, #4d8d54 100%);
+}
+
+.payment-success-modal__copy p {
+  margin: 0;
+  max-width: 20ch;
+  color: #334155;
+  font-size: clamp(1.08rem, 2.1vw, 1.8rem);
+  line-height: 1.45;
+}
+
+.payment-success-modal__scene {
+  position: relative;
+  min-height: 170px;
+  margin: 0 -34px;
+  pointer-events: none;
+}
+
+.payment-success-modal__hill {
+  position: absolute;
+  bottom: -34px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(236, 244, 236, 0.88) 0%, rgba(221, 236, 222, 0.76) 100%);
+}
+
+.payment-success-modal__hill--one {
+  left: 18%;
+  width: 460px;
+  height: 150px;
+}
+
+.payment-success-modal__hill--two {
+  right: -120px;
+  width: 440px;
+  height: 156px;
+  background: linear-gradient(180deg, rgba(241, 246, 239, 0.9) 0%, rgba(226, 237, 224, 0.78) 100%);
+}
+
+.payment-success-modal__cloud {
+  position: absolute;
+  left: 50%;
+  bottom: 84px;
+  width: 78px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(228, 236, 225, 0.94);
+}
+
+.payment-success-modal__cloud::before,
+.payment-success-modal__cloud::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  border-radius: 50%;
+  background: rgba(228, 236, 225, 0.94);
+}
+
+.payment-success-modal__cloud::before {
+  left: 8px;
+  width: 22px;
+  height: 22px;
+}
+
+.payment-success-modal__cloud::after {
+  right: 14px;
+  width: 28px;
+  height: 28px;
+}
+
+.payment-success-modal__plant {
+  position: absolute;
+  bottom: 12px;
+  width: 42px;
+  height: 82px;
+}
+
+.payment-success-modal__plant::before,
+.payment-success-modal__plant::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 14px;
+  border-radius: 100% 0;
+  background: linear-gradient(135deg, #9cc88d 0%, #5b9964 100%);
+}
+
+.payment-success-modal__plant--right {
+  right: 24px;
+}
+
+.payment-success-modal__plant--right::before {
+  right: 10px;
+  bottom: 32px;
+  transform: rotate(34deg);
+}
+
+.payment-success-modal__plant--right::after {
+  right: 0;
+  bottom: 14px;
+  transform: rotate(72deg);
+}
+
+.payment-success-modal__plant--left {
+  left: 70%;
+  bottom: 68px;
+  width: 24px;
+  height: 24px;
+}
+
+.payment-success-modal__plant--left::before {
+  inset: auto auto 0 0;
+  width: 13px;
+  height: 13px;
+  transform: rotate(26deg);
+}
+
+.payment-success-modal__plant--left::after {
+  inset: 2px 0 auto auto;
+  width: 12px;
+  height: 12px;
+  transform: rotate(88deg);
+}
+
+@media (max-width: 860px) {
+  .payment-success-modal {
+    padding: 14px;
+  }
+
+  .payment-success-modal__dialog {
+    width: min(100%, 420px);
+    min-height: auto;
+    gap: 14px;
+    padding: 18px 16px 0;
+    border-radius: 24px;
+  }
+
+  .payment-success-modal__close {
+    top: 12px;
+    right: 12px;
+    width: 48px;
+    height: 48px;
+    font-size: 2.4rem;
+  }
+
+  .payment-success-modal__hero {
+    min-height: 110px;
+  }
+
+  .payment-success-modal__badge {
+    width: 96px;
+    height: 96px;
+  }
+
+  .payment-success-modal__badge-ring {
+    width: 52px;
+    height: 52px;
+    border-width: 3px;
+  }
+
+  .payment-success-modal__check {
+    width: 22px;
+    height: 11px;
+    border-left-width: 3px;
+    border-bottom-width: 3px;
+  }
+
+  .payment-success-modal__sun {
+    top: 14px;
+    right: 22%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .payment-success-modal__spark {
+    top: 56px;
+    width: 30px;
+  }
+
+  .payment-success-modal__leaf--left {
+    left: 28%;
+    bottom: 16px;
+  }
+
+  .payment-success-modal__leaf--right {
+    left: 24%;
+    bottom: 8px;
+  }
+
+  .payment-success-modal__copy h2 {
+    font-size: clamp(1.58rem, 7vw, 2.2rem);
+  }
+
+  .payment-success-modal__copy p {
+    font-size: 0.94rem;
+  }
+
+  .payment-success-modal__scene {
+    min-height: 110px;
+    margin: 0 -16px;
+  }
+
+  .payment-success-modal__hill--one {
+    left: 8%;
+    width: 250px;
+    height: 94px;
+  }
+
+  .payment-success-modal__hill--two {
+    right: -80px;
+    width: 230px;
+    height: 86px;
+  }
+
+  .payment-success-modal__cloud {
+    left: 50%;
+    bottom: 48px;
+    width: 52px;
+    height: 12px;
+  }
+
+  .payment-success-modal__plant--right {
+    right: 10px;
+    bottom: 2px;
+  }
+
+  .payment-success-modal__plant--left {
+    left: 66%;
+    bottom: 42px;
+  }
 }
 
 @media (max-width: 1120px) {
@@ -2611,6 +3165,26 @@ solar-water-heater-configurator {
     gap: 16px;
     padding: 18px 16px;
     border-radius: 24px;
+  }
+
+  .solar-step__meta {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .solar-wizard-nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .solar-wizard-nav__button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .solar-wizard-nav__spacer {
+    display: none;
   }
 
   .solar-progress-sidebar__header {
@@ -3126,31 +3700,40 @@ solar-water-heater-configurator {
   }
 
   .solar-payment-breakdown {
-    gap: 16px;
-    padding: 18px 16px;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 16px 14px;
   }
 
   .solar-payment-breakdown__icon {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
   }
 
   .solar-payment-breakdown__glyph {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
   }
 
   .solar-payment-breakdown__row {
-    gap: 12px;
-    padding: 12px 0;
+    gap: 4px;
+    padding: 12px 14px;
   }
 
-  .solar-payment-breakdown__row span {
-    font-size: 0.92rem;
+  .solar-payment-breakdown__label {
+    font-size: 0.7rem;
   }
 
-  .solar-payment-breakdown__row strong {
-    font-size: 0.96rem;
+  .solar-payment-breakdown__old-price {
+    font-size: 0.88rem;
+  }
+
+  .solar-payment-breakdown__value {
+    font-size: 1rem;
+  }
+
+  .solar-payment-breakdown__row--primary .solar-payment-breakdown__value {
+    font-size: 1.34rem;
   }
 
   .solar-input-shell,
@@ -3179,10 +3762,9 @@ solar-water-heater-configurator {
   }
 
   .solar-info-button {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    justify-content: center;
     text-align: center;
-    gap: 8px;
+    gap: 10px;
   }
 
   .solar-info-button span:last-child {
@@ -3244,6 +3826,10 @@ solar-water-heater-configurator {
 
   .solar-configurator__header h3 {
     font-size: 1.48rem;
+  }
+
+  .solar-step__heading h4 {
+    font-size: 1.28rem;
   }
 
   .solar-configurator__header p {
@@ -4287,30 +4873,38 @@ solar-water-heater-configurator {
 
   .solar-payment-breakdown {
     grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 20px 18px;
+    gap: 0;
+    padding: 16px 14px;
   }
 
   .solar-payment-breakdown__icon {
-    width: 72px;
-    height: 72px;
+    width: 48px;
+    height: 48px;
   }
 
   .solar-payment-breakdown__glyph {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
 
   .solar-payment-breakdown__row {
-    gap: 12px;
+    padding: 11px 12px;
   }
 
-  .solar-payment-breakdown__row span {
-    font-size: 0.96rem;
+  .solar-payment-breakdown__label {
+    font-size: 0.68rem;
   }
 
-  .solar-payment-breakdown__row strong {
-    font-size: 1rem;
+  .solar-payment-breakdown__old-price {
+    font-size: 0.82rem;
+  }
+
+  .solar-payment-breakdown__value {
+    font-size: 0.98rem;
+  }
+
+  .solar-payment-breakdown__row--primary .solar-payment-breakdown__value {
+    font-size: 1.24rem;
   }
 
   .solar-contact-form .contact-form__grid {
@@ -4339,14 +4933,13 @@ solar-water-heater-configurator {
   }
 
   .solar-info-button {
-    grid-template-columns: auto minmax(0, 1fr);
-    justify-items: start;
-    text-align: left;
+    justify-content: center;
+    text-align: center;
     gap: 12px;
   }
 
   .solar-info-button span:last-child {
-    text-align: left;
+    text-align: center;
   }
 
   .solar-compare-modal {

@@ -262,6 +262,7 @@
           phone: "",
           email: "",
         },
+        currentStepId: "capacity",
         callbackSubmitting: false,
         activeCompareModal: "",
         isPricePopupOpen: false,
@@ -425,14 +426,19 @@
           break;
         case "price-popup-more-info":
           this.state.isPricePopupOpen = false;
-          this.render();
-          this.scrollToStep("payment");
+          this.goToWizardStep("payment", { force: true });
           break;
         case "request-callback":
           this.submitCallbackRequest();
           break;
+        case "previous-step":
+          this.goToPreviousStep();
+          break;
+        case "next-step":
+          this.goToNextStep();
+          break;
         case "jump-to-step":
-          this.scrollToStep(actionNode.dataset.stepTarget);
+          this.goToWizardStep(actionNode.dataset.stepTarget);
           break;
         case "open-version-compare":
           this.state.activeCompareModal = "version";
@@ -463,6 +469,298 @@
       this.state.plumbingSetup = "";
     }
 
+    isLocationStepComplete() {
+      const distanceDetails = this.calculateDistance();
+      return Boolean(distanceDetails && distanceDetails.status === "known");
+    }
+
+    isWifiStepRelevant() {
+      return this.state.installationMode === "withInstallation" && this.state.model === "smart";
+    }
+
+    isWifiStepComplete() {
+      if (!this.isWifiStepRelevant()) {
+        return true;
+      }
+
+      return this.state.roofWifi === "yes" || (this.state.roofWifi === "no" && Boolean(this.state.wifiSetup));
+    }
+
+    isElectricityStepRelevant() {
+      return this.state.installationMode === "withInstallation";
+    }
+
+    isElectricityStepComplete() {
+      if (!this.isElectricityStepRelevant()) {
+        return true;
+      }
+
+      return Boolean(this.state.roofElectricity);
+    }
+
+    isPlumbingStepRelevant() {
+      return this.state.installationMode === "withInstallation";
+    }
+
+    isPlumbingStepComplete() {
+      if (!this.isPlumbingStepRelevant()) {
+        return true;
+      }
+
+      return this.state.roofPlumbing === "yes" || (this.state.roofPlumbing === "no" && Boolean(this.state.plumbingSetup));
+    }
+
+    isConfigurationReadyForReview() {
+      const withInstallation = this.state.installationMode === "withInstallation";
+
+      return Boolean(
+        this.state.capacity &&
+          this.state.model &&
+          this.state.waterFilter &&
+          this.state.mixer &&
+          this.state.installationMode &&
+          this.isLocationStepComplete() &&
+          (!withInstallation || (this.isElectricityStepComplete() && this.isPlumbingStepComplete())) &&
+          this.isWifiStepComplete()
+      );
+    }
+
+    getWizardSteps() {
+      const steps = [
+        { id: "capacity", title: "Capacité souhaitée" },
+        { id: "version", title: "Version" },
+        { id: "water-filter", title: "Filtre à eau" },
+        { id: "mixer", title: "Mélangeur" },
+        { id: "installation-mode", title: "Installation" },
+        { id: "installation-city", title: "Ville d'installation" },
+      ];
+
+      if (this.isWifiStepRelevant()) {
+        steps.push({ id: "roof-wifi", title: "Wi-Fi sur le toit" });
+      }
+
+      if (this.isElectricityStepRelevant()) {
+        steps.push({ id: "roof-electricity", title: "Électricité sur le toit" });
+      }
+
+      if (this.isPlumbingStepRelevant()) {
+        steps.push({ id: "roof-plumbing", title: "Préinstallation plomberie" });
+      }
+
+      steps.push({ id: "payment", title: "Paiement et rappel" });
+
+      return steps;
+    }
+
+    getLastConfigurationStepId() {
+      const steps = this.getWizardSteps().filter((step) => step.id !== "payment");
+      return steps[steps.length - 1]?.id || "capacity";
+    }
+
+    getWizardStepIndex(stepId) {
+      return this.getWizardSteps().findIndex((step) => step.id === stepId);
+    }
+
+    getCurrentWizardStep() {
+      const steps = this.getWizardSteps();
+      return steps.find((step) => step.id === this.state.currentStepId) || steps[0] || null;
+    }
+
+    isWizardStepSatisfied(stepId) {
+      switch (stepId) {
+        case "capacity":
+          return Boolean(this.state.capacity);
+        case "version":
+          return Boolean(this.state.model);
+        case "water-filter":
+          return Boolean(this.state.waterFilter);
+        case "mixer":
+          return Boolean(this.state.mixer);
+        case "installation-mode":
+          return Boolean(this.state.installationMode);
+        case "installation-city":
+          return this.isLocationStepComplete();
+        case "roof-wifi":
+          return this.isWifiStepComplete();
+        case "roof-electricity":
+          return this.isElectricityStepComplete();
+        case "roof-plumbing":
+          return this.isPlumbingStepComplete();
+        case "summary":
+          return this.isConfigurationReadyForReview();
+        case "total-price":
+          return Boolean(this.state.priceCalculated && this.state.priceSummary);
+        case "payment":
+          return Boolean(this.state.priceCalculated && this.state.priceSummary);
+        default:
+          return false;
+      }
+    }
+
+    getWizardStepValidationMessage(stepId) {
+      switch (stepId) {
+        case "capacity":
+          return "Choisissez une capacité avant de continuer.";
+        case "version":
+          return "Choisissez une version avant de continuer.";
+        case "water-filter":
+          return "Choisissez avec ou sans filtre à eau avant de continuer.";
+        case "mixer":
+          return "Choisissez avec ou sans mélangeur avant de continuer.";
+        case "installation-mode":
+          return "Choisissez avec installation ou livraison uniquement avant de continuer.";
+        case "installation-city": {
+          const distanceDetails = this.calculateDistance();
+
+          if (!this.state.city.trim() && !this.state.coordinates) {
+            return "Choisissez votre ville dans la liste ou utilisez votre localisation GPS.";
+          }
+
+          if (distanceDetails && distanceDetails.status === "unknown") {
+            return "Choisissez une ville valide dans la liste ou utilisez votre localisation GPS.";
+          }
+
+          return "Choisissez une ville valide avant de continuer.";
+        }
+        case "roof-wifi":
+          return this.state.roofWifi === "no" && !this.state.wifiSetup
+            ? "Choisissez si vous souhaitez ajouter l'installation Wi-Fi sur le toit."
+            : "Indiquez si le Wi-Fi est disponible sur le toit.";
+        case "roof-electricity":
+          return "Indiquez si l'électricité est disponible sur le toit.";
+        case "roof-plumbing":
+          return this.state.roofPlumbing === "no" && !this.state.plumbingSetup
+            ? "Choisissez si vous souhaitez ajouter la préinstallation plomberie."
+            : "Indiquez si la préinstallation eau chaude / eau froide existe sur le toit.";
+        case "summary": {
+          const errors = this.validateConfiguration();
+          return errors[0] || "Complétez la configuration avant de continuer.";
+        }
+        case "total-price":
+          return 'Cliquez sur "Calculer le prix final" pour passer à l\'étape suivante.';
+        case "payment":
+          return "Calculez d'abord le prix final pour afficher le paiement et la demande de rappel.";
+        default:
+          return "Complétez cette étape avant de continuer.";
+      }
+    }
+
+    canAccessWizardStep(stepId) {
+      if (stepId === "payment" && !this.state.priceCalculated) {
+        return false;
+      }
+
+      const steps = this.getWizardSteps();
+      const targetIndex = steps.findIndex((step) => step.id === stepId);
+
+      if (targetIndex === -1) {
+        return false;
+      }
+
+      for (let index = 0; index < targetIndex; index += 1) {
+        if (!this.isWizardStepSatisfied(steps[index].id)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    syncCurrentStepId() {
+      const steps = this.getWizardSteps();
+      const lastConfigurationStepId = this.getLastConfigurationStepId();
+
+      if (!steps.length) {
+        this.state.currentStepId = "capacity";
+        return;
+      }
+
+      const currentVisible = steps.some((step) => step.id === this.state.currentStepId);
+
+      if (currentVisible && this.canAccessWizardStep(this.state.currentStepId)) {
+        return;
+      }
+
+      const firstIncompleteConfigurationStep = steps.find(
+        (step) => step.id !== "payment" && !this.isWizardStepSatisfied(step.id)
+      );
+
+      if (firstIncompleteConfigurationStep) {
+        this.state.currentStepId = firstIncompleteConfigurationStep.id;
+        return;
+      }
+
+      this.state.currentStepId = this.state.priceCalculated ? "payment" : lastConfigurationStepId;
+    }
+
+    setWizardStepError(text) {
+      this.state.configMessage = {
+        type: "warning",
+        title: "Complétez cette étape",
+        text,
+      };
+      this.state.validationErrors = [];
+    }
+
+    goToWizardStep(stepId, options = {}) {
+      const steps = this.getWizardSteps();
+      const targetStep = steps.find((step) => step.id === stepId);
+
+      if (!targetStep) {
+        this.syncCurrentStepId();
+        this.render();
+        return;
+      }
+
+      if (!options.force && !this.canAccessWizardStep(stepId)) {
+        const currentStep = this.getCurrentWizardStep();
+        this.setWizardStepError(this.getWizardStepValidationMessage(currentStep?.id || targetStep.id));
+        this.render();
+        return;
+      }
+
+      this.state.currentStepId = stepId;
+      this.state.validationErrors = [];
+      this.render();
+      this.scrollToStep(stepId);
+    }
+
+    goToPreviousStep() {
+      const steps = this.getWizardSteps();
+      const currentIndex = steps.findIndex((step) => step.id === this.state.currentStepId);
+
+      if (currentIndex <= 0) {
+        return;
+      }
+
+      this.state.currentStepId = steps[currentIndex - 1].id;
+      this.state.validationErrors = [];
+      this.render();
+      this.scrollToStep(this.state.currentStepId);
+    }
+
+    goToNextStep() {
+      const steps = this.getWizardSteps();
+      const currentIndex = steps.findIndex((step) => step.id === this.state.currentStepId);
+
+      if (currentIndex === -1 || currentIndex >= steps.length - 1) {
+        return;
+      }
+
+      const currentStepId = steps[currentIndex].id;
+
+      if (!this.isWizardStepSatisfied(currentStepId)) {
+        this.setWizardStepError(this.getWizardStepValidationMessage(currentStepId));
+        this.render();
+        return;
+      }
+
+      this.state.currentStepId = steps[currentIndex + 1].id;
+      this.state.validationErrors = [];
+      this.render();
+      this.scrollToStep(this.state.currentStepId);
+    }
+
     onConfigurationUpdated() {
       this.state.validationErrors = [];
       this.state.customerErrors = [];
@@ -470,6 +768,7 @@
       this.state.isPricePopupOpen = false;
       this.enforceInstallationAvailability();
       this.resetPriceIfConfigurationChanges();
+      this.syncCurrentStepId();
       this.render();
     }
 
@@ -850,9 +1149,10 @@
         title: "Prix final prêt",
         text: "Votre prix final TTC est disponible ci-dessous. Vous pouvez poursuivre vers le virement ou demander plus d'informations.",
       };
+      this.state.currentStepId = "payment";
 
       this.render();
-      this.scrollToFinalPrice();
+      this.scrollToStep("payment");
     }
 
     getDisplayedSummary() {
@@ -2099,83 +2399,803 @@
       `;
     }
 
-    getStepOverviewItems() {
+    getConfigurationPreview() {
       const distanceDetails = this.calculateDistance();
       const withInstallation = this.state.installationMode === "withInstallation";
-      const installationModeComplete = Boolean(this.state.installationMode);
-      const smartWifiRelevant = installationModeComplete && withInstallation && this.state.model === "smart";
-      const capacityComplete = Boolean(this.state.capacity);
-      const versionComplete = Boolean(this.state.model);
-      const locationComplete = Boolean(distanceDetails && distanceDetails.status === "known");
-      const wifiComplete =
-        !installationModeComplete
-          ? false
-          : !smartWifiRelevant
-            ? true
-            : this.state.roofWifi === "yes" ||
-              (this.state.roofWifi === "no" && Boolean(this.state.wifiSetup));
-      const electricityComplete = !installationModeComplete ? false : !withInstallation || Boolean(this.state.roofElectricity);
-      const plumbingComplete =
-        !installationModeComplete
-          ? false
-          : !withInstallation ||
-            this.state.roofPlumbing === "yes" ||
-            (this.state.roofPlumbing === "no" && Boolean(this.state.plumbingSetup));
-      const summaryComplete = Boolean(
-        this.state.capacity &&
-          this.state.model &&
-          this.state.waterFilter &&
-          this.state.mixer &&
-          this.state.installationMode &&
-          locationComplete &&
-          (!withInstallation || (wifiComplete && electricityComplete && plumbingComplete))
+
+      return {
+        capacityLabel: this.state.capacity ? `${this.state.capacity} L` : "",
+        modelLabel: this.state.model === "smart" ? "Smart connectée" : this.state.model === "standard" ? "Standard" : "",
+        waterFilterLabel:
+          this.state.waterFilter === "with"
+            ? "Avec filtre à eau"
+            : this.state.waterFilter === "without"
+              ? "Sans filtre à eau"
+              : "",
+        mixerLabel:
+          this.state.mixer === "with" ? "Avec mélangeur" : this.state.mixer === "without" ? "Sans mélangeur" : "",
+        installationModeLabel:
+          this.state.installationMode === "withInstallation"
+            ? "Avec installation Aventron"
+            : this.state.installationMode === "deliveryOnly"
+              ? "Livraison uniquement"
+              : "",
+        locationLabel: distanceDetails?.locationLabel || this.state.city.trim() || "À confirmer",
+        distanceLabel: distanceDetails?.label || "",
+        roofWifiLabel: this.isWifiStepRelevant()
+          ? this.state.roofWifi === "yes"
+            ? "Wi-Fi disponible"
+            : this.state.roofWifi === "no"
+              ? "Wi-Fi à prévoir"
+              : ""
+          : "",
+        wifiSetupLabel:
+          this.isWifiStepRelevant() && this.state.roofWifi === "no"
+            ? this.state.wifiSetup === "add"
+              ? "Ajout Aventron"
+              : this.state.wifiSetup === "skip"
+                ? "Préparation par le client"
+                : ""
+            : "",
+        roofElectricityLabel: withInstallation
+          ? this.state.roofElectricity === "yes"
+            ? "Électricité disponible"
+            : this.state.roofElectricity === "no"
+              ? "Électricité à préparer"
+              : ""
+          : "",
+        roofPlumbingLabel: withInstallation
+          ? this.state.roofPlumbing === "yes"
+            ? "Préinstallation prête"
+            : this.state.roofPlumbing === "no"
+              ? "Préinstallation à préparer"
+              : ""
+          : "",
+        plumbingSetupLabel:
+          withInstallation && this.state.roofPlumbing === "no"
+            ? this.state.plumbingSetup === "add"
+              ? "Ajout Aventron"
+              : this.state.plumbingSetup === "skip"
+                ? "Préparation par le client"
+                : ""
+            : "",
+      };
+    }
+
+    buildPreviewItems(preview = this.getConfigurationPreview()) {
+      const items = [];
+
+      if (preview.capacityLabel && preview.modelLabel) {
+        items.push(`${preview.capacityLabel} ${preview.modelLabel}`);
+      }
+
+      if (preview.waterFilterLabel) {
+        items.push(preview.waterFilterLabel);
+      }
+
+      if (preview.mixerLabel) {
+        items.push(preview.mixerLabel);
+      }
+
+      if (preview.installationModeLabel) {
+        items.push(preview.installationModeLabel);
+      }
+
+      if (preview.roofWifiLabel) {
+        items.push(preview.roofWifiLabel);
+      }
+
+      if (preview.wifiSetupLabel) {
+        items.push(`Wi-Fi : ${preview.wifiSetupLabel}`);
+      }
+
+      if (preview.roofElectricityLabel) {
+        items.push(preview.roofElectricityLabel);
+      }
+
+      if (preview.roofPlumbingLabel) {
+        items.push(preview.roofPlumbingLabel);
+      }
+
+      if (preview.plumbingSetupLabel) {
+        items.push(`Plomberie : ${preview.plumbingSetupLabel}`);
+      }
+
+      return items;
+    }
+
+    renderConfigurationPreviewCard() {
+      const preview = this.getConfigurationPreview();
+      const items = this.buildPreviewItems(preview);
+
+      return `
+        <div class="solar-summary-card solar-summary-card--preview" data-price-anchor>
+          <div class="solar-summary-card__header">
+            <div class="solar-panel-badge solar-panel-badge--amber">
+              ${renderUiIcon("calculator", "solar-panel-badge__icon")}
+              <span>Résumé</span>
+            </div>
+            <div class="solar-panel-copy solar-panel-copy--summary">
+              <h4>Vérifiez votre configuration</h4>
+              <p>Le prix final TTC reste masqué jusqu'à l'étape suivante.</p>
+            </div>
+          </div>
+
+          <div class="solar-summary-card__price">
+            <span class="solar-summary-price__label">Prix final TTC</span>
+            <strong>Masqué jusqu'au calcul</strong>
+            <small>Vous pourrez calculer le montant exact à l'étape suivante.</small>
+          </div>
+
+          <div class="solar-summary-meta">
+            <div>
+              <span>Ville d'installation</span>
+              <strong>${escapeHtml(preview.locationLabel)}</strong>
+            </div>
+            <div>
+              <span>Distance estimée</span>
+              <strong>${escapeHtml(preview.distanceLabel || "À confirmer")}</strong>
+            </div>
+          </div>
+
+          <div class="solar-summary-included">
+            <h5>Votre configuration</h5>
+            <p>Revoyez vos choix avant de passer au calcul final.</p>
+            <ul class="solar-included-list">
+              ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    renderWizardNavigation(stepId, options = {}) {
+      const steps = this.getWizardSteps();
+      const stepIndex = steps.findIndex((step) => step.id === stepId);
+      const lastConfigurationStepId = this.getLastConfigurationStepId();
+      const useDirectCalculation = stepId === lastConfigurationStepId && !this.state.priceCalculated;
+      const hasPrevious = stepIndex > 0;
+      const hasNext = stepIndex > -1 && stepIndex < steps.length - 1 && !options.hideNext;
+      const nextLabel = options.nextLabel || (useDirectCalculation ? "Calculer le prix final" : "Suivant");
+      const nextAction = options.nextAction || (useDirectCalculation ? "calculate-price" : "next-step");
+
+      return `
+        <div class="solar-wizard-nav">
+          ${
+            hasPrevious
+              ? '<button class="button button--secondary solar-wizard-nav__button" type="button" data-action="previous-step">Précédent</button>'
+              : '<span class="solar-wizard-nav__spacer" aria-hidden="true"></span>'
+          }
+          ${
+            hasNext
+              ? `<button class="button button--primary solar-wizard-nav__button" type="button" data-action="${escapeHtml(nextAction)}">${escapeHtml(nextLabel)}</button>`
+              : ""
+          }
+        </div>
+      `;
+    }
+
+    renderWizardStepSection({ stepId, sectionTitle, sectionIntro, body, nextLabel, hideNext = false }) {
+      const steps = this.getWizardSteps();
+      const stepIndex = steps.findIndex((step) => step.id === stepId);
+
+      return `
+        <section class="solar-step solar-section-card solar-step--wizard" data-step-id="${escapeHtml(stepId)}">
+          <div class="solar-step__heading">
+            <span class="solar-step__index">${stepIndex + 1}</span>
+            <div>
+              <h4>${escapeHtml(sectionTitle)}</h4>
+              <p class="solar-step__intro">${escapeHtml(sectionIntro)}</p>
+            </div>
+            <span class="solar-step__meta">Étape ${stepIndex + 1} / ${steps.length}</span>
+          </div>
+
+          <div class="solar-step__body">
+            ${body}
+            ${this.renderWizardNavigation(stepId, { nextLabel, hideNext })}
+          </div>
+        </section>
+      `;
+    }
+
+    renderPaymentStepContent() {
+      const summary = this.getDisplayedSummary();
+
+      if (!summary) {
+        return `
+          <div class="solar-payment-empty">
+            <div class="solar-panel-badge solar-panel-badge--blue">
+              ${renderUiIcon("info", "solar-panel-badge__icon")}
+              <span>Paiement et rappel</span>
+            </div>
+            <div class="solar-panel-copy solar-panel-copy--summary solar-panel-copy--info">
+              <h4>Le paiement apparaîtra ici</h4>
+              <p>Calculez d'abord le prix final pour afficher vos options.</p>
+            </div>
+          </div>
+        `;
+      }
+
+      const paymentOffer = this.getImmediatePaymentOfferSummary(summary);
+      const deferredTransfer = this.getDeferredBankTransferSummary(summary);
+      const nameInvalid = this.state.customerErrors.includes("Nom complet manquant.");
+      const phoneInvalid = this.state.customerErrors.includes("Numéro de téléphone manquant.");
+      const emailInvalid =
+        this.state.customerErrors.includes("Email manquant.") || this.state.customerErrors.includes("Email invalide.");
+      const transferAvailable = Boolean(paymentOffer || deferredTransfer);
+      const transferTitle = paymentOffer ? "Je paie maintenant" : "Je paierai plus tard";
+      const transferDescription = paymentOffer
+        ? `Vous payez ${formatCurrency(paymentOffer.payNowPrice)} DHS TTC et vous profitez de la remise immédiate de ${formatCurrency(paymentOffer.discountValue)} DHS.`
+        : `Si vous choisissez la livraison uniquement, ${formatCurrency(summary.deliveryOnlyFee)} DHS de frais de livraison sont déjà inclus dans votre prix final.`;
+      const transferAmountLabel = paymentOffer ? "Montant à payer" : "Montant final";
+      const transferAmountValue = paymentOffer
+        ? `${formatCurrency(paymentOffer.payNowPrice)} DHS TTC`
+        : deferredTransfer
+          ? `${formatCurrency(deferredTransfer.transferPrice)} DHS TTC`
+          : `${formatCurrency(summary.standardPrice)} DHS TTC`;
+      const transferSecondaryLabel = paymentOffer ? "Remise immédiate" : "Frais de livraison";
+      const transferSecondaryValue = paymentOffer
+        ? `-${formatCurrency(paymentOffer.discountValue)} DHS`
+        : `+${formatCurrency(summary.deliveryOnlyFee)} DHS`;
+      const transferSecondaryClass = paymentOffer
+        ? "solar-payment-breakdown__value--success"
+        : "solar-payment-breakdown__value--accent";
+      const transferSecondaryRowClass = paymentOffer
+        ? "solar-payment-breakdown__row--discount"
+        : "solar-payment-breakdown__row--surcharge";
+      const transferOldPriceMarkup = paymentOffer
+        ? `<span class="solar-payment-breakdown__old-price">${formatCurrency(summary.standardPrice)} DHS TTC</span>`
+        : "";
+      const transferButtonLabel = paymentOffer ? "Payer par virement" : "Payer plus tard par virement";
+      const callbackButtonLabel = this.state.callbackSubmitting ? "Envoi en cours..." : "Demander un rappel";
+
+      const transferPanel = transferAvailable
+        ? `
+            <article class="solar-payment-panel solar-payment-panel--transfer">
+              <div class="solar-panel-badge solar-panel-badge--amber">
+                ${renderUiIcon("bank", "solar-panel-badge__icon")}
+                <span>Payer par virement</span>
+              </div>
+
+              <div class="solar-panel-copy">
+                <h4>${transferTitle}</h4>
+                <p>${transferDescription}</p>
+              </div>
+
+              <div class="solar-payment-breakdown">
+                <div class="solar-payment-breakdown__rows">
+                  <div class="solar-payment-breakdown__row solar-payment-breakdown__row--primary">
+                    <span class="solar-payment-breakdown__label">${transferAmountLabel}</span>
+                    ${transferOldPriceMarkup}
+                    <strong class="solar-payment-breakdown__value">${transferAmountValue}</strong>
+                  </div>
+                  <div class="solar-payment-breakdown__row solar-payment-breakdown__row--secondary ${transferSecondaryRowClass}">
+                    <span class="solar-payment-breakdown__label">${transferSecondaryLabel}</span>
+                    <strong class="solar-payment-breakdown__value ${transferSecondaryClass}">${transferSecondaryValue}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                class="button button--primary solar-payment-cta"
+                type="button"
+                data-action="go-to-bank-transfer"
+                data-payment-mode="${paymentOffer ? "payNow" : "payLater"}"
+              >
+                <span class="solar-payment-cta__group">
+                  ${renderUiIcon(paymentOffer ? "lock" : "bank", "solar-payment-cta__glyph")}
+                  <span>${transferButtonLabel}</span>
+                </span>
+                <span class="solar-payment-cta__arrow">
+                  ${renderUiIcon("arrow-right", "solar-payment-cta__glyph")}
+                </span>
+              </button>
+
+              <p class="solar-panel-footnote solar-panel-footnote--amber">
+                ${renderUiIcon("shield", "solar-panel-footnote__icon")}
+                <span>Paiement sécurisé et 100% fiable</span>
+              </p>
+            </article>
+          `
+        : `
+            <article class="solar-payment-panel solar-payment-panel--transfer">
+              <div class="solar-panel-badge solar-panel-badge--amber">
+                ${renderUiIcon("bank", "solar-panel-badge__icon")}
+                <span>Payer par virement</span>
+              </div>
+
+              <div class="solar-panel-copy">
+                <h4>Paiement par virement non disponible</h4>
+                <p>
+                  Le paiement immédiat avec remise est disponible uniquement lorsque l'installation Aventron est
+                  possible.
+                </p>
+              </div>
+
+              <p class="solar-panel-footnote solar-panel-footnote--amber">
+                ${renderUiIcon("shield", "solar-panel-footnote__icon")}
+                <span>Nous vous proposerons la meilleure option disponible.</span>
+              </p>
+            </article>
+          `;
+
+      return `
+        <div class="solar-payment-grid">
+          ${transferPanel}
+
+          <div class="solar-configurator__customer solar-configurator__customer--info">
+            <div class="solar-panel-badge solar-panel-badge--blue">
+              ${renderUiIcon("info", "solar-panel-badge__icon")}
+              <span>Besoin d'informations</span>
+            </div>
+
+            <div class="solar-panel-copy solar-panel-copy--info">
+              <h4>Être rappelé avant paiement</h4>
+              <p>Laissez vos coordonnées. Un conseiller Aventron vous rappellera rapidement.</p>
+            </div>
+
+            ${this.renderFlashMessage(this.state.customerMessage, this.state.customerErrors)}
+
+            <div class="contact-form solar-contact-form">
+              <div class="contact-form__grid">
+                <div class="contact-form__field solar-contact-field">
+                  <label for="solar-customer-full-name">Nom complet</label>
+                  <div class="solar-input-shell ${nameInvalid ? "is-invalid" : ""}">
+                    <span class="solar-input-shell__icon">
+                      ${renderUiIcon("user", "solar-input-shell__glyph")}
+                    </span>
+                    <input
+                      id="solar-customer-full-name"
+                      name="customerFullName"
+                      type="text"
+                      value="${escapeHtml(this.state.customer.fullName)}"
+                      placeholder="Votre nom"
+                      aria-invalid="${nameInvalid ? "true" : "false"}"
+                    />
+                  </div>
+                </div>
+
+                <div class="contact-form__field solar-contact-field">
+                  <label for="solar-customer-phone">Numéro de téléphone</label>
+                  <div class="solar-input-shell ${phoneInvalid ? "is-invalid" : ""}">
+                    <span class="solar-input-shell__icon">
+                      ${renderUiIcon("phone", "solar-input-shell__glyph")}
+                    </span>
+                    <input
+                      id="solar-customer-phone"
+                      name="customerPhone"
+                      type="tel"
+                      value="${escapeHtml(this.state.customer.phone)}"
+                      placeholder="06 12 34 56 78"
+                      aria-invalid="${phoneInvalid ? "true" : "false"}"
+                    />
+                  </div>
+                </div>
+
+                <div class="contact-form__field contact-form__field--full solar-contact-field">
+                  <label for="solar-customer-email">Email</label>
+                  <div class="solar-input-shell ${emailInvalid ? "is-invalid" : ""}">
+                    <span class="solar-input-shell__icon">
+                      ${renderUiIcon("mail", "solar-input-shell__glyph")}
+                    </span>
+                    <input
+                      id="solar-customer-email"
+                      name="customerEmail"
+                      type="email"
+                      value="${escapeHtml(this.state.customer.email)}"
+                      placeholder="votre@email.com"
+                      aria-invalid="${emailInvalid ? "true" : "false"}"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="solar-customer-footer">
+              <div class="solar-customer-actions">
+                <button
+                  class="button solar-info-button"
+                  type="button"
+                  data-action="request-callback"
+                  ${this.state.callbackSubmitting ? "disabled" : ""}
+                >
+                  ${renderUiIcon("message", "solar-info-button__icon")}
+                  <span>${callbackButtonLabel}</span>
+                </button>
+              </div>
+
+              <p class="solar-panel-footnote solar-panel-footnote--blue">
+                ${renderUiIcon("shield", "solar-panel-footnote__icon")}
+                <span>Vos données sont confidentielles et sécurisées.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    renderCurrentWizardStep() {
+      const currentStepId = this.getCurrentWizardStep()?.id || "capacity";
+      const distanceDetails = this.calculateDistance();
+      const installationBlockedByZone = Boolean(
+        distanceDetails && distanceDetails.status === "known" && distanceDetails.km > 600
       );
-      const priceComplete = Boolean(this.state.priceCalculated && this.state.priceSummary);
 
-      const steps = [
-        { id: "capacity", title: "Capacité souhaitée", complete: capacityComplete },
-        { id: "version", title: "Version", complete: versionComplete },
-        { id: "installation-mode", title: "Installation", complete: installationModeComplete },
-        { id: "installation-city", title: "Ville d'installation", complete: locationComplete },
-        { id: "roof-wifi", title: "Wi-Fi sur le toit", complete: wifiComplete },
-        { id: "roof-electricity", title: "Électricité sur le toit", complete: electricityComplete },
-        { id: "roof-plumbing", title: "Préinstallation plomberie", complete: plumbingComplete },
-        { id: "summary", title: "Résumé", complete: summaryComplete },
-        { id: "total-price", title: "Calcul du prix", complete: priceComplete },
-      ];
+      switch (currentStepId) {
+        case "capacity":
+          return this.renderWizardStepSection({
+            stepId: "capacity",
+            sectionTitle: "Produit",
+            sectionIntro: "Choisissez votre chauffe-eau solaire étape par étape.",
+            body: this.renderFieldGroup(
+              "Capacité",
+              "Choisissez la taille du chauffe-eau solaire.",
+              this.renderChoiceCards(
+                "capacity",
+                [
+                  {
+                    value: "150",
+                    title: "150 L",
+                    subtitle: "1 à 2 personnes",
+                    cardClass: "solar-choice-card--capacity",
+                    symbol: renderSolarHeaterSymbol("150"),
+                  },
+                  {
+                    value: "200",
+                    title: "200 L",
+                    subtitle: "2 à 4 personnes",
+                    cardClass: "solar-choice-card--capacity",
+                    symbol: renderSolarHeaterSymbol("200"),
+                  },
+                  {
+                    value: "300",
+                    title: "300 L",
+                    subtitle: "4 à 6 personnes",
+                    cardClass: "solar-choice-card--capacity",
+                    symbol: renderSolarHeaterSymbol("300"),
+                  },
+                ],
+                this.state.capacity
+              ),
+              { stepId: "capacity" }
+            ),
+          });
+        case "version":
+          return this.renderWizardStepSection({
+            stepId: "version",
+            sectionTitle: "Produit",
+            sectionIntro: "Choisissez la version qui correspond à vos besoins.",
+            body: this.renderFieldGroup(
+              "Version",
+              "Comparez les fonctionnalités puis choisissez votre version.",
+              this.renderVersionSelection(),
+              { stepId: "version" }
+            ),
+          });
+        case "water-filter":
+          return this.renderWizardStepSection({
+            stepId: "water-filter",
+            sectionTitle: "Produit",
+            sectionIntro: "Ajoutez les options importantes pour votre installation.",
+            body: this.renderFieldGroup(
+              "Filtre à eau",
+              "Le filtre à eau aide à limiter les impuretés dans le circuit.",
+              this.renderWaterFilterSelection(),
+              { stepId: "water-filter" }
+            ),
+          });
+        case "mixer":
+          return this.renderWizardStepSection({
+            stepId: "mixer",
+            sectionTitle: "Produit",
+            sectionIntro: "Continuez avec les options de confort et de sécurité.",
+            body: this.renderFieldGroup(
+              "Mélangeur",
+              "Le mélangeur permet de limiter la température de sortie de l'eau chaude.",
+              this.renderMixerSelection(),
+              { stepId: "mixer" }
+            ),
+          });
+        case "installation-mode":
+          return this.renderWizardStepSection({
+            stepId: "installation-mode",
+            sectionTitle: "Installation",
+            sectionIntro: "Choisissez comment vous souhaitez recevoir votre chauffe-eau solaire.",
+            body: `
+              ${this.renderFieldGroup(
+                "Installation",
+                "Choisissez si vous souhaitez l'installation Aventron.",
+                this.renderChoiceCards(
+                  "installationMode",
+                  [
+                    {
+                      value: "withInstallation",
+                      title: "Avec installation",
+                      subtitle: installationBlockedByZone
+                        ? "Indisponible pour cette zone"
+                        : "Pose complète par Aventron",
+                      badge: installationBlockedByZone ? "Indisponible" : "Service Aventron",
+                      meta: installationBlockedByZone
+                        ? "Choisissez une ville éligible pour activer cette option."
+                        : "",
+                      symbol: renderUiIcon("wrench", "solar-choice-card__feature-icon"),
+                      cardClass: "solar-choice-card--feature solar-choice-card--installation",
+                      disabled: installationBlockedByZone,
+                    },
+                    {
+                      value: "deliveryOnly",
+                      title: "Livraison uniquement",
+                      subtitle: "Sans pose par Aventron",
+                      symbol: renderUiIcon("truck", "solar-choice-card__feature-icon"),
+                      cardClass: "solar-choice-card--feature solar-choice-card--installation",
+                    },
+                  ],
+                  this.state.installationMode,
+                  "solar-choice-grid--two solar-choice-grid--feature"
+                ),
+                { stepId: "installation-mode" }
+              )}
 
-      const activeIndex = steps.findIndex((step) => !step.complete);
+              ${
+                installationBlockedByZone
+                  ? this.renderFlashMessage({
+                      type: "warning",
+                      title: "Installation Aventron indisponible pour cette zone",
+                      text: "Pour cette ville, seule la livraison peut être proposée automatiquement.",
+                    })
+                  : ""
+              }
+            `,
+          });
+        case "installation-city":
+          return this.renderWizardStepSection({
+            stepId: "installation-city",
+            sectionTitle: "Localisation",
+            sectionIntro: "Votre ville permet d'ajuster automatiquement la logistique et le prix final.",
+            body: this.renderFieldGroup(
+              "Ville / localisation",
+              "Choisissez la ville dans la liste ou laissez-nous la détecter via GPS.",
+              `
+                <div class="solar-location-card">
+                  <div class="solar-location-card__intro">
+                    <div class="solar-panel-badge solar-panel-badge--amber">
+                      ${renderUiIcon("pin", "solar-panel-badge__icon")}
+                      <span>Ville d'installation</span>
+                    </div>
+                    <p>Sélectionnez votre ville dans la liste ou utilisez votre localisation GPS.</p>
+                  </div>
+                  <div class="contact-form__field solar-contact-field solar-contact-field--location">
+                    <label for="solar-installation-city">Ville d'installation</label>
+                    <div class="solar-input-shell solar-input-shell--location">
+                      <span class="solar-input-shell__icon">
+                        ${renderUiIcon("pin", "solar-input-shell__glyph")}
+                      </span>
+                      <select
+                        id="solar-installation-city"
+                        name="installationCity"
+                        required
+                        ${this.state.isLocating ? "disabled" : ""}
+                      >
+                        <option value="" disabled ${this.state.city ? "" : "selected"}>Choisissez une ville</option>
+                        ${CITY_OPTIONS.map(
+                          (city) =>
+                            `<option value="${escapeHtml(city)}" ${this.state.city === city ? "selected" : ""}>${escapeHtml(city)}</option>`
+                        ).join("")}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="solar-location-actions solar-location-actions--single">
+                    <button
+                      type="button"
+                      class="button button--secondary solar-action-button"
+                      data-action="use-location"
+                      ${this.state.isLocating ? "disabled" : ""}
+                    >
+                      <span class="solar-action-button__group">
+                        ${renderUiIcon("target", "solar-action-button__icon")}
+                        <span>${this.state.isLocating ? "Localisation GPS en cours..." : "Utiliser ma localisation GPS"}</span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              `,
+              { stepId: "installation-city" }
+            ),
+          });
+        case "roof-wifi":
+          return this.renderWizardStepSection({
+            stepId: "roof-wifi",
+            sectionTitle: "Conditions techniques",
+            sectionIntro: "Vérifiez les éléments nécessaires pour la version Smart connectée.",
+            body: this.renderWifiFieldGroup(),
+          });
+        case "roof-electricity":
+          return this.renderWizardStepSection({
+            stepId: "roof-electricity",
+            sectionTitle: "Conditions techniques",
+            sectionIntro: "Vérifiez la préparation électrique sur le toit.",
+            body: this.renderFieldGroup(
+              "Électricité sur le toit",
+              "L'alimentation électrique doit être disponible pour la mise en service.",
+              `
+                ${this.renderTechnicalSelection(
+                  "roofElectricity",
+                  [
+                    {
+                      value: "yes",
+                      title: "Électricité disponible",
+                      subtitle: "L'alimentation est déjà prête pour la mise en service.",
+                      badge: "Oui",
+                      iconMarkup: renderUiIcon("bolt", "solar-version-card__icon-svg"),
+                      features: [
+                        { icon: "check", label: "Toit déjà alimenté" },
+                        { icon: "clock", label: "Mise en service plus fluide" },
+                        { icon: "shield", label: "Aucune préparation supplémentaire" },
+                      ],
+                    },
+                    {
+                      value: "no",
+                      title: "Électricité à préparer",
+                      subtitle: "Une préparation est nécessaire avant l'intervention.",
+                      badge: "Non",
+                      iconMarkup: renderCrossedSymbol(renderUiIcon("bolt", "solar-version-card__icon-svg")),
+                      features: [
+                        { icon: "wrench", label: "Électricien à prévoir" },
+                        { icon: "bolt", label: "Alimentation à préparer" },
+                        { icon: "info", label: "Vous pouvez continuer la configuration" },
+                      ],
+                    },
+                  ],
+                  this.state.roofElectricity
+                )}
+
+                ${
+                  this.state.roofElectricity === "no"
+                    ? this.renderFlashMessage({
+                        type: "warning",
+                        title: "Électricien à prévoir",
+                        text: "Merci de contacter votre électricien avant notre intervention. Vous pouvez continuer la configuration.",
+                      })
+                    : ""
+                }
+              `,
+              { stepId: "roof-electricity" }
+            ),
+          });
+        case "roof-plumbing":
+          return this.renderWizardStepSection({
+            stepId: "roof-plumbing",
+            sectionTitle: "Conditions techniques",
+            sectionIntro: "Confirmez la préparation plomberie nécessaire avant la pose.",
+            body: this.renderFieldGroup(
+              "Préinstallation eau chaude / eau froide",
+              "Les arrivées doivent être disponibles sur le toit avant la pose.",
+              `
+                ${this.renderTechnicalSelection(
+                  "roofPlumbing",
+                  [
+                    {
+                      value: "yes",
+                      title: "Préinstallation prête",
+                      subtitle: "Les arrivées eau chaude / eau froide sont déjà disponibles.",
+                      badge: "Oui",
+                      iconMarkup: renderUiIcon("droplet", "solar-version-card__icon-svg"),
+                      features: [
+                        { icon: "check", label: "Arrivées déjà prêtes" },
+                        { icon: "clock", label: "Pose plus simple" },
+                        { icon: "shield", label: "Intervention plus rapide" },
+                      ],
+                    },
+                    {
+                      value: "no",
+                      title: "Préinstallation à préparer",
+                      subtitle: "Les arrivées doivent être préparées avant la pose.",
+                      badge: "Non",
+                      iconMarkup: renderCrossedSymbol(renderUiIcon("droplet", "solar-version-card__icon-svg")),
+                      features: [
+                        { icon: "wrench", label: "Préparation à prévoir" },
+                        { icon: "droplet", label: "Raccordement à organiser" },
+                        { icon: "info", label: "Option Aventron disponible" },
+                      ],
+                    },
+                  ],
+                  this.state.roofPlumbing
+                )}
+
+                ${
+                  this.state.roofPlumbing === "no"
+                    ? `
+                        <div class="solar-followup-card">
+                          <h6>Ajouter la préinstallation plomberie ?</h6>
+                          <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
+                          ${this.renderChoiceCards(
+                            "plumbingSetup",
+                            [
+                              {
+                                value: "add",
+                                title: "Oui, ajouter",
+                                subtitle: "Ajouter pour 1 000 DHS",
+                                cardClass: "solar-choice-card--decision",
+                              },
+                              {
+                                value: "skip",
+                                title: "Non",
+                                subtitle: "Je la prépare moi-même",
+                                cardClass: "solar-choice-card--decision",
+                              },
+                            ],
+                            this.state.plumbingSetup,
+                            "solar-choice-grid--two solar-choice-grid--decision"
+                          )}
+                        </div>
+                      `
+                    : ""
+                }
+              `,
+              { stepId: "roof-plumbing" }
+            ),
+          });
+        case "summary":
+          return this.renderWizardStepSection({
+            stepId: "summary",
+            sectionTitle: "Résumé",
+            sectionIntro: "Vérifiez tous vos choix avant de demander le prix final.",
+            body: this.renderConfigurationPreviewCard(),
+            nextLabel: "Passer au calcul",
+          });
+        case "total-price":
+          return this.renderWizardStepSection({
+            stepId: "total-price",
+            sectionTitle: "Calcul du prix",
+            sectionIntro: "Le prix final TTC apparaît seulement après votre clic de confirmation.",
+            body: `
+              <div class="solar-configurator__actions">
+                <button class="button button--primary solar-action-button" type="button" data-action="calculate-price">
+                  <span class="solar-action-button__group">
+                    ${renderUiIcon("calculator", "solar-action-button__icon")}
+                    <span>Calculer le prix final</span>
+                  </span>
+                </button>
+              </div>
+              ${this.renderSummaryCard()}
+            `,
+            hideNext: true,
+          });
+        case "payment":
+        default:
+          return this.renderWizardStepSection({
+            stepId: "payment",
+            sectionTitle: "Paiement et rappel",
+            sectionIntro: "Payez par virement ou demandez un rappel.",
+            body: this.renderPaymentStepContent(),
+            hideNext: true,
+          });
+      }
+    }
+
+    getStepOverviewItems() {
+      const steps = this.getWizardSteps();
+      const currentIndex = steps.findIndex((step) => step.id === this.state.currentStepId);
 
       return steps.map((step, index) => {
-        const state = step.complete ? "completed" : index === activeIndex ? "active" : "pending";
+        const accessible = this.canAccessWizardStep(step.id);
+        const state = index < currentIndex ? "completed" : index === currentIndex ? "active" : accessible ? "available" : "pending";
 
         return {
           ...step,
           state,
-          helper: state === "active" ? "Étape en cours" : "",
-          lineBefore:
-            index === 0
-              ? "none"
-              : steps[index - 1].complete
-                ? "complete"
-                : "pending",
-          lineAfter:
-            index === steps.length - 1
-              ? "none"
-              : step.complete
-                ? "complete"
-                : "pending",
+          accessible,
+          helper: index === currentIndex ? "Étape en cours" : "",
+          lineBefore: index === 0 ? "none" : index - 1 < currentIndex ? "complete" : "pending",
+          lineAfter: index === steps.length - 1 ? "none" : index < currentIndex ? "complete" : "pending",
         };
       });
     }
 
     renderStepOverview() {
       const steps = this.getStepOverviewItems();
-      const completedCount = steps.filter((step) => step.state === "completed").length;
-      const hasActiveStep = steps.some((step) => step.state === "active");
-      const progressPercent = Math.round(
-        ((completedCount + (hasActiveStep ? 0.5 : 0)) / Math.max(steps.length, 1)) * 100
-      );
+      const currentIndex = steps.findIndex((step) => step.state === "active");
+      const progressPercent = Math.round(((Math.max(currentIndex, 0) + 1) / Math.max(steps.length, 1)) * 100);
 
       return `
         <aside class="solar-progress-sidebar" aria-label="Progression du configurateur">
@@ -2206,6 +3226,7 @@
                   data-action="jump-to-step"
                   data-step-target="${escapeHtml(step.id)}"
                   ${step.state === "active" ? 'aria-current="step"' : ""}
+                  ${step.accessible ? "" : "disabled"}
                 >
                   <span class="solar-progress__marker" aria-hidden="true">
                     ${
@@ -2788,9 +3809,9 @@
 
               <div class="solar-configurator__customer">
                 <div>
-                  <p class="eyebrow">Je veux plus d'information</p>
-                  <h4>Non, je ne peux pas payer immédiatement</h4>
-                  <p>Entrez votre nom complet, votre téléphone et votre email. Nous vous rappellerons.</p>
+                  <p class="eyebrow">Besoin d'informations</p>
+                  <h4>Être rappelé avant paiement</h4>
+                  <p>Laissez vos coordonnées. Un conseiller Aventron vous rappellera rapidement.</p>
                 </div>
 
                 ${this.renderFlashMessage(this.state.customerMessage, this.state.customerErrors)}
@@ -2835,16 +3856,12 @@
                 </div>
 
                 <div class="solar-customer-actions">
-                  <button class="button button--secondary" type="button" data-action="request-callback" ${
+                  <button class="button solar-info-button" type="button" data-action="request-callback" ${
                     this.state.callbackSubmitting ? "disabled" : ""
                   }>
-                    ${
-                      this.state.callbackSubmitting
-                        ? "Envoi en cours..."
-                        : "Non, je ne peux pas payer immédiatement, je veux plus d'information"
-                    }
+                    ${renderUiIcon("message", "solar-info-button__icon")}
+                    <span>${this.state.callbackSubmitting ? "Envoi en cours..." : "Demander un rappel"}</span>
                   </button>
-                  <a class="button button--ghost" href="contact.html">Nous contacter</a>
                 </div>
               </div>
             </div>
@@ -2894,10 +3911,14 @@
       const transferSecondaryClass = paymentOffer
         ? "solar-payment-breakdown__value--success"
         : "solar-payment-breakdown__value--accent";
+      const transferSecondaryRowClass = paymentOffer
+        ? "solar-payment-breakdown__row--discount"
+        : "solar-payment-breakdown__row--surcharge";
+      const transferOldPriceMarkup = paymentOffer
+        ? `<span class="solar-payment-breakdown__old-price">${formatCurrency(summary.standardPrice)} DHS TTC</span>`
+        : "";
       const transferButtonLabel = paymentOffer ? "Payer par virement" : "Payer plus tard par virement";
-      const callbackButtonLabel = this.state.callbackSubmitting
-        ? "Envoi en cours..."
-        : "Non, je ne peux pas payer immédiatement, je veux plus d'information";
+      const callbackButtonLabel = this.state.callbackSubmitting ? "Envoi en cours..." : "Demander un rappel";
 
       const transferPanel = transferAvailable
         ? `
@@ -2913,17 +3934,15 @@
               </div>
 
               <div class="solar-payment-breakdown">
-                <div class="solar-payment-breakdown__icon">
-                  ${renderUiIcon("tag", "solar-payment-breakdown__glyph")}
-                </div>
                 <div class="solar-payment-breakdown__rows">
-                  <div class="solar-payment-breakdown__row">
-                    <span>${transferAmountLabel}</span>
-                    <strong>${transferAmountValue}</strong>
+                  <div class="solar-payment-breakdown__row solar-payment-breakdown__row--primary">
+                    <span class="solar-payment-breakdown__label">${transferAmountLabel}</span>
+                    ${transferOldPriceMarkup}
+                    <strong class="solar-payment-breakdown__value">${transferAmountValue}</strong>
                   </div>
-                  <div class="solar-payment-breakdown__row">
-                    <span>${transferSecondaryLabel}</span>
-                    <strong class="${transferSecondaryClass}">${transferSecondaryValue}</strong>
+                  <div class="solar-payment-breakdown__row solar-payment-breakdown__row--secondary ${transferSecondaryRowClass}">
+                    <span class="solar-payment-breakdown__label">${transferSecondaryLabel}</span>
+                    <strong class="solar-payment-breakdown__value ${transferSecondaryClass}">${transferSecondaryValue}</strong>
                   </div>
                 </div>
               </div>
@@ -2977,7 +3996,7 @@
             <span class="solar-step__index">D</span>
             <div>
               <h4>Paiement et informations</h4>
-              <p class="solar-step__intro">Choisissez entre le virement bancaire et une demande d'information.</p>
+              <p class="solar-step__intro">Payez par virement ou demandez un rappel.</p>
             </div>
           </div>
 
@@ -2988,12 +4007,12 @@
               <div class="solar-configurator__customer solar-configurator__customer--info">
                 <div class="solar-panel-badge solar-panel-badge--blue">
                   ${renderUiIcon("info", "solar-panel-badge__icon")}
-                  <span>Je veux plus d'information</span>
+                  <span>Besoin d'informations</span>
                 </div>
 
                 <div class="solar-panel-copy solar-panel-copy--info">
-                  <h4>Non, je ne peux pas payer immédiatement</h4>
-                  <p>Entrez votre nom complet, votre téléphone et votre email. Nous vous rappellerons.</p>
+                  <h4>Être rappelé avant paiement</h4>
+                  <p>Laissez vos coordonnées. Un conseiller Aventron vous rappellera rapidement.</p>
                 </div>
 
                 ${this.renderFlashMessage(this.state.customerMessage, this.state.customerErrors)}
@@ -3011,7 +4030,7 @@
                           name="customerFullName"
                           type="text"
                           value="${escapeHtml(this.state.customer.fullName)}"
-                          placeholder="Votre nom complet"
+                          placeholder="Votre nom"
                           aria-invalid="${nameInvalid ? "true" : "false"}"
                         />
                       </div>
@@ -3056,7 +4075,7 @@
                 <div class="solar-customer-footer">
                   <div class="solar-customer-actions">
                     <button
-                      class="button button--secondary solar-info-button"
+                      class="button solar-info-button"
                       type="button"
                       data-action="request-callback"
                       ${this.state.callbackSubmitting ? "disabled" : ""}
@@ -3064,11 +4083,6 @@
                       ${renderUiIcon("message", "solar-info-button__icon")}
                       <span>${callbackButtonLabel}</span>
                     </button>
-
-                    <a class="button solar-contact-link" href="contact.html">
-                      ${renderUiIcon("phone", "solar-contact-link__icon")}
-                      <span>Nous contacter</span>
-                    </a>
                   </div>
 
                   <p class="solar-panel-footnote solar-panel-footnote--blue">
@@ -3084,7 +4098,14 @@
     }
 
     render() {
+      this.syncCurrentStepId();
+
+      const steps = this.getWizardSteps();
+      const currentStep = this.getCurrentWizardStep();
+      const currentStepIndex = currentStep ? this.getWizardStepIndex(currentStep.id) + 1 : 1;
       const priceStatus = this.state.priceCalculated ? "Prix final affiché" : "";
+      const wizardStatus = `Étape ${currentStepIndex} / ${steps.length}`;
+      const headerStatus = priceStatus ? `${wizardStatus} • ${priceStatus}` : wizardStatus;
 
       this.innerHTML = `
         <div class="solar-configurator">
@@ -3093,14 +4114,11 @@
               <div>
                 <h3>Commencez la configuration</h3>
               </div>
-              ${priceStatus ? `<span class="solar-configurator__status">${priceStatus}</span>` : ""}
+              <span class="solar-configurator__status">${headerStatus}</span>
             </div>
 
             ${this.renderFlashMessage(this.state.configMessage, this.state.validationErrors)}
-            ${this.renderProductSection()}
-            ${this.renderInstallationSection()}
-            ${this.renderPriceSection()}
-            ${this.renderCustomerPanelV2()}
+            ${this.renderCurrentWizardStep()}
           </div>
           ${this.renderStepOverview()}
         </div>

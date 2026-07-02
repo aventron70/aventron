@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmation d'envoi</title>
+  </head>
+  <body>
+    <script>
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage(
+          {
+            type: "formsubmit-success",
+            form: new URLSearchParams(window.location.search).get("form") || "bank-transfer-booking",
+          },
+          window.location.origin,
+        );
+      }
+    </script>
+  </body>
+</html>

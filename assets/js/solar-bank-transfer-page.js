@@ -1,10 +1,16 @@
 (function () {
   const bookingForm = document.querySelector("#bank-transfer-booking-form");
   const bookingStatus = document.querySelector("#bank-transfer-form-status");
+  const bookingFrame = document.querySelector("#bank-transfer-upload-target");
   const informationForm = document.querySelector("#payment-information-form");
   const informationStatus = document.querySelector("#payment-information-status");
+  const successModal = document.querySelector("#payment-success-modal");
+  const successModalBackdrop = successModal?.querySelector(".payment-success-modal__backdrop");
+  const successModalCloseButton = successModal?.querySelector(".payment-success-modal__close");
   const summaryNode = document.querySelector("[data-payment-summary]");
   const params = new URLSearchParams(window.location.search);
+  let bookingSubmissionPending = false;
+  let bookingSubmissionTimer = null;
 
   function formatCurrency(value) {
     return new Intl.NumberFormat("fr-MA", {
@@ -68,6 +74,105 @@
     }
   }
 
+  function setStatus(statusNode, message = "", tone = "") {
+    if (!statusNode) {
+      return;
+    }
+
+    statusNode.textContent = message;
+    statusNode.classList.remove("payment-status--error", "payment-status--success");
+
+    if (tone === "error" || tone === "success") {
+      statusNode.classList.add(`payment-status--${tone}`);
+    }
+  }
+
+  function setSubmitButtonState(form, isSubmitting) {
+    const submitButton = form?.querySelector('[type="submit"]');
+
+    if (!submitButton) {
+      return;
+    }
+
+    if (!submitButton.dataset.defaultLabel) {
+      submitButton.dataset.defaultLabel = submitButton.textContent?.trim() || "Envoyer";
+    }
+
+    submitButton.disabled = isSubmitting;
+    submitButton.textContent = isSubmitting
+      ? form.dataset.sendingMessage || "Envoi en cours..."
+      : submitButton.dataset.defaultLabel;
+  }
+
+  function getBookingSuccessUrl() {
+    const successUrl = new URL("form-submit-success.html", window.location.href);
+    successUrl.searchParams.set("form", "bank-transfer-booking");
+    return successUrl.toString();
+  }
+
+  function openSuccessModal() {
+    if (!successModal) {
+      return;
+    }
+
+    successModal.hidden = false;
+    document.body.style.overflow = "hidden";
+    successModalCloseButton?.focus();
+  }
+
+  function closeSuccessModal() {
+    if (!successModal) {
+      return;
+    }
+
+    successModal.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  function validatePreinstallationPhotos(form, statusNode) {
+    const photoInput = form?.querySelector("#payment-preinstallation-photos");
+
+    if (!photoInput) {
+      return true;
+    }
+
+    if (!photoInput.files?.length) {
+      return true;
+    }
+
+    const files = Array.from(photoInput.files || []);
+
+    if (!files.length) {
+      setStatus(statusNode, "Merci d'ajouter au moins une photo de préinstallation.", "error");
+      photoInput.focus();
+      return false;
+    }
+
+    if (files.length > 5) {
+      setStatus(statusNode, "Merci de sélectionner au maximum 5 photos de préinstallation.", "error");
+      photoInput.focus();
+      return false;
+    }
+
+    const totalSize = files.reduce((sum, file) => sum + (file.size || 0), 0);
+
+    if (totalSize > 10 * 1024 * 1024) {
+      setStatus(statusNode, "La taille totale des photos doit rester inférieure à 10 Mo.", "error");
+      photoInput.focus();
+      return false;
+    }
+
+    const invalidFile = files.find((file) => file.type && !file.type.startsWith("image/"));
+
+    if (invalidFile) {
+      setStatus(statusNode, "Merci d'ajouter uniquement des photos au format image.", "error");
+      photoInput.focus();
+      return false;
+    }
+
+    return true;
+  }
+
   function fillSummaryFields(form, summary) {
     if (!form) {
       return;
@@ -86,6 +191,39 @@
     setHiddenField(form, "payment_mode", summary.paymentMode);
   }
 
+  function hydrateBookingForm(summary) {
+    fillSummaryFields(bookingForm, summary);
+    fillVisibleField(bookingForm, "#payment-full-name", summary.fullName);
+    fillVisibleField(bookingForm, "#payment-phone", summary.phone);
+    fillVisibleField(bookingForm, "#payment-email", summary.email);
+    fillVisibleField(bookingForm, "#payment-city", summary.location !== "À confirmer" ? summary.location : "");
+    setHiddenField(bookingForm, "_next", getBookingSuccessUrl());
+  }
+
+  function clearBookingPendingState() {
+    bookingSubmissionPending = false;
+
+    if (bookingSubmissionTimer) {
+      window.clearTimeout(bookingSubmissionTimer);
+      bookingSubmissionTimer = null;
+    }
+
+    setSubmitButtonState(bookingForm, false);
+  }
+
+  function finalizeBookingSuccess(summary) {
+    clearBookingPendingState();
+    setStatus(
+      bookingStatus,
+      bookingForm?.dataset.successMessage || "Merci. Votre demande liée au virement a bien été reçue.",
+      "success",
+    );
+
+    bookingForm?.reset();
+    hydrateBookingForm(summary);
+    openSuccessModal();
+  }
+
   async function submitForm(form, statusNode) {
     const submitButton = form.querySelector('[type="submit"]');
     const sendingMessage = form.dataset.sendingMessage || "Envoi en cours...";
@@ -93,7 +231,7 @@
     const errorMessage = form.dataset.errorMessage || "L'envoi n'a pas abouti. Merci de réessayer.";
     const defaultLabel = submitButton?.textContent || "Envoyer";
 
-    statusNode.textContent = "";
+    setStatus(statusNode, "");
 
     if (submitButton) {
       submitButton.disabled = true;
@@ -103,18 +241,26 @@
     try {
       const response = await fetch(form.action, {
         method: form.method,
+        headers: {
+          Accept: "application/json",
+        },
         body: new FormData(form),
       });
       const result = await response.json();
 
       if (response.ok && result.success) {
-        statusNode.textContent = successMessage;
+        setStatus(statusNode, successMessage, "success");
+        form.reset();
+
+        if (form === informationForm) {
+          openSuccessModal();
+        }
       } else {
-        statusNode.textContent = result.message ? `${errorMessage} ${result.message}` : errorMessage;
+        setStatus(statusNode, result.message ? `${errorMessage} ${result.message}` : errorMessage, "error");
       }
     } catch (error) {
       console.error("Erreur d'envoi du formulaire :", error);
-      statusNode.textContent = errorMessage;
+      setStatus(statusNode, errorMessage, "error");
     } finally {
       if (submitButton) {
         submitButton.disabled = false;
@@ -127,7 +273,7 @@
     capacity: getTextParam("capacity", "Configuration à confirmer"),
     model: getTextParam("model", "À confirmer"),
     location: getTextParam("location", "À confirmer"),
-    distance: getTextParam("distance", "À confirmer"),
+    distance: getNumberParam("distance"),
     distanceBand: getTextParam("distanceBand", "À confirmer"),
     installation: getTextParam("installation", "À confirmer"),
     standardPrice: getNumberParam("standardPrice"),
@@ -194,22 +340,71 @@
     }
   }
 
-  fillSummaryFields(bookingForm, summary);
+  hydrateBookingForm(summary);
   fillSummaryFields(informationForm, summary);
-
-  fillVisibleField(bookingForm, "#payment-full-name", summary.fullName);
-  fillVisibleField(bookingForm, "#payment-phone", summary.phone);
-  fillVisibleField(bookingForm, "#payment-email", summary.email);
-  fillVisibleField(bookingForm, "#payment-city", summary.location !== "À confirmer" ? summary.location : "");
 
   fillVisibleField(informationForm, "#information-full-name", summary.fullName);
   fillVisibleField(informationForm, "#information-phone", summary.phone);
   fillVisibleField(informationForm, "#information-email", summary.email);
 
-  if (bookingForm && bookingStatus) {
-    bookingForm.addEventListener("submit", async (event) => {
+  if (bookingForm && bookingStatus && bookingFrame) {
+    window.addEventListener("message", (event) => {
+      if (event.origin !== window.location.origin || !bookingSubmissionPending) {
+        return;
+      }
+
+      if (event.data?.type === "formsubmit-success" && event.data.form === "bank-transfer-booking") {
+        finalizeBookingSuccess(summary);
+      }
+    });
+
+    bookingForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      await submitForm(bookingForm, bookingStatus);
+
+      if (!validatePreinstallationPhotos(bookingForm, bookingStatus)) {
+        return;
+      }
+
+      bookingSubmissionPending = true;
+      setStatus(bookingStatus, "");
+      setSubmitButtonState(bookingForm, true);
+      setHiddenField(bookingForm, "_next", getBookingSuccessUrl());
+
+      if (bookingSubmissionTimer) {
+        window.clearTimeout(bookingSubmissionTimer);
+      }
+
+      bookingSubmissionTimer = window.setTimeout(() => {
+        if (!bookingSubmissionPending) {
+          return;
+        }
+
+        clearBookingPendingState();
+        setStatus(
+          bookingStatus,
+          bookingForm.dataset.errorMessage || "L'envoi n'a pas abouti. Merci de réessayer.",
+          "error",
+        );
+      }, 30000);
+
+      HTMLFormElement.prototype.submit.call(bookingForm);
+    });
+  }
+
+  if (successModal) {
+    successModalBackdrop?.addEventListener("click", closeSuccessModal);
+    successModalCloseButton?.addEventListener("click", closeSuccessModal);
+
+    successModal.addEventListener("click", (event) => {
+      if (event.target === successModal) {
+        closeSuccessModal();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !successModal.hidden) {
+        closeSuccessModal();
+      }
     });
   }
 

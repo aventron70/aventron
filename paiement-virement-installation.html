@@ -60,7 +60,6 @@
               </p>
               <div class="page-pill-row">
                 <span class="landing-pill">Prix final TTC</span>
-                <span class="landing-pill">Fond blanc</span>
                 <span class="landing-pill">Réservation rapide</span>
               </div>
               <div class="page-actions">
@@ -127,7 +126,7 @@
               </li>
               <li>
                 <strong>3. Confirmez votre demande</strong>
-                <span>Envoyez ensuite votre demande d'installation, de livraison ou de rappel via le formulaire.</span>
+                <span>Envoyez ensuite votre demande avec les photos de préinstallation via le formulaire.</span>
               </li>
             </ul>
           </article>
@@ -138,22 +137,27 @@
                 <p class="eyebrow">Virement</p>
                 <h2>Je paie par virement</h2>
                 <p>
-                  Complétez ce formulaire pour organiser la suite de votre commande après votre virement.
+                  Complétez ce formulaire, ajoutez les photos de préinstallation, puis nous organiserons la suite de
+                  votre commande après votre virement.
                 </p>
               </div>
 
               <form
                 class="contact-form payment-booking-form"
                 id="bank-transfer-booking-form"
-                action="https://api.web3forms.com/submit"
+                action="https://formsubmit.co/info@aventrontechnologies.ma"
                 method="POST"
+                enctype="multipart/form-data"
+                target="bank-transfer-upload-target"
                 data-sending-message="Envoi en cours..."
                 data-success-message="Merci. Votre demande liée au virement a bien été reçue."
                 data-error-message="L’envoi n’a pas abouti. Merci de réessayer."
               >
-                <input type="hidden" name="access_key" value="4de3406d-49da-47a1-9e30-e5f9ae41aace" />
-                <input type="hidden" name="subject" value="Paiement par virement - Chauffe-eau solaire" />
-                <input type="hidden" name="from_name" value="Aventron Technologies Website" />
+                <input type="hidden" name="_subject" value="Paiement par virement - Chauffe-eau solaire" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" value="" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off" />
                 <input type="hidden" name="source_page" value="Paiement virement chauffe-eau solaire" />
                 <input type="hidden" name="selected_capacity" />
                 <input type="hidden" name="selected_model" />
@@ -208,6 +212,23 @@
                     />
                   </div>
                   <div class="contact-form__field contact-form__field--full">
+                    <label for="payment-preinstallation-photos">Photos de préinstallation (optionnel)</label>
+                    <input
+                      id="payment-preinstallation-photos"
+                      name="attachment"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      lang="fr"
+                      aria-label="Choisir des photos de préinstallation"
+                      title="Choisir des photos de préinstallation"
+                    />
+                    <p class="contact-form__hint">
+                      Vous pouvez ajouter jusqu'à 5 photos claires de la plomberie et de la zone d'installation.
+                      Taille totale maximale : 10 Mo.
+                    </p>
+                  </div>
+                  <div class="contact-form__field contact-form__field--full">
                     <label for="payment-notes">Message complémentaire</label>
                     <textarea
                       id="payment-notes"
@@ -229,6 +250,12 @@
 
                 <p class="contact-form__success payment-status" id="bank-transfer-form-status" aria-live="polite"></p>
               </form>
+              <iframe
+                class="sr-only"
+                id="bank-transfer-upload-target"
+                name="bank-transfer-upload-target"
+                title="Transmission sécurisée du formulaire de virement"
+              ></iframe>
             </article>
 
             <article class="glass-card payment-page-form" id="formulaire-information">
@@ -287,6 +314,36 @@
         </div>
       </section>
     </main>
+
+    <div class="payment-success-modal" id="payment-success-modal" hidden>
+      <button class="payment-success-modal__backdrop" type="button" aria-label="Fermer la confirmation"></button>
+      <div class="payment-success-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="payment-success-title">
+        <button class="payment-success-modal__close" type="button" aria-label="Fermer la confirmation">&times;</button>
+        <div class="payment-success-modal__hero" aria-hidden="true">
+          <span class="payment-success-modal__sun"></span>
+          <span class="payment-success-modal__spark payment-success-modal__spark--left"></span>
+          <span class="payment-success-modal__spark payment-success-modal__spark--right"></span>
+          <span class="payment-success-modal__leaf payment-success-modal__leaf--left"></span>
+          <span class="payment-success-modal__leaf payment-success-modal__leaf--right"></span>
+          <div class="payment-success-modal__badge">
+            <span class="payment-success-modal__badge-ring"></span>
+            <span class="payment-success-modal__check"></span>
+          </div>
+        </div>
+        <div class="payment-success-modal__copy">
+          <h2 id="payment-success-title">Nous avons bien reçu votre demande</h2>
+          <span class="payment-success-modal__divider"></span>
+          <p>On va vous contacter dès que possible.</p>
+        </div>
+        <div class="payment-success-modal__scene" aria-hidden="true">
+          <span class="payment-success-modal__hill payment-success-modal__hill--one"></span>
+          <span class="payment-success-modal__hill payment-success-modal__hill--two"></span>
+          <span class="payment-success-modal__cloud"></span>
+          <span class="payment-success-modal__plant payment-success-modal__plant--right"></span>
+          <span class="payment-success-modal__plant payment-success-modal__plant--left"></span>
+        </div>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="container site-footer__inner">
