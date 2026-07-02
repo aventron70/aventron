@@ -115,13 +115,13 @@
     }).format(value);
   }
 
-  function trackMetaCustomEvent(eventName) {
-    if (typeof window === "undefined" || typeof window.fbq !== "function") {
+  function trackMetaCustomEvent(eventName, params) {
+    if (typeof window.trackMetaCustomEvent !== "function") {
       return;
     }
 
     try {
-      window.fbq("trackCustom", eventName);
+      window.trackMetaCustomEvent(eventName, params);
     } catch (error) {
       console.error("Meta Pixel custom event failed:", error);
     }
@@ -434,7 +434,7 @@
           this.render();
           break;
         case "price-popup-more-info":
-          trackMetaCustomEvent("IneedmoreInfo");
+          trackMetaCustomEvent("Lead");
           this.state.isPricePopupOpen = false;
           this.goToCallbackFlow(this.getImmediatePaymentOfferSummary(this.state.priceSummary) ? "payNow" : "payLater");
           break;
@@ -1157,7 +1157,7 @@
       };
       this.state.currentStepId = "payment";
 
-      trackMetaCustomEvent("ConfigurationCompleted");
+      trackMetaCustomEvent("ConfiguratorCompleted");
 
       this.render();
       this.scrollToStep("payment");
@@ -1354,7 +1354,7 @@
       }
 
       if (paymentMode === "payNow") {
-        trackMetaCustomEvent("PayNow");
+        trackMetaCustomEvent("InitiateCheckout");
       }
 
       window.location.assign(this.buildBankTransferPageUrl(paymentMode));

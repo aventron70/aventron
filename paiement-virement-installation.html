@@ -38,41 +38,11 @@
       /* Make the confirmation step title white */
       #etape-2-confirmation .payment-step-card__header h2 { color: #ffffff !important; }
     </style>
-    <!-- Meta Pixel Code -->
-    <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-      fbq("init", "988197560578933");
-      fbq("track", "PageView");
+      <script src="assets/js/meta-pixel.js"></script>
     </script>
+    <!-- Meta Pixel Code -->
+    <script src="assets/js/meta-pixel.js"></script>
     <!-- End Meta Pixel Code -->
-  </head>
-  <body class="landing-page page-shell page-payment-white" data-payment-flow="bank-transfer">
-    <noscript>
-      <img
-        height="1"
-        width="1"
-        style="display:none"
-        src="https://www.facebook.com/tr?id=988197560578933&amp;ev=PageView&amp;noscript=1"
-        alt=""
-      />
-    </noscript>
-
-    <header class="landing-header">
       <div class="container landing-header__inner">
         <a class="brand" href="index.html" aria-label="Aventron Technologies">
           <img class="brand__logo" src="assets/images/logo-20260401.png" alt="Aventron Technologies" />
@@ -154,8 +124,8 @@
             </div>
 
               <div class="page-actions payment-page-hero-card__actions">
-              <a class="button button--primary" href="#bank-transfer-booking-form" onclick="try{fbq('trackCustom','VirementDone');}catch(e){}">J&#39;ai effectu&eacute; le virement</a>
-              <a class="button button--secondary" href="rappel-avant-paiement.html" data-callback-page-link onclick="try{fbq('trackCustom','RecallBeforePaymenet');}catch(e){}">
+              <a class="button button--primary" href="#bank-transfer-booking-form" onclick="try{window.trackMetaCustomEvent('BankTransferSelected');}catch(e){}">J&#39;ai effectu&eacute; le virement</a>
+              <a class="button button--secondary" href="rappel-avant-paiement.html" data-callback-page-link onclick="try{window.trackMetaCustomEvent('RecallBeforePayment');}catch(e){}">
                 Je pr&eacute;f&egrave;re &ecirc;tre rappel&eacute; avant de payer
               </a>
             </div>
@@ -287,7 +257,7 @@
                 </div>
 
                 <div class="payment-booking-form__footer">
-                  <button class="button button--primary contact-form__submit" type="submit" onclick="try{fbq('trackCustom','VirementConfirmed');}catch(e){}">
+                  <button class="button button--primary contact-form__submit" type="submit" onclick="try{window.trackMetaCustomEvent('VirementConfirmed');}catch(e){}">
                     Confirmer mon virement et ma commande
                   </button>
                 </div>

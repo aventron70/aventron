@@ -31,13 +31,13 @@
       .replace(/'/g, "&#39;");
   }
 
-  function trackMetaCustomEvent(eventName) {
-    if (typeof window.fbq === "undefined") {
+  function trackMetaCustomEvent(eventName, params) {
+    if (typeof window.trackMetaCustomEvent !== "function") {
       return;
     }
 
     try {
-      window.fbq("trackCustom", eventName);
+      window.trackMetaCustomEvent(eventName, params);
     } catch (error) {
       console.error("Meta Pixel custom event failed:", error);
     }
@@ -258,7 +258,7 @@
 
   function finalizeBookingSuccess(summary) {
     clearBookingPendingState();
-    trackMetaCustomEvent("BankTransferSubmitted");
+    trackMetaCustomEvent("VirementConfirmed");
     setStatus(
       bookingStatus,
       bookingForm?.dataset.successMessage || "Merci. Votre confirmation de virement a bien été reçue.",
@@ -299,7 +299,7 @@
         form.reset();
 
         if (form === informationForm) {
-          trackMetaCustomEvent("NeedMoreInfo");
+          trackMetaCustomEvent("Lead");
           hydrateInformationForm(summary);
           openSuccessModal();
         }
@@ -443,7 +443,7 @@
       console.warn("Session storage unavailable for PaymentIntent tracking:", error);
     }
 
-    trackMetaCustomEvent("PaymentIntent");
+    trackMetaCustomEvent("InitiateCheckout");
   }
 
   const summary = {
