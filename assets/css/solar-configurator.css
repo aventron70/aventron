@@ -4446,6 +4446,25 @@ solar-water-heater-configurator {
     gap: 20px;
   }
 
+  .solar-step--wizard.solar-section-card {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .solar-step--wizard .solar-step__heading {
+    padding: 0 2px;
+  }
+
+  .solar-step--wizard .solar-step__intro {
+    display: none;
+  }
+
+  .solar-step--wizard .solar-step__body {
+    gap: 16px;
+  }
+
   .solar-section-card,
   .solar-summary-card,
   .solar-configurator__customer,
@@ -5250,6 +5269,10 @@ solar-water-heater-configurator {
 
   .solar-step__heading h4 {
     font-size: 1.56rem;
+  }
+
+  .solar-step--wizard.solar-section-card {
+    padding: 0;
   }
 
   .solar-section-card,
