@@ -14,17 +14,156 @@
     <link rel="stylesheet" href="assets/css/pages.css" />
     <link rel="stylesheet" href="assets/css/solar-configurator.css" />
     <style>
-      /* Prevent page-level scrolling and make the main card fit the viewport */
-      html, body { height: 100%; overflow: hidden; }
+      /* Keep the callback page focused while preserving natural scroll on phones. */
+      html,
+      body {
+        min-height: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        overflow-y: auto;
+      }
+
       /* Hide header/footer on this page to maximize available vertical space */
-      .landing-header, .site-footer { display: none !important; }
-      .payment-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem 0; }
-      .payment-page-layout { width: 100%; max-width: 1200px; display: flex; gap: 1rem; }
+      .landing-header,
+      .site-footer { display: none !important; }
+
+      .payment-page {
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0;
+      }
+
+      .payment-page-layout {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        gap: 1rem;
+      }
+
       .payment-page-main { flex: 1; }
-      .payment-step-card { width: 100%; max-height: calc(100vh - 20px); padding: 20px 28px; box-sizing: border-box; display:flex; flex-direction:column; justify-content:space-between; }
-      .payment-step-card__header h2 { font-size: 1.6rem; line-height:1.1; }
+      .payment-step-card {
+        width: 100%;
+        max-height: none;
+        padding: 20px 28px;
+        box-sizing: border-box;
+        display: grid;
+        gap: 18px;
+        align-content: start;
+      }
+
+      .payment-step-card__header h2 { font-size: 1.6rem; line-height: 1.1; }
+
+      .payment-step-card__eyebrow--hero {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 24px;
+        border-radius: 999px;
+        background: rgba(247, 170, 43, 0.12);
+        color: #0f172a;
+        font-size: 0.94rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        max-width: fit-content;
+      }
+
+      .payment-step-card__title {
+        margin: 0;
+        font-size: 2rem;
+        line-height: 1.05;
+        color: #0f172a;
+      }
+
+      .payment-step-card {
+        background: #ffffff;
+        color: #0f172a;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+      }
+
+      .payment-step-card__header h2 { font-size: 1.6rem; line-height: 1.1; }
+
+
+      .payment-step-card .contact-form label {
+        color: #475569;
+      }
+
+      .payment-step-card .contact-form input,
+      .payment-step-card .contact-form textarea {
+        background: #f8fafc;
+        color: #0f172a;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+      }
+
+      .payment-step-card .contact-form input::placeholder,
+      .payment-step-card .contact-form textarea::placeholder {
+        color: #94a3b8;
+      }
+
       .contact-form__grid { gap: 12px; }
-      .payment-step-card__actions { margin-top: 12px; display:flex; gap:16px; }
+      .payment-information-form textarea { min-height: 120px; resize: vertical; }
+      .payment-step-card__actions { margin-top: 12px; display: flex; gap: 16px; }
+
+      .payment-step-card__actions .button--ghost {
+        color: #0f172a;
+        background: rgba(247, 170, 43, 0.12);
+        border-color: rgba(247, 170, 43, 0.25);
+        transition: background-color 0.2s ease, transform 0.2s ease;
+      }
+
+      .payment-step-card__actions .button--ghost:hover,
+      .payment-step-card__actions .button--ghost:focus-visible {
+        background: rgba(247, 170, 43, 0.2);
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 760px) {
+        .payment-page {
+          align-items: flex-start;
+          padding: 12px 0 calc(20px + env(safe-area-inset-bottom));
+        }
+
+        .payment-page-layout {
+          gap: 0;
+        }
+
+        .payment-step-card {
+          padding: 16px 14px calc(18px + env(safe-area-inset-bottom));
+          border-radius: 24px;
+          gap: 16px;
+        }
+
+        .payment-step-card__header h2 {
+          font-size: clamp(1.18rem, 5vw, 1.42rem);
+        }
+
+        .payment-step-card__header p {
+          font-size: 0.94rem;
+          line-height: 1.5;
+        }
+
+        .contact-form__grid {
+          gap: 10px;
+        }
+
+        .payment-information-form textarea {
+          min-height: 96px;
+        }
+
+        .payment-step-card__actions {
+          gap: 12px;
+        }
+
+        .payment-step-card__actions .button {
+          width: 100%;
+        }
+      }
     </style>
     <!-- Meta Pixel Code -->
     <script src="assets/js/meta-pixel.js"></script>
@@ -70,10 +209,16 @@
 
           <div class="payment-page-main">
             <article class="glass-card payment-step-card payment-step-card--callback" id="formulaire-rappel">
+              <a class="payment-step-card__back-link" href="paiement-virement-installation.html" data-bank-transfer-page-link>
+                &larr; Retour &agrave; la page de virement
+              </a>
+
               <div class="payment-step-card__header">
-                <p class="payment-step-card__eyebrow">Demande de rappel avant virement</p>
-                <h2>Vous pr&eacute;f&eacute;rez &ecirc;tre rappel&eacute; avant de payer ?</h2>
-                <p style="color:#000000;">
+                <p class="payment-step-card__eyebrow payment-step-card__eyebrow--hero">
+                  Je pr&eacute;f&egrave;re &ecirc;tre rappel&eacute; avant le virement
+                </p>
+                <h2 class="payment-step-card__title">Rappel avant paiement</h2>
+                <p>
                   Vous avez une question avant de faire le virement ? Laissez vos coordonn&eacute;es et notre &eacute;quipe
                   vous rappelle rapidement.
                 </p>
@@ -115,7 +260,7 @@
                     <textarea
                       id="information-message"
                       name="message"
-                      rows="4"
+                      rows="3"
                       placeholder="Dites-nous ce que vous souhaitez clarifier avant le paiement."
                     ></textarea>
                   </div>

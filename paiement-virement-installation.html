@@ -35,6 +35,21 @@
       #rappel-avant-paiement .payment-step-card__header p {
         color: #000000 !important;
       }
+      .page-actions.payment-page-hero-card__actions .button.button--secondary {
+        color: #0f172a;
+        background: rgba(247, 170, 43, 0.12);
+        border-color: rgba(247, 170, 43, 0.25);
+        padding: 0 24px;
+        min-height: 54px;
+        border-radius: 999px;
+        transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      }
+      .page-actions.payment-page-hero-card__actions .button.button--secondary:hover,
+      .page-actions.payment-page-hero-card__actions .button.button--secondary:focus-visible {
+        background: rgba(247, 170, 43, 0.2);
+        border-color: rgba(247, 170, 43, 0.35);
+        transform: translateY(-1px);
+      }
       /* Make the confirmation step title white */
       #etape-2-confirmation .payment-step-card__header h2 { color: #ffffff !important; }
     </style>
@@ -126,7 +141,7 @@
               <div class="page-actions payment-page-hero-card__actions">
               <a class="button button--primary" href="#bank-transfer-booking-form" onclick="try{window.trackMetaCustomEvent('BankTransferSelected');}catch(e){}">J&#39;ai effectu&eacute; le virement</a>
               <a class="button button--secondary" href="rappel-avant-paiement.html" data-callback-page-link onclick="try{window.trackMetaCustomEvent('RecallBeforePayment');}catch(e){}">
-                Je pr&eacute;f&egrave;re &ecirc;tre rappel&eacute; avant de payer
+                Rappel avant paiement
               </a>
             </div>
           </div>

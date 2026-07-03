@@ -6005,6 +6005,14 @@ solar-water-heater-configurator {
   line-height: 0.98;
 }
 
+/* Ensure form field labels are readable on white payment cards */
+.payment-page-hero-card .contact-form label,
+.payment-step-card .contact-form label,
+.payment-page-summary-card .contact-form label,
+.payment-booking-form .contact-form__field label {
+  color: #0f172a;
+}
+
 .payment-page-hero-card__subtitle {
   margin: 0;
   color: #475569;
