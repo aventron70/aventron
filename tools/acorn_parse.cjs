@@ -1,0 +1,1 @@
+const fs=require('fs');const acorn=require('acorn');const code=fs.readFileSync('assets/js/solar-water-heater-configurator.js','utf8');try{acorn.parse(code,{ecmaVersion:2024,sourceType:'script'});console.log('PARSE_OK');}catch(e){console.error('ACORN_ERROR',e.message,'at',e.loc && e.loc.line+':'+e.loc.column);process.exit(1);}

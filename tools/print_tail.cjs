@@ -1,0 +1,1 @@
+const fs=require('fs');const code=fs.readFileSync('assets/js/solar-water-heater-configurator.js','utf8');const lines=code.split('\n');const start=Math.max(0,lines.length-40);for(let i=start;i<lines.length;i++){console.log((i+1).toString().padStart(5,' ')+': '+lines[i]);}console.log('---CHAR SLICE---');const idx=code.length-300;console.log(code.slice(idx));

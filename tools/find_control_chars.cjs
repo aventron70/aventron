@@ -1,0 +1,1 @@
+const fs=require('fs');const code=fs.readFileSync('assets/js/solar-water-heater-configurator.js','utf8');const bad=[];for(let i=0;i<code.length;i++){const cp=code.charCodeAt(i); if(cp<32 && cp!==9 && cp!==10 && cp!==13){ bad.push({i,cp,context:code.slice(Math.max(0,i-20),i+20)});}} if(bad.length===0) console.log('NO_BAD_CHARS'); else console.log(bad.slice(0,10));

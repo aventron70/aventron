@@ -1,0 +1,1 @@
+const fs=require('fs');const code=fs.readFileSync('assets/js/solar-water-heater-configurator.js','utf8');const start=code.length-200; for(let i=Math.max(0,start); i<code.length; i++){const ch=code[i]; const codept=code.charCodeAt(i); const repr = ch==='\n'?'<LF>': ch==='\r'?'<CR>': ch; console.log(i, codept, repr);}

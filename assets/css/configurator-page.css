@@ -1,0 +1,454 @@
+/* ===== CONFIGURATOR PAGE LAYOUT ===== */
+
+.configurator-page {
+  min-height: 100vh;
+  background: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Header */
+.configurator-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.configurator-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 20px;
+}
+
+.configurator-header__back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.configurator-header__back:hover {
+  color: #fbbf24;
+}
+
+.configurator-header__back svg {
+  width: 20px;
+  height: 20px;
+}
+
+.configurator-header__brand {
+  display: flex;
+  align-items: center;
+}
+
+.configurator-header__logo {
+  height: 32px;
+  width: auto;
+}
+
+.configurator-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Main content */
+.configurator-main {
+  min-height: calc(100vh - 140px);
+  padding: 0;
+}
+
+.configurator-wrapper {
+  width: 100%;
+}
+
+/* Override solar-step to take full width/height */
+.configurator-wrapper solar-water-heater-configurator {
+  display: block;
+  width: 100%;
+}
+
+/* Footer */
+.configurator-footer {
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 0;
+}
+
+.configurator-footer__inner {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.configurator-footer__text {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.configurator-footer__link {
+  color: #fbbf24;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.configurator-footer__link:hover {
+  color: #f59e0b;
+}
+
+/* ===== MODERN STEP STYLES - Override for standalone page ===== */
+
+/* Hide the "Votre progression" sidebar */
+.solar-progress-sidebar {
+  display: none !important;
+}
+
+.solar-configurator__main--plain {
+  width: 100%;
+}
+
+/* Ensure all modern steps fill the screen properly */
+.solar-step[data-step-id="version"],
+.solar-step[data-step-id="capacity"],
+.solar-step[data-step-id="installation-mode"],
+.solar-step[data-step-id="water-filter"],
+.solar-step[data-step-id="mixer"],
+.solar-step[data-step-id="installation-city"],
+.solar-step[data-step-id="roof-wifi"],
+.solar-step[data-step-id="roof-electricity"],
+.solar-step[data-step-id="roof-plumbing"],
+.solar-step[data-step-id="payment"] {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 24px 16px;
+}
+
+/* Center the content vertically for better mobile experience */
+@media (min-height: 700px) {
+  .solar-step[data-step-id="version"],
+  .solar-step[data-step-id="capacity"],
+  .solar-step[data-step-id="installation-mode"],
+  .solar-step[data-step-id="water-filter"],
+  .solar-step[data-step-id="mixer"],
+  .solar-step[data-step-id="installation-city"],
+  .solar-step[data-step-id="roof-wifi"],
+  .solar-step[data-step-id="roof-electricity"],
+  .solar-step[data-step-id="roof-plumbing"],
+  .solar-step[data-step-id="payment"] {
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+/* Make the white cards more prominent - remove extra bottom padding */
+.solar-version-card,
+.solar-capacity-card,
+.solar-step[data-step-id="installation-city"] .solar-version-card,
+.solar-step[data-step-id="roof-wifi"] .solar-version-card,
+.solar-step[data-step-id="roof-electricity"] .solar-version-card,
+.solar-step[data-step-id="roof-plumbing"] .solar-version-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding-bottom: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+/* Payment step uses the same dark background and card layout as modern steps */
+.solar-step[data-step-id="payment"] {
+  background: linear-gradient(180deg, #1a2342 0%, #0f172a 100%);
+}
+
+.solar-step[data-step-id="payment"] .solar-section-card,
+.solar-step[data-step-id="payment"] .solar-payment-panel,
+.solar-step[data-step-id="payment"] .solar-configurator__customer {
+  background: #ffffff;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+.solar-step[data-step-id="payment"] .solar-step__heading {
+  display: none;
+}
+
+.solar-step[data-step-id="payment"] .solar-step__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.solar-step[data-step-id="payment"] .solar-payment-content {
+  display: grid;
+  gap: 12px;
+}
+
+.solar-step[data-step-id="payment"] .solar-payment-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.solar-step[data-step-id="payment"] .solar-wizard-nav {
+  display: none;
+}
+
+.solar-step[data-step-id="payment"] .solar-panel-footnote--amber {
+  color: #92400e;
+  font-size: 0.82rem;
+}
+
+.solar-step[data-step-id="payment"] .solar-panel-footnote--blue {
+  color: #1d4ed8;
+  font-size: 0.82rem;
+}
+
+.solar-step[data-step-id="payment"] .solar-version-nav {
+  margin-top: 4px;
+}
+
+/* Plumbing setup popup - centered modal matching price popup */
+.solar-compare-modal--plumbing {
+  z-index: 140;
+}
+
+.solar-plumbing-modal {
+  width: min(100%, 540px);
+  max-height: min(88dvh, 720px);
+  padding: 32px 28px 28px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(247, 170, 43, 0.08), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #fffdfa 100%);
+  box-shadow: 0 34px 80px rgba(15, 23, 42, 0.24);
+}
+
+.solar-plumbing-modal__hero {
+  display: grid;
+  gap: 16px;
+  text-align: center;
+}
+
+.solar-plumbing-modal__hero .solar-panel-badge {
+  justify-self: center;
+}
+
+.solar-plumbing-modal__options {
+  padding: 6px 0 4px;
+}
+
+.solar-plumbing-modal__options .solar-choice-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.solar-plumbing-modal__options .solar-choice-card {
+  min-height: 120px;
+  padding: 18px 16px;
+  border-radius: 20px;
+}
+
+.solar-plumbing-modal__note {
+  justify-content: center;
+  margin: 0;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+/* Compact summary shown after a popup choice */
+.solar-followup-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%);
+  border: 1px solid rgba(247, 170, 43, 0.22);
+  color: #7c4a0b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.solar-followup-summary__icon {
+  width: 18px;
+  height: 18px;
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
+@media (max-width: 520px) {
+  .solar-compare-modal--plumbing {
+    place-items: center center;
+    padding: 14px;
+  }
+
+  .solar-plumbing-modal {
+    width: min(100%, 100vw);
+    max-height: min(88dvh, 720px);
+    padding: 26px 20px 22px;
+    border-radius: 24px;
+  }
+
+  .solar-plumbing-modal__options .solar-choice-grid--two {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .solar-plumbing-modal__options .solar-choice-card {
+    min-height: 96px;
+    padding: 14px 14px;
+    border-radius: 18px;
+  }
+}
+
+/* Payment step modern header + progress overlay */
+.solar-payment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.solar-payment-header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #f59e0b;
+  background: #1a2342;
+  color: #f59e0b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.solar-payment-header__title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.solar-payment-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.solar-payment-progress__label {
+  color: #fbbf24;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.solar-payment-progress__track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.solar-payment-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+  transition: width 0.3s ease;
+}
+
+/* Remove extra margin from compare button */
+.solar-version-compare {
+  margin-bottom: 0 !important;
+}
+
+/* Capacity cards adjustments for standalone page */
+@media (min-width: 640px) {
+  .configurator-page .solar-capacity-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .configurator-page .solar-capacity-cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Button styles for header */
+.button--small {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.button--small.button--ghost {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.button--small.button--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .configurator-header__inner {
+    padding: 10px 16px;
+  }
+
+  .configurator-header__back span {
+    display: none;
+  }
+
+  .configurator-header__logo {
+    height: 28px;
+  }
+
+  .configurator-header__actions .button--small {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .solar-step[data-step-id="version"],
+  .solar-step[data-step-id="installation-mode"],
+  .solar-step[data-step-id="water-filter"],
+  .solar-step[data-step-id="mixer"],
+  .solar-step[data-step-id="installation-city"],
+  .solar-step[data-step-id="roof-wifi"],
+  .solar-step[data-step-id="roof-electricity"],
+  .solar-step[data-step-id="roof-plumbing"] {
+    padding: 16px 12px;
+  }
+
+  .solar-version-card,
+  .solar-step[data-step-id="installation-city"] .solar-version-card,
+  .solar-step[data-step-id="roof-wifi"] .solar-version-card,
+  .solar-step[data-step-id="roof-electricity"] .solar-version-card,
+  .solar-step[data-step-id="roof-plumbing"] .solar-version-card {
+    padding: 20px 16px;
+  }
+}

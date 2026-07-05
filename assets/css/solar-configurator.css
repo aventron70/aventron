@@ -1014,6 +1014,15 @@ solar-water-heater-configurator {
   width: 50px;
 }
 
+.solar-version-card__icon .solar-choice-card__symbol-image--electricity,
+.solar-version-card__icon .solar-choice-card__symbol-image--no-electricity,
+.solar-version-card__icon .solar-choice-card__symbol-image--plumbing,
+.solar-version-card__icon .solar-choice-card__symbol-image--no-plumbing {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+}
+
 .solar-version-card__icon .solar-choice-card__symbol-cross {
   font-size: 2.15rem;
   text-shadow: 0 2px 10px rgba(255, 255, 255, 0.96);
@@ -1564,11 +1573,8 @@ solar-water-heater-configurator {
 
 .solar-choice-card--filter .solar-choice-card__symbol-cross {
   font-size: 2.7rem;
-  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.96);
-}
-
-.solar-choice-card--mixer .solar-choice-card__symbol-image--mixer {
-  width: 60px;
+  font-weight: 400;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.96);
 }
 
 .solar-choice-card--mixer .solar-choice-card__symbol-cross {
@@ -2316,6 +2322,11 @@ solar-water-heater-configurator {
   display: inline-flex;
   align-items: center;
   gap: 14px;
+}
+
+.solar-payment-cta__group {
+  flex: 1;
+  justify-content: center;
 }
 
 .solar-panel-footnote {
@@ -3257,6 +3268,240 @@ solar-water-heater-configurator {
   .solar-wizard-nav__button {
     width: 100%;
     min-width: 0;
+  }
+
+  /* Make filter cards match version cards on phone view */
+  .solar-version-card--filter .solar-version-option__icon {
+    width: 84px;
+    height: 84px;
+    overflow: visible;
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .solar-version-card--filter .solar-version-option__icon svg,
+  .solar-version-card--filter .solar-version-option__icon .solar-choice-card__symbol-image--filter {
+    width: 104px;
+    height: 104px;
+  }
+
+  .solar-version-card--mixer .solar-version-option__icon {
+    width: 84px;
+    height: 84px;
+    overflow: visible;
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .solar-version-card--mixer .solar-version-option__icon svg,
+  .solar-version-card--mixer .solar-version-option__icon .solar-choice-card__symbol-image--mixer {
+    width: 104px;
+    height: 104px;
+  }
+
+  .solar-version-card--installation .solar-version-option__icon {
+    width: 84px;
+    height: 84px;
+    overflow: visible;
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .solar-version-card--installation .solar-version-option__radio {
+    display: block !important;
+    margin-top: 0;
+    align-self: center;
+  }
+
+  .solar-version-card--installation input.solar-choice-input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .solar-choice-card.solar-version-card--installation::after {
+    display: none !important;
+  }
+
+  .solar-version-card--filter .solar-version-option__title {
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+
+  .solar-version-card--filter .solar-version-option__subtitle {
+    font-size: 0.8rem;
+  }
+
+  .solar-version-card--filter .solar-version-card__chip {
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.92rem;
+  }
+
+  .solar-version-option.solar-version-card--filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 16px 16px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: none;
+    min-height: 0;
+    gap: 12px;
+  }
+
+  .solar-version-option.solar-version-card--filter::after {
+    display: none;
+  }
+
+  .solar-version-option.solar-version-card--filter.is-selected {
+    border-color: #f59e0b;
+    background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
+  }
+
+  .solar-version-card--filter .solar-version-card__chips,
+  .solar-version-card--installation .solar-version-card__chips {
+    display: none !important;
+    gap: 12px;
+    justify-items: start;
+  }
+
+  .solar-version-card--filter .solar-version-option__radio {
+    display: block !important;
+    margin-top: auto;
+    align-self: center;
+  }
+
+  .solar-version-card--filter .solar-version-option__radio-indicator {
+    display: block !important;
+    width: 22px;
+    height: 22px;
+  }
+
+  .solar-version-card--mixer .solar-version-option__radio {
+    display: block !important;
+    margin-top: auto;
+    align-self: center;
+  }
+
+  .solar-version-card--mixer input.solar-choice-input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .solar-choice-card.solar-version-card--mixer::after {
+    display: none !important;
+  }
+
+  .solar-version-card--installation .solar-version-option__radio {
+    display: block !important;
+    margin-top: 0;
+    align-self: center;
+  }
+
+  .solar-version-card--installation input.solar-choice-input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .solar-choice-card.solar-version-card--installation::after {
+    display: none !important;
+  }
+
+  .solar-version-card--installation .solar-version-option__icon {
+    width: 84px;
+    height: 84px;
+    overflow: visible;
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .solar-version-card--installation .solar-version-option__icon svg,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--installation,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--delivery,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--electricity,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-electricity,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--plumbing,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+  }
+
+  .solar-version-option.solar-version-card--installation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 220px;
+    padding: 18px 16px 16px;
+    gap: 12px;
+  }
+
+  .solar-version-card .solar-version-compare {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+
+  .solar-version-card--filter {
+    min-height: 220px;
+    padding: 18px;
+  }
+
+  /* make cards stack vertically on phone like capacity cards */
+  .solar-version-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .solar-version-card {
+    padding: 18px;
+    min-height: 220px;
+  }
+
+  .solar-version-card--filter {
+    padding: 18px;
+    min-height: 220px;
+  }
+
+  /* keep navigation buttons on same line like version page */
+  .solar-version-nav {
+    flex-direction: row;
+    gap: 12px;
   }
 
   .solar-wizard-nav__spacer {
@@ -4228,6 +4473,7 @@ solar-water-heater-configurator {
   }
 
   .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 16px;
     min-height: 68px;
     padding: 0 16px;
     font-size: 0.96rem;
@@ -4315,6 +4561,7 @@ solar-water-heater-configurator {
   }
 
   .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 18px;
     min-height: 70px;
     padding: 0 18px;
     font-size: 0.96rem;
@@ -4801,6 +5048,14 @@ solar-water-heater-configurator {
     height: 16px;
   }
 
+  .solar-version-card--technical .solar-version-card__icon .solar-choice-card__symbol-image--electricity,
+  .solar-version-card--technical .solar-version-card__icon .solar-choice-card__symbol-image--no-electricity,
+  .solar-version-card--technical .solar-version-card__icon .solar-choice-card__symbol-image--plumbing,
+  .solar-version-card--technical .solar-version-card__icon .solar-choice-card__symbol-image--no-plumbing {
+    width: 34px;
+    height: 34px;
+  }
+
   .solar-version-card--technical .solar-version-card__title-row {
     gap: 2px;
     padding-right: 26px;
@@ -5053,6 +5308,21 @@ solar-water-heater-configurator {
     box-shadow: 0 -24px 60px rgba(15, 23, 42, 0.24);
   }
 
+  /* Price popup must stay centered on screen instead of bottom-sheet style */
+  .solar-compare-modal--price {
+    place-items: center center;
+    padding: 14px;
+  }
+
+  .solar-compare-modal--price .solar-compare-modal__dialog,
+  .solar-compare-modal--price .solar-price-modal {
+    width: min(100%, 100vw);
+    max-height: min(88dvh, 840px);
+    padding: 24px 18px calc(18px + env(safe-area-inset-bottom));
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+  }
+
   .solar-compare-modal__close {
     top: 10px;
     right: 10px;
@@ -5264,6 +5534,7 @@ solar-water-heater-configurator {
   }
 
   .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 10px;
     min-height: 44px;
     padding: 0 10px;
     border-radius: 14px;
@@ -5565,6 +5836,7 @@ solar-water-heater-configurator {
   }
 
   .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 9px;
     min-height: 40px;
     padding: 0 9px;
     font-size: 0.68rem;
@@ -5704,6 +5976,8 @@ solar-water-heater-configurator {
 }
 
 .solar-price-modal .solar-payment-cta {
+  position: relative;
+  --cta-hpad: 18px;
   justify-content: center;
   gap: 10px;
 }
@@ -5711,6 +5985,14 @@ solar-water-heater-configurator {
 .solar-price-modal .solar-payment-cta__group,
 .solar-price-modal .solar-payment-cta__arrow {
   gap: 10px;
+}
+
+.solar-price-modal .solar-payment-cta__arrow {
+  position: absolute;
+  right: var(--cta-hpad);
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0;
 }
 
 .solar-price-modal__secondary {
@@ -5788,6 +6070,10 @@ solar-water-heater-configurator {
     padding: 0 14px;
     border-radius: 14px;
     font-size: 0.76rem;
+  }
+
+  .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 14px;
   }
 
   .solar-price-modal__secondary {
@@ -5896,6 +6182,10 @@ solar-water-heater-configurator {
     font-size: 0.68rem;
   }
 
+  .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 12px;
+  }
+
   .solar-price-modal__secondary {
     padding: 8px 12px;
   }
@@ -5949,6 +6239,10 @@ solar-water-heater-configurator {
     width: min(100%, 236px);
     min-height: 36px;
     font-size: 0.64rem;
+  }
+
+  .solar-price-modal .solar-payment-cta {
+    --cta-hpad: 12px;
   }
 }
 
@@ -7308,5 +7602,1071 @@ solar-water-heater-configurator {
   .payment-page-summary-card,
   .payment-step-card {
     padding: 20px;
+  }
+}
+
+/* ===== MODERN VERSION STEP - Matches Reference Picture ===== */
+
+/* Dark page background */
+.solar-step[data-step-id="version"] {
+  background: linear-gradient(180deg, #1a2342 0%, #0f172a 100%);
+  min-height: 100vh;
+  padding: 20px 16px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Step header - on dark background */
+.solar-version-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.solar-version-header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #f59e0b;
+  background: #1a2342;
+  color: #f59e0b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.solar-version-header__title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Progress bar */
+.solar-version-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.solar-version-progress__label {
+  color: #fbbf24;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.solar-version-progress__track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.solar-version-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+  transition: width 0.3s ease;
+}
+
+/* White content card */
+.solar-version-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+/* Version section */
+.solar-version-section__title {
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.solar-version-section__subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0 0 16px 0;
+}
+
+/* Location step inside modern card */
+.solar-version-card--location {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.solar-version-card--location .solar-location-card--modern {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.solar-version-card--location .solar-contact-field--location {
+  gap: 12px;
+}
+
+.solar-version-card--location .solar-contact-field--location label {
+  font-size: 1.05rem;
+}
+
+.solar-version-card--technical .solar-followup-card,
+.solar-version-card--technical .solar-followup-card--modern {
+  margin-top: 6px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.solar-version-card--technical .solar-followup-card h6,
+.solar-version-card--technical .solar-followup-card p {
+  margin: 0;
+}
+
+.solar-version-card--technical .solar-followup-card h6 {
+  color: #0f172a;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.solar-version-card--technical .solar-followup-card p {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.solar-version-card--technical .solar-choice-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 640px) {
+  .solar-version-card--technical .solar-choice-grid--two {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards grid - side by side */
+.solar-version-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Version card */
+.solar-version-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 20px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 220px;
+}
+
+.solar-version-option--standard {
+  border-color: #e2e8f0;
+}
+
+.solar-version-option--smart {
+  border-color: #e2e8f0;
+  background: #ffffff;
+}
+
+.solar-version-option.is-selected {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+}
+
+/* Le plus choisi badge */
+.solar-version-option__badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #1e293b;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.solar-version-option__badge svg {
+  width: 10px;
+  height: 10px;
+  color: #fbbf24;
+}
+
+/* Filter card layout - vertical stack like version cards */
+.solar-version-card--filter .solar-version-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+  min-height: auto;
+  padding: 0;
+}
+
+.solar-version-card--filter .solar-version-card__icon {
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
+  }
+
+  /* Make filter icon image bigger to fill the circle */
+  .solar-version-card--filter .solar-version-card__icon .solar-choice-card__symbol-image--filter {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Make crossed filter icon slightly smaller and lighter */
+  .solar-version-card--filter .solar-version-card__icon .solar-choice-card__symbol-cross {
+    font-size: 2.2rem;
+    font-weight: 500;
+    text-shadow: none;
+  }
+
+.solar-version-card--filter .solar-version-card__copy {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  min-height: auto;
+  flex: 1;
+}
+
+.solar-version-card--filter .solar-version-card__title-row {
+  display: block;
+  padding-right: 0;
+  min-height: auto;
+}
+
+.solar-version-card--filter .solar-version-card__title-row strong {
+  /* match version card title size */
+  font-size: 1.82rem;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.solar-version-card--filter .solar-version-card__subtitle {
+  /* match version card subtitle */
+  color: #52627d;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* chips and icons sizing to match version cards */
+.solar-version-card--filter .solar-version-card__chips {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.solar-version-card--filter .solar-version-card__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.98);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  color: #22304a;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+}
+
+.solar-version-card--filter .solar-version-card__chip-icon {
+  width: 18px;
+  height: 18px;
+  color: #b06a00;
+  flex: 0 0 auto;
+}
+
+/* compare button styling to match version compare */
+.solar-version-card--filter .solar-version-compare {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e40af;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 34px;
+  width: 100%;
+}
+
+.solar-version-option__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* Installation / delivery image icons for modern installation step */
+.solar-version-card--installation .solar-version-option__icon {
+  background: #ffffff;
+}
+
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--installation,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--delivery,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--electricity,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-electricity,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--plumbing,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing {
+  width: 83px;
+  height: 83px;
+  object-fit: contain;
+  display: block;
+}
+
+.solar-version-option--standard .solar-version-option__icon {
+  color: #f59e0b;
+}
+
+.solar-version-option--smart .solar-version-option__icon {
+  color: #1e293b;
+}
+
+/* Card content */
+.solar-version-option__content {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.solar-version-option__title {
+  color: #1e293b;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.solar-version-option__subtitle {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* Radio indicator */
+.solar-version-option__radio {
+  margin-top: 12px;
+}
+
+.solar-version-option__radio-indicator {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.solar-version-option.is-selected .solar-version-option__radio-indicator {
+  border-color: #f59e0b;
+  background: radial-gradient(circle, #fffbeb 0%, #fbbf24 100%);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+/* Compare link */
+.solar-version-compare {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e40af;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.solar-version-compare:hover {
+  background: #f1f5f9;
+}
+
+.solar-version-compare__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.solar-version-compare__icon {
+  width: 22px;
+  height: 22px;
+  color: #64748b;
+}
+
+.solar-version-compare__arrow {
+  width: 18px;
+  height: 18px;
+  color: #1e40af;
+}
+
+/* Navigation buttons - side by side below white card */
+.solar-version-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.solar-version-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  flex: 1;
+}
+
+.solar-version-nav__btn--primary {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+.solar-version-nav__btn--primary:hover {
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+}
+
+.solar-version-nav__btn--secondary {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+
+.solar-version-nav__btn--secondary:hover {
+  background: #f8fafc;
+}
+
+.solar-version-nav__btn__arrow {
+  width: 18px;
+  height: 18px;
+}
+
+.solar-version-nav__btn--primary .solar-version-nav__btn__arrow {
+  color: #1e293b;
+}
+
+.solar-version-nav__btn--secondary .solar-version-nav__btn__arrow {
+  color: #64748b;
+  transform: rotate(180deg);
+}
+
+.solar-version-nav__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hide radio input */
+.solar-version-option input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ===== MODERN CAPACITY STEP - Matches Version Step Design ===== */
+
+/* Capacity step header */
+.solar-capacity-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.solar-capacity-header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #f59e0b;
+  background: #1a2342;
+  color: #f59e0b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.solar-capacity-header__title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Progress bar */
+.solar-capacity-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.solar-capacity-progress__label {
+  color: #fbbf24;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.solar-capacity-progress__track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.solar-capacity-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+  transition: width 0.3s ease;
+}
+
+/* White content card */
+.solar-capacity-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  flex: 1;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Capacity section */
+.solar-capacity-section__title {
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.solar-capacity-section__subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+}
+
+/* Capacity cards grid */
+.solar-capacity-cards {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  .solar-capacity-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Capacity option card */
+.solar-capacity-option {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 12px;
+  min-height: auto;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 12px;
+}
+
+.solar-capacity-option:hover {
+  border-color: #fbbf24;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
+}
+
+.solar-capacity-option.is-selected {
+  border-color: #f59e0b;
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
+}
+
+/* Icon */
+.solar-capacity-option__symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  transition: all 0.2s ease;
+}
+
+.solar-capacity-option__symbol img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+.solar-capacity-option.is-selected .solar-capacity-option__symbol {
+  transform: scale(1.05);
+}
+
+/* Content */
+.solar-capacity-option__content {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.solar-capacity-option__title {
+  color: #1e293b;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.solar-capacity-option__subtitle {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.solar-capacity-option__description {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+}
+
+/* Radio indicator */
+.solar-capacity-option__radio {
+  margin-top: 0;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.solar-capacity-option__radio-indicator {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.solar-capacity-option.is-selected .solar-capacity-option__radio-indicator {
+  border-color: #f59e0b;
+  background: radial-gradient(circle, #fffbeb 0%, #fbbf24 100%);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+/* Navigation buttons */
+.solar-capacity-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.solar-capacity-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  flex: 1;
+}
+
+.solar-capacity-nav__btn--primary {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+.solar-capacity-nav__btn--primary:hover {
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+}
+
+.solar-capacity-nav__btn--secondary {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+
+.solar-capacity-nav__btn--secondary:hover {
+  background: #f8fafc;
+}
+
+.solar-capacity-nav__btn__arrow {
+  width: 18px;
+  height: 18px;
+}
+
+.solar-capacity-nav__btn--primary .solar-capacity-nav__btn__arrow {
+  color: #1e293b;
+}
+
+.solar-capacity-nav__btn--secondary .solar-capacity-nav__btn__arrow {
+  color: #64748b;
+  transform: rotate(180deg);
+}
+
+.solar-capacity-nav__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hide radio input */
+.solar-capacity-option input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ===== STANDALONE CONFIGURATOR PAGE - All Steps Modern Theme ===== */
+
+/* Apply dark theme to all steps in standalone configurator */
+.configurator-page .solar-step {
+  background: linear-gradient(180deg, #1a2342 0%, #0f172a 100%);
+  min-height: calc(100vh - 140px);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center content on taller screens */
+@media (min-height: 700px) {
+  .configurator-page .solar-step {
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+/* Step header for all steps */
+.configurator-page .solar-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.configurator-page .solar-step-header__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #f59e0b;
+  background: #1a2342;
+  color: #f59e0b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.configurator-page .solar-step-header__title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Progress bar for all steps */
+.configurator-page .solar-step-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.configurator-page .solar-step-progress__label {
+  color: #fbbf24;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.configurator-page .solar-step-progress__track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.configurator-page .solar-step-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+  transition: width 0.3s ease;
+}
+
+/* White content card for all steps */
+.configurator-page .solar-step-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  flex: 1;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Section titles */
+.configurator-page .solar-step-section__title {
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.configurator-page .solar-step-section__subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+}
+
+/* Navigation buttons for all steps */
+.configurator-page .solar-step-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.configurator-page .solar-step-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  flex: 1;
+}
+
+.configurator-page .solar-step-nav__btn--primary {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+.configurator-page .solar-step-nav__btn--primary:hover {
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+}
+
+.configurator-page .solar-step-nav__btn--secondary {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+
+.configurator-page .solar-step-nav__btn--secondary:hover {
+  background: #f8fafc;
+}
+
+.configurator-page .solar-step-nav__btn__arrow {
+  width: 18px;
+  height: 18px;
+}
+
+.configurator-page .solar-step-nav__btn--primary .solar-step-nav__btn__arrow {
+  color: #1e293b;
+}
+
+.configurator-page .solar-step-nav__btn--secondary .solar-step-nav__btn__arrow {
+  color: #64748b;
+  transform: rotate(180deg);
+}
+
+.configurator-page .solar-step-nav__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile adjustments for configurator page */
+@media (max-width: 640px) {
+  .configurator-page .solar-step {
+    padding: 12px 12px;
+    min-height: auto;
+  }
+
+  .configurator-page .solar-step-card {
+    padding: 14px 12px;
+  }
+
+  .configurator-page .solar-step-header__title {
+    font-size: 1.15rem;
+  }
+
+  .configurator-page .solar-step-header__badge {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .solar-capacity-header {
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+
+  .solar-capacity-progress {
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+
+  .solar-capacity-progress__label {
+    font-size: 0.8rem;
+  }
+
+  /* Optimize capacity cards for mobile - horizontal layout */
+  .solar-capacity-cards {
+    gap: 7px;
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  .solar-capacity-option {
+    padding: 10px 10px;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .solar-capacity-option__symbol {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+  }
+
+  .solar-capacity-option__symbol img {
+    max-height: 45px;
+  }
+
+  .solar-capacity-option__content {
+    flex: 1;
+    gap: 2px;
+  }
+
+  .solar-capacity-option__title {
+    font-size: 0.95rem;
+  }
+
+  .solar-capacity-option__subtitle {
+    font-size: 0.75rem;
+  }
+
+  .solar-capacity-option__description {
+    font-size: 0.7rem;
+    display: block;
+  }
+
+  .solar-capacity-option__radio {
+    margin-top: 0;
+    margin-left: 8px;
+  }
+
+  .solar-capacity-section__title {
+    margin-bottom: 4px;
+    margin-left: 2px;
+    font-size: 0.95rem;
+  }
+
+  .solar-capacity-section__subtitle {
+    margin-bottom: 6px;
+    margin-left: 2px;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .solar-capacity-card {
+    padding: 8px 0;
+  }
+
+  .solar-capacity-nav {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .solar-capacity-nav__btn {
+    height: 40px;
+    font-size: 0.9rem;
   }
 }

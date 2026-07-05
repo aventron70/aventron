@@ -12,7 +12,7 @@
   --blue: #4f7cff;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
   --radius: 28px;
-  --container: min(1180px, calc(100vw - 32px));
+  --container: min(1240px, calc(100vw - 32px));
   --font-body: "Aptos", "Segoe UI Variable Text", "Segoe UI", "Trebuchet MS", sans-serif;
   --font-display: "Aptos Display", "Segoe UI Variable Display", "Bahnschrift", "Arial Narrow", sans-serif;
   --font-arabic: "Noto Naskh Arabic", "Tahoma", "Segoe UI", sans-serif;
@@ -1624,11 +1624,11 @@ html[dir="rtl"] .testimonial-card {
   }
 
   .site-header__inner {
-    min-height: 78px;
+    min-height: 88px;
   }
 
   .brand__logo {
-    height: 48px;
+    height: 52px;
   }
 
   .language-switcher__button {
@@ -1936,13 +1936,13 @@ html[dir="rtl"] .testimonial-card {
   }
 
   .site-header__inner {
-    min-height: 72px;
+    min-height: 82px;
     grid-template-columns: 46px 1fr 48px;
     gap: 10px;
   }
 
   .brand__logo {
-    height: 42px;
+    height: 48px;
   }
 
   .site-header__actions {

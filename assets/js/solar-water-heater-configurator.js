@@ -1,4 +1,5 @@
-(function () {
+/* Fixed by patch to ensure valid JS for Vite import-analysis */
+(function(){
   const AVENTRON_REFERENCE = {
     label: "Tit Mellil, Casablanca-Settat, Maroc",
     latitude: 33.5588,
@@ -31,8 +32,7 @@
   const BANK_TRANSFER_PAGE_PATH = "paiement-virement-installation.html";
   const CALLBACK_PAGE_PATH = "rappel-avant-paiement.html";
 
-  const CITY_REFERENCE_DATA = [
-    { label: "Casablanca", aliases: ["casa"], latitude: 33.5731, longitude: -7.5898 },
+const CITY_REFERENCE_DATA = [
     { label: "Mohammedia", aliases: [], latitude: 33.6835, longitude: -7.3846 },
     { label: "Rabat", aliases: [], latitude: 34.0209, longitude: -6.8416 },
     { label: "Salé", aliases: [], latitude: 34.0331, longitude: -6.7985 },
@@ -170,6 +170,30 @@
     return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--mixer" src="assets/images/solar-mixer.png" alt="" />';
   }
 
+  function renderInstallationSymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--installation" src="assets/images/solar-installation.png" alt="" />';
+  }
+
+  function renderDeliverySymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--delivery" src="assets/images/solar-delivery.png" alt="" />';
+  }
+
+  function renderElectricitySymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--electricity" src="assets/images/solar-elec.png" alt="" />';
+  }
+
+  function renderNoElectricitySymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--no-electricity" src="assets/images/solar-nonelec.png" alt="" />';
+  }
+
+  function renderPlumbingSymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--plumbing" src="assets/images/solar-preinstallation.png" alt="" />';
+  }
+
+  function renderNoPlumbingSymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--no-plumbing" src="assets/images/solar-nonpre.png" alt="" />';
+  }
+
   function renderCrossedSymbol(symbolMarkup) {
     return `
       <span class="solar-choice-card__symbol-visual solar-choice-card__symbol-visual--crossed">
@@ -275,6 +299,7 @@
         callbackSubmitting: false,
         activeCompareModal: "",
         isPricePopupOpen: false,
+        isPlumbingSetupPopupOpen: false,
       };
 
       this.handleChange = this.handleChange.bind(this);
@@ -375,11 +400,16 @@
           this.state.roofPlumbing = target.value;
           if (target.value === "yes") {
             this.state.plumbingSetup = "";
+            this.state.isPlumbingSetupPopupOpen = false;
+          } else {
+            this.state.plumbingSetup = "";
+            this.state.isPlumbingSetupPopupOpen = true;
           }
           this.onConfigurationUpdated();
           break;
         case "plumbingSetup":
           this.state.plumbingSetup = target.value;
+          this.state.isPlumbingSetupPopupOpen = false;
           this.onConfigurationUpdated();
           break;
         default:
@@ -409,6 +439,24 @@
       const actionNode = event.target.closest("[data-action]");
 
       if (!actionNode) {
+        const card = event.target.closest(".solar-version-option, .solar-choice-card");
+
+        if (card) {
+          const input = card.querySelector('input[type="radio"], input[type="checkbox"]');
+
+          if (input && !input.disabled) {
+            event.preventDefault();
+
+            if (input.type === "radio" && !input.checked) {
+              input.checked = true;
+              input.dispatchEvent(new Event("change", { bubbles: true }));
+            } else if (input.type === "checkbox") {
+              input.checked = !input.checked;
+              input.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          }
+        }
+
         return;
       }
 
@@ -431,6 +479,10 @@
           break;
         case "close-price-popup":
           this.state.isPricePopupOpen = false;
+          this.render();
+          break;
+        case "close-plumbing-popup":
+          this.state.isPlumbingSetupPopupOpen = false;
           this.render();
           break;
         case "price-popup-more-info":
@@ -1641,7 +1693,8 @@
       `;
     }
 
-    getComparisonShowcaseConfig(topic) {
+    getComparisonShowcaseConfig(topic, context = {}) {
+      const installationBlockedByZone = Boolean(context.installationBlockedByZone);
       const configs = {
         version: {
           topic: "version",
@@ -1866,6 +1919,70 @@
             ],
           },
         },
+        installation: {
+          topic: "installation",
+          name: "installationMode",
+          selectedValue: this.state.installationMode,
+          compareLabel: "Comparer les options",
+          noteText: "Choisissez si vous souhaitez une pose complète ou une livraison seule.",
+          cards: [
+            {
+              value: "withInstallation",
+              title: "Pose complète",
+              subtitle: installationBlockedByZone ? "Indisponible pour cette zone" : "Installation complète",
+              iconMarkup: renderInstallationSymbol(),
+              features: [
+                { icon: "check", label: "Pose complète" },
+                { icon: "shield", label: "Installation sécurisée" },
+                { icon: "user", label: "Prêt à l'usage" },
+              ],
+              disabled: installationBlockedByZone,
+              badge: installationBlockedByZone ? "Indisponible" : "",
+            },
+            {
+              value: "deliveryOnly",
+              title: "Sans pose",
+              subtitle: "Livraison uniquement",
+              iconMarkup: renderDeliverySymbol(),
+              features: [
+                { icon: "truck", label: "Livraison seule" },
+                { icon: "calendar", label: "Installation à votre charge" },
+                { icon: "info", label: "Configuration simplifiée" },
+              ],
+            },
+          ],
+          modal: {
+            title: "Pose complète ou livraison seule ?",
+            description: "Comparez les deux options pour choisir si vous souhaitez une installation incluse ou une livraison seule.",
+            columns: [
+              { key: "withInstallation", label: "Pose complète" },
+              { key: "deliveryOnly", label: "Sans pose" },
+            ],
+            rows: [
+              {
+                label: "Installation sur site",
+                cells: {
+                  withInstallation: { state: "yes", text: "Oui" },
+                  deliveryOnly: { state: "no", text: "Non" },
+                },
+              },
+              {
+                label: "Livraison comprise",
+                cells: {
+                  withInstallation: { state: "yes", text: "Oui" },
+                  deliveryOnly: { state: "yes", text: "Oui" },
+                },
+              },
+              {
+                label: "Aucun travail sur place",
+                cells: {
+                  withInstallation: { state: "no", text: "Non" },
+                  deliveryOnly: { state: "yes", text: "Oui" },
+                },
+              },
+            ],
+          },
+        },
       };
 
       return configs[topic] || null;
@@ -1919,7 +2036,7 @@
               const extraCardClasses = `${cardClasses}${option.cardClass ? ` ${option.cardClass}` : ""}`.trim();
 
               return `
-                <label class="solar-choice-card solar-version-card ${extraCardClasses} ${selected ? "is-selected" : ""}">
+                <label class="solar-choice-card solar-version-card solar-version-option ${extraCardClasses} ${selected ? "is-selected" : ""}">
                   <input
                     class="solar-choice-input"
                     type="radio"
@@ -1927,29 +2044,36 @@
                     value="${escapeHtml(option.value)}"
                     ${selected ? "checked" : ""}
                   />
-                  <span class="solar-version-card__header">
-                    <span class="solar-version-card__icon">
-                      ${option.iconMarkup}
+                  ${option.badge ? `
+                    <span class="solar-version-option__badge">${escapeHtml(option.badge)}</span>
+                  ` : ""}
+
+                  <div class="solar-version-option__icon">
+                    ${option.iconMarkup}
+                  </div>
+
+                  <div class="solar-version-option__content">
+                    <h5 class="solar-version-option__title">${escapeHtml(option.title)}</h5>
+                    <p class="solar-version-option__subtitle">${escapeHtml(option.subtitle)}</p>
+                  </div>
+
+                  ${option.features && option.features.length ? `
+                    <span class="solar-version-card__chips">
+                      ${option.features
+                        .map(
+                          (feature) => `
+                            <span class="solar-version-card__chip">
+                              ${renderUiIcon(feature.icon, "solar-version-card__chip-icon")}
+                              <span>${escapeHtml(feature.label)}</span>
+                            </span>
+                          `
+                        )
+                        .join("")}
                     </span>
-                    <span class="solar-version-card__copy">
-                      <span class="solar-version-card__title-row">
-                        <strong>${escapeHtml(option.title)}</strong>
-                        ${option.badge ? `<span class="solar-choice-card__badge">${escapeHtml(option.badge)}</span>` : ""}
-                      </span>
-                      <span class="solar-version-card__subtitle">${escapeHtml(option.subtitle)}</span>
-                    </span>
-                  </span>
-                  <span class="solar-version-card__chips">
-                    ${option.features
-                      .map(
-                        (feature) => `
-                          <span class="solar-version-card__chip">
-                            ${renderUiIcon(feature.icon, "solar-version-card__chip-icon")}
-                            <span>${escapeHtml(feature.label)}</span>
-                          </span>
-                        `
-                      )
-                      .join("")}
+                  ` : ""}
+
+                  <span class="solar-version-option__radio">
+                    <span class="solar-version-option__radio-indicator"></span>
                   </span>
                 </label>
               `;
@@ -1979,6 +2103,429 @@
         "solar-version-grid--technical",
         "solar-version-card--technical"
       );
+    }
+
+    renderModernVersionStep() {
+      const config = this.getComparisonShowcaseConfig("version");
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Produit</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card">
+          <h4 class="solar-version-section__title">Version</h4>
+          <p class="solar-version-section__subtitle">Choisissez la version de votre chauffe-eau solaire.</p>
+          <div class="solar-version-cards">
+            ${config.cards.map((option) => {
+              const selected = this.state.model === option.value;
+              const isSmart = option.value === "smart";
+              const cardClass = isSmart ? "solar-version-option--smart" : "solar-version-option--standard";
+              const hasPopularBadge = isSmart;
+
+              return `
+                <label class="solar-version-option ${cardClass} ${selected ? "is-selected" : ""}">
+                  <input type="radio" name="model" value="${option.value}" ${selected ? "checked" : ""} />
+                  ${hasPopularBadge ? `
+                    <span class="solar-version-option__badge">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      Le plus choisi
+                    </span>
+                  ` : ""}
+                  <div class="solar-version-option__icon">
+                    ${option.iconMarkup}
+                  </div>
+                  <div class="solar-version-option__content">
+                    <h5 class="solar-version-option__title">${option.title}</h5>
+                    <p class="solar-version-option__subtitle">${option.subtitle}</p>
+                  </div>
+                  <span class="solar-version-option__radio">
+                    <span class="solar-version-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+          <button class="solar-version-compare" type="button" data-action="open-compare-modal" data-compare-topic="version">
+            <div class="solar-version-compare__left">
+              <svg class="solar-version-compare__icon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Voir la différence Standard / Smart</span>
+            </div>
+            <svg class="solar-version-compare__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="next-step">
+            <span>Suivant</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernFilterStep() {
+      const config = this.getComparisonShowcaseConfig("filter");
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Produit</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card">
+          <h4 class="solar-version-section__title">Filtre à eau</h4>
+          <p class="solar-version-section__subtitle">Le filtre à eau aide à limiter les impuretés dans le circuit.</p>
+          <div class="solar-version-selector">
+            ${this.renderShowcaseCards(
+              config.name,
+              config.cards,
+              config.selectedValue,
+              "",
+              `solar-version-card--${config.topic}`
+            )}
+          </div>
+          <button class="solar-version-compare" type="button" data-action="open-compare-modal" data-compare-topic="water-filter">
+            <div class="solar-version-compare__left">
+              <svg class="solar-version-compare__icon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Comparer les options</span>
+            </div>
+            <svg class="solar-version-compare__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="next-step">
+            <span>Suivant</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernMixerStep() {
+      const config = this.getComparisonShowcaseConfig("mixer");
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Produit</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card">
+          <h4 class="solar-version-section__title">Mélangeur</h4>
+          <p class="solar-version-section__subtitle">Le mélangeur permet de limiter la température de sortie de l'eau chaude.</p>
+          <div class="solar-version-selector">
+            ${this.renderShowcaseCards(
+              config.name,
+              config.cards,
+              config.selectedValue,
+              "",
+              `solar-version-card--${config.topic}`
+            )}
+          </div>
+          <button class="solar-version-compare" type="button" data-action="open-compare-modal" data-compare-topic="mixer">
+            <div class="solar-version-compare__left">
+              <svg class="solar-version-compare__icon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Comparer les options</span>
+            </div>
+            <svg class="solar-version-compare__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="next-step">
+            <span>Suivant</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernInstallationStep(installationBlockedByZone = false) {
+      const config = this.getComparisonShowcaseConfig("installation", { installationBlockedByZone });
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Installation</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card">
+          <h4 class="solar-version-section__title">Installation</h4>
+          <p class="solar-version-section__subtitle">Choisissez si vous souhaitez une pose complète ou une livraison seule.</p>
+          <div class="solar-version-selector">
+            ${this.renderShowcaseCards(
+              config.name,
+              config.cards,
+              config.selectedValue,
+              "",
+              `solar-version-card--${config.topic}`
+            )}
+          </div>
+          <button class="solar-version-compare" type="button" data-action="open-compare-modal" data-compare-topic="installation">
+            <div class="solar-version-compare__left">
+              <svg class="solar-version-compare__icon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Comparer les options</span>
+            </div>
+            <svg class="solar-version-compare__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="next-step">
+            <span>Suivant</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        ${
+          installationBlockedByZone
+            ? this.renderFlashMessage({
+                type: "warning",
+                title: "Installation Aventron indisponible pour cette zone",
+                text: "Pour cette ville, seule la livraison peut être proposée automatiquement.",
+              })
+            : ""
+        }
+      `;
+    }
+
+    renderModernLocationStep() {
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Localisation</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card solar-version-card--location">
+          <h4 class="solar-version-section__title">Ville d'installation</h4>
+          <p class="solar-version-section__subtitle">Votre ville permet d'ajuster automatiquement la logistique et le prix final.</p>
+          <div class="solar-location-card solar-location-card--modern">
+            <div class="contact-form__field solar-contact-field solar-contact-field--location">
+              <label for="solar-installation-city">Ville d'installation</label>
+              <div class="solar-input-shell solar-input-shell--location">
+                <span class="solar-input-shell__icon">
+                  ${renderUiIcon("pin", "solar-input-shell__glyph")}
+                </span>
+                <select
+                  id="solar-installation-city"
+                  name="installationCity"
+                  required
+                  ${this.state.isLocating ? "disabled" : ""}
+                >
+                  <option value="" disabled ${this.state.city ? "" : "selected"}>Choisissez une ville</option>
+                  ${CITY_OPTIONS.map(
+                    (city) =>
+                      `<option value="${escapeHtml(city)}" ${this.state.city === city ? "selected" : ""}>${escapeHtml(city)}</option>`
+                  ).join("")}
+                </select>
+                <button
+                  type="button"
+                  class="solar-input-shell__action"
+                  data-action="use-location"
+                  aria-label="${this.state.isLocating ? "Localisation GPS en cours" : "Utiliser ma localisation GPS"}"
+                  title="${this.state.isLocating ? "Localisation GPS en cours" : "Utiliser ma localisation GPS"}"
+                  ${this.state.isLocating ? "disabled" : ""}
+                >
+                  ${renderUiIcon("target", "solar-input-shell__action-icon")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="next-step">
+            <span>Suivant</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernCapacityStep() {
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+
+      const capacityOptions = [
+        {
+          value: "150",
+          title: "150 L",
+          subtitle: "1 à 2 personnes",
+          description: "Idéal pour les couples ou petites familles",
+          icon: "shield",
+          symbol: renderSolarHeaterSymbol("150"),
+        },
+        {
+          value: "200",
+          title: "200 L",
+          subtitle: "2 à 4 personnes",
+          description: "Parfait pour les familles moyennes",
+          icon: "users",
+          symbol: renderSolarHeaterSymbol("200"),
+        },
+        {
+          value: "300",
+          title: "300 L",
+          subtitle: "4 à 6 personnes",
+          description: "Pour les grandes familles ou besoins élevés",
+          icon: "home",
+          symbol: renderSolarHeaterSymbol("300"),
+        },
+      ];
+
+      return `
+        <div class="solar-capacity-header">
+          <span class="solar-capacity-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-capacity-header__title">Produit</h3>
+        </div>
+        <div class="solar-capacity-progress">
+          <span class="solar-capacity-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-capacity-progress__track">
+            <div class="solar-capacity-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-capacity-card">
+          <h4 class="solar-capacity-section__title">Capacité</h4>
+          <p class="solar-capacity-section__subtitle">Choisissez la taille de votre chauffe-eau solaire selon vos besoins.</p>
+          <div class="solar-capacity-cards">
+            ${capacityOptions.map((option) => {
+              const selected = this.state.capacity === option.value;
+              return `
+                <label class="solar-capacity-option ${selected ? "is-selected" : ""}">
+                  <input type="radio" name="capacity" value="${option.value}" ${selected ? "checked" : ""} />
+                  <div class="solar-capacity-option__symbol">
+                    ${option.symbol}
+                  </div>
+                  <div class="solar-capacity-option__content">
+                    <h5 class="solar-capacity-option__title">${option.title}</h5>
+                    <p class="solar-capacity-option__subtitle">${option.subtitle}</p>
+                    <p class="solar-capacity-option__description">${option.description}</p>
+                  </div>
+                  <span class="solar-capacity-option__radio">
+                    <span class="solar-capacity-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+        </div>
+        <div class="solar-capacity-nav">
+          <button class="solar-capacity-nav__btn solar-capacity-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-capacity-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-capacity-nav__btn solar-capacity-nav__btn--primary" type="button" data-action="next-step">
+            <span>Suivant</span>
+            <svg class="solar-capacity-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
     }
 
     renderWifiFieldGroupLegacy() {
@@ -2068,73 +2615,369 @@
     }
 
     renderWifiFieldGroup() {
-      return this.renderFieldGroup(
-        "Wi-Fi sur le toit",
-        "Requis pour la version Smart connectée.",
-        `
-          ${this.renderTechnicalSelection(
-            "roofWifi",
+      return `
+        ${this.renderTechnicalSelection(
+          "roofWifi",
+          [
+            {
+              value: "yes",
+              title: "Wi-Fi disponible",
+              subtitle: "Le réseau Wi-Fi est déjà accessible sur le toit.",
+              badge: "Oui",
+              iconMarkup: renderUiIcon("roof-wifi", "solar-version-card__icon-svg"),
+              features: [
+                { icon: "check", label: "Connexion déjà disponible" },
+                { icon: "wifi", label: "Version Smart prête" },
+                { icon: "clock", label: "Mise en service plus fluide" },
+              ],
+            },
+            {
+              value: "no",
+              title: "Wi-Fi à prévoir",
+              subtitle: "Le réseau Wi-Fi n'est pas encore disponible sur le toit.",
+              badge: "Non",
+              iconMarkup: renderCrossedSymbol(renderUiIcon("roof-wifi", "solar-version-card__icon-svg")),
+              features: [
+                { icon: "wrench", label: "Préparation réseau à prévoir" },
+                { icon: "wifi", label: "Option Aventron disponible" },
+                { icon: "info", label: "Vous pouvez continuer la configuration" },
+              ],
+            },
+          ],
+          this.state.roofWifi
+        )}
+
+        ${
+          this.state.roofWifi === "no"
+            ? `
+              <div class="solar-followup-card">
+                <h6>Ajouter l'installation Wi-Fi sur le toit ?</h6>
+                <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
+                ${this.renderChoiceCards(
+                  "wifiSetup",
+                  [
+                    {
+                      value: "add",
+                      title: "Oui, ajouter",
+                      subtitle: "Ajouter pour 1 000 DHS",
+                      cardClass: "solar-choice-card--decision",
+                    },
+                    {
+                      value: "skip",
+                      title: "Non",
+                      subtitle: "Je la prépare moi-même",
+                      cardClass: "solar-choice-card--decision",
+                    },
+                  ],
+                  this.state.wifiSetup,
+                  "solar-choice-grid--two solar-choice-grid--decision"
+                )}
+              </div>
+            `
+            : ""
+        }
+      `;
+    }
+
+    renderModernWifiStep() {
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+      const lastConfigurationStepId = this.getLastConfigurationStepId();
+      const isLastConfigurationStep = this.state.currentStepId === lastConfigurationStepId;
+      const nextAction = isLastConfigurationStep && !this.state.priceCalculated ? "calculate-price" : "next-step";
+      const nextLabel = isLastConfigurationStep && !this.state.priceCalculated ? "Calculer le prix final" : "Suivant";
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Conditions techniques</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card solar-version-card--technical">
+          <h4 class="solar-version-section__title">Wi-Fi sur le toit</h4>
+          <p class="solar-version-section__subtitle">Requis pour la version Smart connectée.</p>
+          ${this.renderWifiFieldGroup()}
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="${nextAction}">
+            <span>${nextLabel}</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernElectricityStep() {
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+      const lastConfigurationStepId = this.getLastConfigurationStepId();
+      const isLastConfigurationStep = this.state.currentStepId === lastConfigurationStepId;
+      const nextAction = isLastConfigurationStep && !this.state.priceCalculated ? "calculate-price" : "next-step";
+      const nextLabel = isLastConfigurationStep && !this.state.priceCalculated ? "Calculer le prix final" : "Suivant";
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Conditions techniques</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card solar-version-card--technical">
+          <h4 class="solar-version-section__title">Électricité sur le toit</h4>
+          <p class="solar-version-section__subtitle">L'alimentation électrique doit être disponible pour la mise en service.</p>
+          ${this.renderShowcaseCards(
+            "roofElectricity",
             [
               {
                 value: "yes",
-                title: "Wi-Fi disponible",
-                subtitle: "Le réseau Wi-Fi est déjà accessible sur le toit.",
-                badge: "Oui",
-                iconMarkup: renderUiIcon("roof-wifi", "solar-version-card__icon-svg"),
+                title: "Électricité disponible",
+                subtitle: "L'alimentation est déjà prête pour la mise en service.",
+                badge: "",
+                iconMarkup: renderElectricitySymbol(),
                 features: [
-                  { icon: "check", label: "Connexion déjà disponible" },
-                  { icon: "wifi", label: "Version Smart prête" },
+                  { icon: "check", label: "Toit déjà alimenté" },
                   { icon: "clock", label: "Mise en service plus fluide" },
+                  { icon: "shield", label: "Aucune préparation supplémentaire" },
                 ],
               },
               {
                 value: "no",
-                title: "Wi-Fi à prévoir",
-                subtitle: "Le réseau Wi-Fi n'est pas encore disponible sur le toit.",
-                badge: "Non",
-                iconMarkup: renderCrossedSymbol(renderUiIcon("roof-wifi", "solar-version-card__icon-svg")),
+                title: "Électricité à préparer",
+                subtitle: "Une préparation est nécessaire avant l'intervention.",
+                badge: "",
+                iconMarkup: renderNoElectricitySymbol(),
                 features: [
-                  { icon: "wrench", label: "Préparation réseau à prévoir" },
-                  { icon: "wifi", label: "Option Aventron disponible" },
+                  { icon: "wrench", label: "Électricien à prévoir" },
+                  { icon: "bolt", label: "Alimentation à préparer" },
                   { icon: "info", label: "Vous pouvez continuer la configuration" },
                 ],
               },
             ],
-            this.state.roofWifi
+            this.state.roofElectricity,
+            "",
+            "solar-version-card--installation"
           )}
 
           ${
-            this.state.roofWifi === "no"
-              ? `
-                <div class="solar-followup-card">
-                  <h6>Ajouter l'installation Wi-Fi sur le toit ?</h6>
-                  <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
-                  ${this.renderChoiceCards(
-                    "wifiSetup",
-                    [
-                      {
-                        value: "add",
-                        title: "Oui, ajouter",
-                        subtitle: "Ajouter pour 1 000 DHS",
-                        cardClass: "solar-choice-card--decision",
-                      },
-                      {
-                        value: "skip",
-                        title: "Non",
-                        subtitle: "Je la prépare moi-même",
-                        cardClass: "solar-choice-card--decision",
-                      },
-                    ],
-                    this.state.wifiSetup,
-                    "solar-choice-grid--two solar-choice-grid--decision"
-                  )}
-                </div>
-              `
+            this.state.roofElectricity === "no"
+              ? this.renderFlashMessage({
+                  type: "warning",
+                  title: "Électricien à prévoir",
+                  text: "Merci de contacter votre électricien avant notre intervention. Vous pouvez continuer la configuration.",
+                })
               : ""
           }
-        `,
-        { stepId: "roof-wifi" }
-      );
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="${nextAction}">
+            <span>${nextLabel}</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernPlumbingStep() {
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+      const lastConfigurationStepId = this.getLastConfigurationStepId();
+      const isLastConfigurationStep = this.state.currentStepId === lastConfigurationStepId;
+      const nextAction = isLastConfigurationStep && !this.state.priceCalculated ? "calculate-price" : "next-step";
+      const nextLabel = isLastConfigurationStep && !this.state.priceCalculated ? "Calculer le prix final" : "Suivant";
+
+      return `
+        <div class="solar-version-header">
+          <span class="solar-version-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-version-header__title">Conditions techniques</h3>
+        </div>
+        <div class="solar-version-progress">
+          <span class="solar-version-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-version-progress__track">
+            <div class="solar-version-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-version-card solar-version-card--technical">
+          <h4 class="solar-version-section__title">Préinstallation eau chaude / eau froide</h4>
+          <p class="solar-version-section__subtitle">Les arrivées doivent être disponibles sur le toit avant la pose.</p>
+          ${this.renderShowcaseCards(
+            "roofPlumbing",
+            [
+              {
+                value: "yes",
+                title: "Préinstallation prête",
+                subtitle: "Les arrivées eau chaude / eau froide sont déjà disponibles.",
+                badge: "",
+                iconMarkup: renderPlumbingSymbol(),
+                features: [
+                  { icon: "check", label: "Arrivées déjà prêtes" },
+                  { icon: "clock", label: "Pose plus simple" },
+                  { icon: "shield", label: "Intervention plus rapide" },
+                ],
+              },
+              {
+                value: "no",
+                title: "Préinstallation à préparer",
+                subtitle: "Les arrivées doivent être préparées avant la pose.",
+                badge: "",
+                iconMarkup: renderNoPlumbingSymbol(),
+                features: [
+                  { icon: "wrench", label: "Préparation à prévoir" },
+                  { icon: "droplet", label: "Raccordement à organiser" },
+                  { icon: "info", label: "Option Aventron disponible" },
+                ],
+              },
+            ],
+            this.state.roofPlumbing,
+            "",
+            "solar-version-card--installation"
+          )}
+
+          ${
+            this.state.roofPlumbing === "no" && this.state.plumbingSetup
+              ? `
+                  <div class="solar-followup-summary solar-followup-summary--plumbing">
+                    ${renderUiIcon("check", "solar-followup-summary__icon")}
+                    <span>${
+                      this.state.plumbingSetup === "add"
+                        ? "Préinstallation plomberie ajoutée (+1 000 DHS)"
+                        : "Préinstallation à préparer par vos soins"
+                    }</span>
+                  </div>
+                `
+              : ""
+          }
+        </div>
+        <div class="solar-version-nav">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="${nextAction}">
+            <span>${nextLabel}</span>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      `;
+    }
+
+    renderModernPaymentStep() {
+      const steps = this.getWizardSteps();
+      const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
+      const totalSteps = steps.length;
+      const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+      const hasPopupFocus = this.state.isPricePopupOpen || this.state.activeCompareModal || this.state.isPlumbingSetupPopupOpen;
+
+      return `
+        <div class="solar-payment-header ${hasPopupFocus ? "is-obscured" : ""}">
+          <span class="solar-payment-header__badge">${currentStepIndex + 1}</span>
+          <h3 class="solar-payment-header__title">Paiement et rappel</h3>
+        </div>
+        <div class="solar-payment-progress ${hasPopupFocus ? "is-obscured" : ""}">
+          <span class="solar-payment-progress__label">Étape ${currentStepIndex + 1} / ${totalSteps}</span>
+          <div class="solar-payment-progress__track">
+            <div class="solar-payment-progress__fill" style="width: ${progressPercent}%"></div>
+          </div>
+        </div>
+        <div class="solar-payment-content ${hasPopupFocus ? "is-obscured" : ""}">
+          ${this.renderPaymentStepContent()}
+        </div>
+        <div class="solar-version-nav ${hasPopupFocus ? "is-obscured" : ""}">
+          <button class="solar-version-nav__btn solar-version-nav__btn--secondary" type="button" data-action="previous-step" ${currentStepIndex === 0 ? "disabled" : ""}>
+            <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Précédent</span>
+          </button>
+        </div>
+      `;
+    }
+
+    renderPlumbingSetupPopupModal() {
+      if (!this.state.isPlumbingSetupPopupOpen) {
+        return "";
+      }
+
+      return `
+        <div class="solar-compare-modal solar-compare-modal--plumbing" aria-hidden="false">
+          <button class="solar-compare-modal__backdrop" type="button" data-action="close-plumbing-popup" aria-label="Fermer"></button>
+          <div class="solar-compare-modal__dialog solar-plumbing-modal">
+            <button class="solar-compare-modal__close" type="button" data-action="close-plumbing-popup" aria-label="Fermer">×</button>
+
+            <div class="solar-plumbing-modal__hero">
+              <div class="solar-panel-badge solar-panel-badge--amber">
+                ${renderUiIcon("droplet", "solar-panel-badge__icon")}
+                <span>Préinstallation plomberie</span>
+              </div>
+              <div class="solar-panel-copy solar-panel-copy--summary">
+                <h4>Ajouter la préinstallation plomberie ?</h4>
+                <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
+              </div>
+            </div>
+
+            <div class="solar-plumbing-modal__options">
+              ${this.renderChoiceCards(
+                "plumbingSetup",
+                [
+                  {
+                    value: "add",
+                    title: "Oui, ajouter",
+                    subtitle: "Ajouter pour 1 000 DHS",
+                    cardClass: "solar-choice-card--decision",
+                  },
+                  {
+                    value: "skip",
+                    title: "Non",
+                    subtitle: "Je la prépare moi-même",
+                    cardClass: "solar-choice-card--decision",
+                  },
+                ],
+                this.state.plumbingSetup,
+                "solar-choice-grid--two solar-choice-grid--decision"
+              )}
+            </div>
+
+            <p class="solar-panel-footnote solar-panel-footnote--amber solar-plumbing-modal__note">
+              ${renderUiIcon("info", "solar-panel-footnote__icon")}
+              <span>Vous pourrez revenir sur ce choix avant de finaliser votre commande.</span>
+            </p>
+          </div>
+        </div>
+      `;
     }
 
     renderComparisonModal() {
@@ -2293,11 +3136,6 @@
                       <strong>${paymentAmount}</strong>
                     `
               }
-                <small>${
-                  paymentOffer
-                    ? `Prix remisé si vous payez maintenant par virement.`
-                    : `Ce montant correspond à votre configuration actuelle.`
-                }</small>
               </div>
               ${
                 paymentOffer
@@ -2311,15 +3149,6 @@
                   : ""
               }
             </div>
-
-            <p class="solar-panel-footnote solar-panel-footnote--amber solar-price-modal__note">
-              ${renderUiIcon("shield", "solar-panel-footnote__icon")}
-              <span>${
-                paymentOffer
-                  ? `Prix remisé si vous payez maintenant par virement. Remise immédiate de ${formatCurrency(paymentOffer.discountValue)} DHS.`
-                  : `Vous pouvez continuer vers la page de virement ou demander à être rappelé avant paiement.`
-              }</span>
-            </p>
 
             <div class="solar-price-modal__actions">
               <button
@@ -2342,6 +3171,11 @@
                 <span>J'ai besoin de plus d'informations</span>
               </button>
             </div>
+
+            <p class="solar-panel-footnote solar-panel-footnote--blue solar-price-modal__note">
+              ${renderUiIcon("message", "solar-panel-footnote__icon")}
+              <span>Vous serez redirigé vers le formulaire de rappel pour saisir vos coordonnées.</span>
+            </p>
           </div>
         </div>
       `;
@@ -2853,308 +3687,59 @@
 
       switch (currentStepId) {
         case "capacity":
-          return this.renderWizardStepSection({
-            stepId: "capacity",
-            sectionTitle: "Produit",
-            sectionIntro: "Choisissez votre chauffe-eau solaire étape par étape.",
-            body: this.renderFieldGroup(
-              "Capacité",
-              "Choisissez la taille du chauffe-eau solaire.",
-              this.renderChoiceCards(
-                "capacity",
-                [
-                  {
-                    value: "150",
-                    title: "150 L",
-                    subtitle: "1 à 2 personnes",
-                    cardClass: "solar-choice-card--capacity",
-                    symbol: renderSolarHeaterSymbol("150"),
-                  },
-                  {
-                    value: "200",
-                    title: "200 L",
-                    subtitle: "2 à 4 personnes",
-                    cardClass: "solar-choice-card--capacity",
-                    symbol: renderSolarHeaterSymbol("200"),
-                  },
-                  {
-                    value: "300",
-                    title: "300 L",
-                    subtitle: "4 à 6 personnes",
-                    cardClass: "solar-choice-card--capacity",
-                    symbol: renderSolarHeaterSymbol("300"),
-                  },
-                ],
-                this.state.capacity
-              ),
-              { stepId: "capacity" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="capacity">
+              ${this.renderModernCapacityStep()}
+            </section>
+          `;
         case "version":
-          return this.renderWizardStepSection({
-            stepId: "version",
-            sectionTitle: "Produit",
-            sectionIntro: "Choisissez la version qui correspond à vos besoins.",
-            body: this.renderFieldGroup(
-              "Version",
-              "Comparez les fonctionnalités puis choisissez votre version.",
-              this.renderVersionSelection(),
-              { stepId: "version" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="version">
+              ${this.renderModernVersionStep()}
+            </section>
+          `;
         case "water-filter":
-          return this.renderWizardStepSection({
-            stepId: "water-filter",
-            sectionTitle: "Produit",
-            sectionIntro: "Ajoutez les options importantes pour votre installation.",
-            body: this.renderFieldGroup(
-              "Filtre à eau",
-              "Le filtre à eau aide à limiter les impuretés dans le circuit.",
-              this.renderWaterFilterSelection(),
-              { stepId: "water-filter" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="water-filter">
+              ${this.renderModernFilterStep()}
+            </section>
+          `;
         case "mixer":
-          return this.renderWizardStepSection({
-            stepId: "mixer",
-            sectionTitle: "Produit",
-            sectionIntro: "Continuez avec les options de confort et de sécurité.",
-            body: this.renderFieldGroup(
-              "Mélangeur",
-              "Le mélangeur permet de limiter la température de sortie de l'eau chaude.",
-              this.renderMixerSelection(),
-              { stepId: "mixer" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="mixer">
+              ${this.renderModernMixerStep()}
+            </section>
+          `;
         case "installation-mode":
-          return this.renderWizardStepSection({
-            stepId: "installation-mode",
-            sectionTitle: "Installation",
-            sectionIntro: "Choisissez comment vous souhaitez recevoir votre chauffe-eau solaire.",
-            body: `
-              ${this.renderFieldGroup(
-                "Installation",
-                "Choisissez si vous souhaitez l'installation Aventron.",
-                this.renderChoiceCards(
-                  "installationMode",
-                  [
-                    {
-                      value: "withInstallation",
-                      title: "Avec installation",
-                      subtitle: installationBlockedByZone
-                        ? "Indisponible pour cette zone"
-                        : "Pose complète par Aventron",
-                      badge: installationBlockedByZone ? "Indisponible" : "Service Aventron",
-                      meta: installationBlockedByZone
-                        ? "Choisissez une ville éligible pour activer cette option."
-                        : "",
-                      symbol: renderUiIcon("wrench", "solar-choice-card__feature-icon"),
-                      cardClass: "solar-choice-card--feature solar-choice-card--installation",
-                      disabled: installationBlockedByZone,
-                    },
-                    {
-                      value: "deliveryOnly",
-                      title: "Livraison uniquement",
-                      subtitle: "Sans pose par Aventron",
-                      symbol: renderUiIcon("truck", "solar-choice-card__feature-icon"),
-                      cardClass: "solar-choice-card--feature solar-choice-card--installation",
-                    },
-                  ],
-                  this.state.installationMode,
-                  "solar-choice-grid--two solar-choice-grid--feature"
-                ),
-                { stepId: "installation-mode" }
-              )}
-
-              ${
-                installationBlockedByZone
-                  ? this.renderFlashMessage({
-                      type: "warning",
-                      title: "Installation Aventron indisponible pour cette zone",
-                      text: "Pour cette ville, seule la livraison peut être proposée automatiquement.",
-                    })
-                  : ""
-              }
-            `,
-          });
+          return `
+            <section class="solar-step" data-step-id="installation-mode">
+              ${this.renderModernInstallationStep(installationBlockedByZone)}
+            </section>
+          `;
         case "installation-city":
-          return this.renderWizardStepSection({
-            stepId: "installation-city",
-            sectionTitle: "Localisation",
-            sectionIntro: "Votre ville permet d'ajuster automatiquement la logistique et le prix final.",
-            body: this.renderFieldGroup(
-              "Ville / localisation",
-              "Choisissez la ville dans la liste ou laissez-nous la détecter via GPS.",
-              `
-                <div class="solar-location-card">
-                  <div class="contact-form__field solar-contact-field solar-contact-field--location">
-                    <label for="solar-installation-city">Ville d'installation</label>
-                    <div class="solar-input-shell solar-input-shell--location">
-                      <span class="solar-input-shell__icon">
-                        ${renderUiIcon("pin", "solar-input-shell__glyph")}
-                      </span>
-                      <select
-                        id="solar-installation-city"
-                        name="installationCity"
-                        required
-                        ${this.state.isLocating ? "disabled" : ""}
-                      >
-                        <option value="" disabled ${this.state.city ? "" : "selected"}>Choisissez une ville</option>
-                        ${CITY_OPTIONS.map(
-                          (city) =>
-                            `<option value="${escapeHtml(city)}" ${this.state.city === city ? "selected" : ""}>${escapeHtml(city)}</option>`
-                        ).join("")}
-                      </select>
-                      <button
-                        type="button"
-                        class="solar-input-shell__action"
-                        data-action="use-location"
-                        aria-label="${this.state.isLocating ? "Localisation GPS en cours" : "Utiliser ma localisation GPS"}"
-                        title="${this.state.isLocating ? "Localisation GPS en cours" : "Utiliser ma localisation GPS"}"
-                        ${this.state.isLocating ? "disabled" : ""}
-                      >
-                        ${renderUiIcon("target", "solar-input-shell__action-icon")}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              `,
-              { stepId: "installation-city" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="installation-city">
+              ${this.renderModernLocationStep()}
+            </section>
+          `;
         case "roof-wifi":
-          return this.renderWizardStepSection({
-            stepId: "roof-wifi",
-            sectionTitle: "Conditions techniques",
-            sectionIntro: "Vérifiez les éléments nécessaires pour la version Smart connectée.",
-            body: this.renderWifiFieldGroup(),
-          });
+          return `
+            <section class="solar-step" data-step-id="roof-wifi">
+              ${this.renderModernWifiStep()}
+            </section>
+          `;
         case "roof-electricity":
-          return this.renderWizardStepSection({
-            stepId: "roof-electricity",
-            sectionTitle: "Conditions techniques",
-            sectionIntro: "Vérifiez la préparation électrique sur le toit.",
-            body: this.renderFieldGroup(
-              "Électricité sur le toit",
-              "L'alimentation électrique doit être disponible pour la mise en service.",
-              `
-                ${this.renderTechnicalSelection(
-                  "roofElectricity",
-                  [
-                    {
-                      value: "yes",
-                      title: "Électricité disponible",
-                      subtitle: "L'alimentation est déjà prête pour la mise en service.",
-                      badge: "Oui",
-                      iconMarkup: renderUiIcon("bolt", "solar-version-card__icon-svg"),
-                      features: [
-                        { icon: "check", label: "Toit déjà alimenté" },
-                        { icon: "clock", label: "Mise en service plus fluide" },
-                        { icon: "shield", label: "Aucune préparation supplémentaire" },
-                      ],
-                    },
-                    {
-                      value: "no",
-                      title: "Électricité à préparer",
-                      subtitle: "Une préparation est nécessaire avant l'intervention.",
-                      badge: "Non",
-                      iconMarkup: renderCrossedSymbol(renderUiIcon("bolt", "solar-version-card__icon-svg")),
-                      features: [
-                        { icon: "wrench", label: "Électricien à prévoir" },
-                        { icon: "bolt", label: "Alimentation à préparer" },
-                        { icon: "info", label: "Vous pouvez continuer la configuration" },
-                      ],
-                    },
-                  ],
-                  this.state.roofElectricity
-                )}
-
-                ${
-                  this.state.roofElectricity === "no"
-                    ? this.renderFlashMessage({
-                        type: "warning",
-                        title: "Électricien à prévoir",
-                        text: "Merci de contacter votre électricien avant notre intervention. Vous pouvez continuer la configuration.",
-                      })
-                    : ""
-                }
-              `,
-              { stepId: "roof-electricity" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="roof-electricity">
+              ${this.renderModernElectricityStep()}
+            </section>
+          `;
         case "roof-plumbing":
-          return this.renderWizardStepSection({
-            stepId: "roof-plumbing",
-            sectionTitle: "Conditions techniques",
-            sectionIntro: "Confirmez la préparation plomberie nécessaire avant la pose.",
-            body: this.renderFieldGroup(
-              "Préinstallation eau chaude / eau froide",
-              "Les arrivées doivent être disponibles sur le toit avant la pose.",
-              `
-                ${this.renderTechnicalSelection(
-                  "roofPlumbing",
-                  [
-                    {
-                      value: "yes",
-                      title: "Préinstallation prête",
-                      subtitle: "Les arrivées eau chaude / eau froide sont déjà disponibles.",
-                      badge: "Oui",
-                      iconMarkup: renderUiIcon("droplet", "solar-version-card__icon-svg"),
-                      features: [
-                        { icon: "check", label: "Arrivées déjà prêtes" },
-                        { icon: "clock", label: "Pose plus simple" },
-                        { icon: "shield", label: "Intervention plus rapide" },
-                      ],
-                    },
-                    {
-                      value: "no",
-                      title: "Préinstallation à préparer",
-                      subtitle: "Les arrivées doivent être préparées avant la pose.",
-                      badge: "Non",
-                      iconMarkup: renderCrossedSymbol(renderUiIcon("droplet", "solar-version-card__icon-svg")),
-                      features: [
-                        { icon: "wrench", label: "Préparation à prévoir" },
-                        { icon: "droplet", label: "Raccordement à organiser" },
-                        { icon: "info", label: "Option Aventron disponible" },
-                      ],
-                    },
-                  ],
-                  this.state.roofPlumbing
-                )}
-
-                ${
-                  this.state.roofPlumbing === "no"
-                    ? `
-                        <div class="solar-followup-card">
-                          <h6>Ajouter la préinstallation plomberie ?</h6>
-                          <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
-                          ${this.renderChoiceCards(
-                            "plumbingSetup",
-                            [
-                              {
-                                value: "add",
-                                title: "Oui, ajouter",
-                                subtitle: "Ajouter pour 1 000 DHS",
-                                cardClass: "solar-choice-card--decision",
-                              },
-                              {
-                                value: "skip",
-                                title: "Non",
-                                subtitle: "Je la prépare moi-même",
-                                cardClass: "solar-choice-card--decision",
-                              },
-                            ],
-                            this.state.plumbingSetup,
-                            "solar-choice-grid--two solar-choice-grid--decision"
-                          )}
-                        </div>
-                      `
-                    : ""
-                }
-              `,
-              { stepId: "roof-plumbing" }
-            ),
-          });
+          return `
+            <section class="solar-step" data-step-id="roof-plumbing">
+              ${this.renderModernPlumbingStep()}
+            </section>
+          `;
         case "summary":
           return this.renderWizardStepSection({
             stepId: "summary",
@@ -3183,13 +3768,7 @@
           });
         case "payment":
         default:
-          return this.renderWizardStepSection({
-            stepId: "payment",
-            sectionTitle: "Paiement et rappel",
-            sectionIntro: "Payez par virement ou demandez un rappel.",
-            body: this.renderPaymentStepContent(),
-            hideNext: true,
-          });
+          return this.renderModernPaymentStep();
       }
     }
 
@@ -3348,35 +3927,8 @@
 
             ${this.renderFieldGroup(
               "Installation",
-              "Choisissez si vous souhaitez l'installation Aventron.",
-              this.renderChoiceCards(
-                "installationMode",
-                [
-                  {
-                    value: "withInstallation",
-                    title: "Avec installation",
-                    subtitle: installationBlockedByZone
-                      ? "Indisponible pour cette zone"
-                      : "Pose complète par Aventron",
-                    badge: installationBlockedByZone ? "Indisponible" : "Service Aventron",
-                    meta: installationBlockedByZone
-                      ? "Choisissez une ville éligible pour activer cette option."
-                      : "",
-                    symbol: renderUiIcon("wrench", "solar-choice-card__feature-icon"),
-                    cardClass: "solar-choice-card--feature solar-choice-card--installation",
-                    disabled: installationBlockedByZone,
-                  },
-                  {
-                    value: "deliveryOnly",
-                    title: "Livraison uniquement",
-                    subtitle: "Sans pose par Aventron",
-                    symbol: renderUiIcon("truck", "solar-choice-card__feature-icon"),
-                    cardClass: "solar-choice-card--feature solar-choice-card--installation",
-                  },
-                ],
-                this.state.installationMode,
-                "solar-choice-grid--two solar-choice-grid--feature"
-              ),
+              "Choisissez comment vous souhaitez recevoir votre chauffe-eau solaire.",
+              this.renderComparisonSelection(this.getComparisonShowcaseConfig("installation", { installationBlockedByZone })),
               { stepId: "installation-mode" }
             )}
 
@@ -4127,21 +4679,26 @@
       const wizardStatus = `Étape ${currentStepIndex} / ${steps.length}`;
       const headerStatus = priceStatus ? `${wizardStatus} • ${priceStatus}` : wizardStatus;
 
+      // Check if we're on the standalone configurator page (hide progress sidebar)
+      const isStandaloneConfigurator = document.body.classList.contains('configurator-page');
+
       this.innerHTML = `
         <div class="solar-configurator">
           <div class="solar-configurator__main solar-configurator__main--plain">
             ${this.renderFlashMessage(this.state.configMessage, this.state.validationErrors)}
             ${this.renderCurrentWizardStep()}
           </div>
-          ${this.renderStepOverview()}
+          ${isStandaloneConfigurator ? '' : this.renderStepOverview()}
         </div>
         ${this.renderComparisonModal()}
         ${this.renderPricePopupModal()}
+        ${this.renderPlumbingSetupPopupModal()}
       `;
     }
   }
-
+  // Register the custom element if not already defined
   if (!customElements.get("solar-water-heater-configurator")) {
     customElements.define("solar-water-heater-configurator", SolarWaterHeaterConfigurator);
   }
+
 })();

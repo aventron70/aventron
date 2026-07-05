@@ -15,6 +15,7 @@
 
   let bookingSubmissionPending = false;
   let bookingSubmissionTimer = null;
+  let successModalSource = null;
 
   function formatCurrency(value) {
     return new Intl.NumberFormat("fr-MA", {
@@ -160,11 +161,12 @@
     return successUrl.toString();
   }
 
-  function openSuccessModal() {
+  function openSuccessModal(source) {
     if (!successModal) {
       return;
     }
 
+    successModalSource = source || null;
     successModal.hidden = false;
     document.body.style.overflow = "hidden";
     successModalCloseButton?.focus();
@@ -177,6 +179,12 @@
 
     successModal.hidden = true;
     document.body.style.overflow = "";
+
+    if (successModalSource === "information") {
+      window.location.assign(buildCurrentFlowUrl("paiement-virement-installation.html"));
+    }
+
+    successModalSource = null;
   }
 
   function validateTransferReceipt(form, statusNode) {
@@ -267,7 +275,7 @@
 
     bookingForm?.reset();
     hydrateBookingForm(summary);
-    openSuccessModal();
+    openSuccessModal("booking");
   }
 
   async function submitForm(form, statusNode, summary) {
@@ -301,7 +309,7 @@
         if (form === informationForm) {
           trackMetaCustomEvent("Lead");
           hydrateInformationForm(summary);
-          openSuccessModal();
+          openSuccessModal("information");
         }
       } else {
         setStatus(statusNode, result.message ? `${errorMessage} ${result.message}` : errorMessage, "error");

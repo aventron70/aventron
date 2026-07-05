@@ -1,0 +1,1617 @@
+LINE 1585
+---
+disabled = Boolean(option.disabled);
+
+              return `
+                <label class="solar-choice-card${cardClass} ${selected ? "is-selected" : ""} ${d
+---
+LINE 1586
+---
+ted ? "is-selected" : ""} ${disabled ? "is-disabled" : ""}">
+                  <input
+                    class="solar-choice-input"
+                    type
+---
+LINE 1595
+---
+s="solar-choice-card__symbol">${option.symbol}</span>` : ""}
+                  <span class="solar-choice-card__top">
+                    <span class="solar-ch
+---
+LINE 1596
+---
+}
+                  <span class="solar-choice-card__top">
+                    <span class="solar-choice-card__title">
+                      <strong>${escapeH
+---
+LINE 1597
+---
+                 <span class="solar-choice-card__title">
+                      <strong>${escapeHtml(option.title)}</strong>
+                      ${option.sub
+---
+LINE 1597
+---
+-choice-card__title">
+                      <strong>${escapeHtml(option.title)}</strong>
+                      ${option.subtitle ? `<span>${escapeHtml(option.
+---
+LINE 1599
+---
+itle ? `<span>${escapeHtml(option.subtitle)}</span>` : ""}
+                    </span>
+                    ${option.badge ? `<span class="solar-choice-card__b
+---
+LINE 1601
+---
+hoice-card__badge">${escapeHtml(option.badge)}</span>` : ""}
+                  </span>
+                  ${option.meta ? `<span class="solar-choice-card__meta
+---
+LINE 1604
+---
+ar-choice-card__hint">${escapeHtml(option.hint)}</span>` : ""}
+                </label>
+              `;
+            })
+            .join("")}
+        </di
+---
+LINE 1870
+---
+          ${
+            config.noteText
+              ? `
+                  <p class="solar-version-note">
+                    ${renderUiIcon("info", "sola
+---
+LINE 1872
+---
+       ${renderUiIcon("info", "solar-version-note__icon")}
+                    <span>${escapeHtml(config.noteText)}</span>
+                  </p>
+           
+---
+LINE 1872
+---
+-version-note__icon")}
+                    <span>${escapeHtml(config.noteText)}</span>
+                  </p>
+                `
+              : ""
+        
+---
+LINE 1873
+---
+                 <span>${escapeHtml(config.noteText)}</span>
+                  </p>
+                `
+              : ""
+          }
+        </div>
+      
+---
+LINE 1890
+---
+ ${option.cardClass}` : ""}`.trim();
+
+              return `
+                <label class="solar-choice-card solar-version-card solar-version-option ${extraC
+---
+LINE 1891
+---
+ption ${extraCardClasses} ${selected ? "is-selected" : ""}">
+                  <input
+                    class="solar-choice-input"
+                    type
+---
+LINE 1902
+---
+scapeHtml(option.badge)}</span>
+                  ` : ""}
+
+                  <div class="solar-version-option__icon">
+                    ${option.iconMarku
+---
+LINE 1904
+---
+ion-option__icon">
+                    ${option.iconMarkup}
+                  </div>
+
+                  <div class="solar-version-option__content">
+       
+---
+LINE 1906
+---
+            ${option.iconMarkup}
+                  </div>
+
+                  <div class="solar-version-option__content">
+                    <h5 class="sola
+---
+LINE 1907
+---
+               <div class="solar-version-option__content">
+                    <h5 class="solar-version-option__title">${escapeHtml(option.title)}</h5>
+      
+---
+LINE 1907
+---
+             <h5 class="solar-version-option__title">${escapeHtml(option.title)}</h5>
+                    <p class="solar-version-option__subtitle">${escapeHtm
+---
+LINE 1908
+---
+ar-version-option__title">${escapeHtml(option.title)}</h5>
+                    <p class="solar-version-option__subtitle">${escapeHtml(option.subtitle)}</p>
+  
+---
+LINE 1908
+---
+        <p class="solar-version-option__subtitle">${escapeHtml(option.subtitle)}</p>
+                  </div>
+
+                  <span class="solar-version-c
+---
+LINE 1909
+---
+version-option__subtitle">${escapeHtml(option.subtitle)}</p>
+                  </div>
+
+                  <span class="solar-version-card__chips">
+          
+---
+LINE 1911
+---
+escapeHtml(option.subtitle)}</p>
+                  </div>
+
+                  <span class="solar-version-card__chips">
+                    ${option.features
+---
+LINE 1922
+---
+`
+                      )
+                      .join("")}
+                  </span>
+
+                  <span class="solar-version-option__radio">
+       
+---
+LINE 1924
+---
+                     .join("")}
+                  </span>
+
+                  <span class="solar-version-option__radio">
+                    <span class="sol
+---
+LINE 1925
+---
+                <span class="solar-version-option__radio">
+                    <span class="solar-version-option__radio-indicator"></span>
+                  <
+---
+LINE 1925
+---
+adio">
+                    <span class="solar-version-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+
+---
+LINE 1926
+---
+ <span class="solar-version-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            })
+           
+---
+LINE 1927
+---
+on-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            })
+            .join("")}
+        </di
+---
+LINE 1986
+---
+    const hasPopularBadge = isSmart;
+
+              return `
+                <label class="solar-version-option ${cardClass} ${selected ? "is-selected" : ""}
+---
+LINE 1987
+---
+rsion-option ${cardClass} ${selected ? "is-selected" : ""}">
+                  <input type="radio" name="model" value="${option.value}" ${selected ? "checked" 
+---
+LINE 1994
+---
+oisi
+                    </span>
+                  ` : ""}
+                  <div class="solar-version-option__icon">
+                    ${option.iconMarku
+---
+LINE 1996
+---
+ion-option__icon">
+                    ${option.iconMarkup}
+                  </div>
+                  <div class="solar-version-option__content">
+         
+---
+LINE 1997
+---
+              ${option.iconMarkup}
+                  </div>
+                  <div class="solar-version-option__content">
+                    <h5 class="sola
+---
+LINE 1998
+---
+               <div class="solar-version-option__content">
+                    <h5 class="solar-version-option__title">${option.title}</h5>
+                  
+---
+LINE 1998
+---
+t">
+                    <h5 class="solar-version-option__title">${option.title}</h5>
+                    <p class="solar-version-option__subtitle">${option.su
+---
+LINE 1999
+---
+5 class="solar-version-option__title">${option.title}</h5>
+                    <p class="solar-version-option__subtitle">${option.subtitle}</p>
+              
+---
+LINE 1999
+---
+                    <p class="solar-version-option__subtitle">${option.subtitle}</p>
+                  </div>
+                  <span class="solar-version-opt
+---
+LINE 2000
+---
+lass="solar-version-option__subtitle">${option.subtitle}</p>
+                  </div>
+                  <span class="solar-version-option__radio">
+          
+---
+LINE 2001
+---
+__subtitle">${option.subtitle}</p>
+                  </div>
+                  <span class="solar-version-option__radio">
+                    <span class="sol
+---
+LINE 2002
+---
+                <span class="solar-version-option__radio">
+                    <span class="solar-version-option__radio-indicator"></span>
+                  <
+---
+LINE 2002
+---
+adio">
+                    <span class="solar-version-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+
+---
+LINE 2003
+---
+ <span class="solar-version-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            }).join("")}
+ 
+---
+LINE 2004
+---
+on-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+        
+---
+LINE 2206
+---
+ this.state.capacity === option.value;
+              return `
+                <label class="solar-capacity-option ${selected ? "is-selected" : ""}">
+        
+---
+LINE 2207
+---
+ss="solar-capacity-option ${selected ? "is-selected" : ""}">
+                  <input type="radio" name="capacity" value="${option.value}" ${selected ? "checke
+---
+LINE 2208
+---
+ity" value="${option.value}" ${selected ? "checked" : ""} />
+                  <div class="solar-capacity-option__symbol">
+                    ${option.symbol
+---
+LINE 2210
+---
+acity-option__symbol">
+                    ${option.symbol}
+                  </div>
+                  <div class="solar-capacity-option__content">
+        
+---
+LINE 2211
+---
+                  ${option.symbol}
+                  </div>
+                  <div class="solar-capacity-option__content">
+                    <h5 class="sol
+---
+LINE 2212
+---
+              <div class="solar-capacity-option__content">
+                    <h5 class="solar-capacity-option__title">${option.title}</h5>
+                 
+---
+LINE 2212
+---
+">
+                    <h5 class="solar-capacity-option__title">${option.title}</h5>
+                    <p class="solar-capacity-option__subtitle">${option.s
+---
+LINE 2213
+---
+ class="solar-capacity-option__title">${option.title}</h5>
+                    <p class="solar-capacity-option__subtitle">${option.subtitle}</p>
+             
+---
+LINE 2213
+---
+                   <p class="solar-capacity-option__subtitle">${option.subtitle}</p>
+                    <p class="solar-capacity-option__description">${option
+---
+LINE 2214
+---
+s="solar-capacity-option__subtitle">${option.subtitle}</p>
+                    <p class="solar-capacity-option__description">${option.description}</p>
+       
+---
+LINE 2214
+---
+             <p class="solar-capacity-option__description">${option.description}</p>
+                  </div>
+                  <span class="solar-capacity-op
+---
+LINE 2215
+---
+olar-capacity-option__description">${option.description}</p>
+                  </div>
+                  <span class="solar-capacity-option__radio">
+         
+---
+LINE 2216
+---
+ription">${option.description}</p>
+                  </div>
+                  <span class="solar-capacity-option__radio">
+                    <span class="so
+---
+LINE 2217
+---
+               <span class="solar-capacity-option__radio">
+                    <span class="solar-capacity-option__radio-indicator"></span>
+                  
+---
+LINE 2217
+---
+dio">
+                    <span class="solar-capacity-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+
+---
+LINE 2218
+---
+<span class="solar-capacity-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            }).join("")}
+ 
+---
+LINE 2219
+---
+ty-option__radio-indicator"></span>
+                  </span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+        
+---
+LINE 2273
+---
+state.roofWifi === option.value;
+
+                return `
+                  <label class="solar-choice-card solar-wifi-card ${selected ? "is-selected" : ""}
+---
+LINE 2274
+---
+ce-card solar-wifi-card ${selected ? "is-selected" : ""}">
+                    <input
+                      class="solar-choice-input"
+                      
+---
+LINE 2281
+---
+      ${selected ? "checked" : ""}
+                    />
+                    <span class="solar-wifi-card__icon" aria-hidden="true">
+                      $
+---
+LINE 2283
+---
+ ${renderUiIcon("roof-wifi", "solar-wifi-card__icon-svg")}
+                    </span>
+                    <span class="solar-wifi-card__content">
+          
+---
+LINE 2284
+---
+"solar-wifi-card__icon-svg")}
+                    </span>
+                    <span class="solar-wifi-card__content">
+                      <strong>${escapeH
+---
+LINE 2285
+---
+                 <span class="solar-wifi-card__content">
+                      <strong>${escapeHtml(option.title)}</strong>
+                      <span>${esca
+---
+LINE 2285
+---
+-wifi-card__content">
+                      <strong>${escapeHtml(option.title)}</strong>
+                      <span>${escapeHtml(option.subtitle)}</span>
+  
+---
+LINE 2286
+---
+            <strong>${escapeHtml(option.title)}</strong>
+                      <span>${escapeHtml(option.subtitle)}</span>
+                    </span>
+      
+---
+LINE 2286
+---
+ion.title)}</strong>
+                      <span>${escapeHtml(option.subtitle)}</span>
+                    </span>
+                  </label>
+              
+---
+LINE 2287
+---
+               <span>${escapeHtml(option.subtitle)}</span>
+                    </span>
+                  </label>
+                `;
+              })
+     
+---
+LINE 2288
+---
+peHtml(option.subtitle)}</span>
+                    </span>
+                  </label>
+                `;
+              })
+              .join("")}
+      
+---
+LINE 2297
+---
+{
+            this.state.roofWifi === "no"
+              ? `
+                <div class="solar-followup-card">
+                  <h6>Ajouter l'installation 
+---
+LINE 2298
+---
+      ? `
+                <div class="solar-followup-card">
+                  <h6>Ajouter l'installation Wi-Fi sur le toit ?</h6>
+                  <p>Vous p
+---
+LINE 3627
+---
+", "solar-panel-badge__icon")}
+                      <span>Ville d'installation</span>
+                    </div>
+                    <p>Sélectionnez votre v
+---
+LINE 3628
+---
+}
+                      <span>Ville d'installation</span>
+                    </div>
+                    <p>Sélectionnez votre ville dans la liste ou utilise
+---
+LINE 3629
+---
+an>Ville d'installation</span>
+                    </div>
+                    <p>Sélectionnez votre ville dans la liste ou utilisez votre localisation GPS.</p
+---
+LINE 3629
+---
+   <p>Sélectionnez votre ville dans la liste ou utilisez votre localisation GPS.</p>
+                  </div>
+                  <div class="contact-form__fiel
+---
+LINE 3630
+---
+ ville dans la liste ou utilisez votre localisation GPS.</p>
+                  </div>
+                  <div class="contact-form__field solar-contact-field so
+---
+LINE 3631
+---
+ilisez votre localisation GPS.</p>
+                  </div>
+                  <div class="contact-form__field solar-contact-field solar-contact-field--locatio
+---
+LINE 3632
+---
+_field solar-contact-field solar-contact-field--location">
+                    <label for="solar-installation-city">Ville d'installation</label>
+             
+---
+LINE 3840
+---
+t</strong>
+              <small>Aucun prix n'est affiché avant le calcul final.</small>
+            </div>
+          </div>
+        `;
+      }
+
+      ret
+---
+LINE 3841
+---
+    <small>Aucun prix n'est affiché avant le calcul final.</small>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div cl
+---
+LINE 3842
+---
+rix n'est affiché avant le calcul final.</small>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="solar-summary
+---
+LINE 3847
+---
+       </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="solar-summary-card" data-price-anchor data-step-id="summary">
+     
+---
+LINE 3848
+---
+class="solar-summary-card" data-price-anchor data-step-id="summary">
+          <div class="solar-summary-card__header">
+            <div class="solar-panel-ba
+---
+LINE 3849
+---
+-id="summary">
+          <div class="solar-summary-card__header">
+            <div class="solar-panel-badge solar-panel-badge--amber">
+              ${render
+---
+LINE 3851
+---
+        ${renderUiIcon("calculator", "solar-panel-badge__icon")}
+              <span>Prix final TTC</span>
+            </div>
+            <div class="solar-p
+---
+LINE 3851
+---
+on("calculator", "solar-panel-badge__icon")}
+              <span>Prix final TTC</span>
+            </div>
+            <div class="solar-panel-copy solar-pane
+---
+LINE 3852
+---
+ar-panel-badge__icon")}
+              <span>Prix final TTC</span>
+            </div>
+            <div class="solar-panel-copy solar-panel-copy--summary">
+  
+---
+LINE 3853
+---
+")}
+              <span>Prix final TTC</span>
+            </div>
+            <div class="solar-panel-copy solar-panel-copy--summary">
+              <h4>Votr
+---
+LINE 3854
+---
+        <div class="solar-panel-copy solar-panel-copy--summary">
+              <h4>Votre configuration</h4>
+              <p>Voici le prix final correspondant
+---
+LINE 3854
+---
+ar-panel-copy solar-panel-copy--summary">
+              <h4>Votre configuration</h4>
+              <p>Voici le prix final correspondant à la configuration sél
+---
+LINE 3855
+---
+anel-copy--summary">
+              <h4>Votre configuration</h4>
+              <p>Voici le prix final correspondant à la configuration sélectionnée.</p>
+     
+---
+LINE 3855
+---
+           <p>Voici le prix final correspondant à la configuration sélectionnée.</p>
+            </div>
+          </div>
+
+          <div class="solar-summar
+---
+LINE 3856
+---
+i le prix final correspondant à la configuration sélectionnée.</p>
+            </div>
+          </div>
+
+          <div class="solar-summary-card__price">
+ 
+---
+LINE 3857
+---
+rrespondant à la configuration sélectionnée.</p>
+            </div>
+          </div>
+
+          <div class="solar-summary-card__price">
+            <span c
+---
+LINE 3859
+---
+figuration sélectionnée.</p>
+            </div>
+          </div>
+
+          <div class="solar-summary-card__price">
+            <span class="solar-summary-
+---
+LINE 3860
+---
+       </div>
+
+          <div class="solar-summary-card__price">
+            <span class="solar-summary-price__label">Prix final TTC</span>
+            <str
+---
+LINE 3860
+---
+rd__price">
+            <span class="solar-summary-price__label">Prix final TTC</span>
+            <strong>${formatCurrency(summary.standardPrice)} DHS TTC</s
+---
+LINE 3861
+---
+    <span class="solar-summary-price__label">Prix final TTC</span>
+            <strong>${formatCurrency(summary.standardPrice)} DHS TTC</strong>
+            <
+---
+LINE 3861
+---
+TTC</span>
+            <strong>${formatCurrency(summary.standardPrice)} DHS TTC</strong>
+            <small>Ce montant correspond à la configuration sélection
+---
+LINE 3862
+---
+ <strong>${formatCurrency(summary.standardPrice)} DHS TTC</strong>
+            <small>Ce montant correspond à la configuration sélectionnée.</small>
+         
+---
+LINE 3862
+---
+rong>
+            <small>Ce montant correspond à la configuration sélectionnée.</small>
+          </div>
+
+          <div class="solar-summary-meta">
+      
+---
+LINE 3863
+---
+small>Ce montant correspond à la configuration sélectionnée.</small>
+          </div>
+
+          <div class="solar-summary-meta">
+            <div>
+       
+---
+LINE 3865
+---
+respond à la configuration sélectionnée.</small>
+          </div>
+
+          <div class="solar-summary-meta">
+            <div>
+              <span>Ville d
+---
+LINE 3866
+---
+l>
+          </div>
+
+          <div class="solar-summary-meta">
+            <div>
+              <span>Ville d'installation</span>
+              <strong>${
+---
+LINE 3867
+---
+
+
+          <div class="solar-summary-meta">
+            <div>
+              <span>Ville d'installation</span>
+              <strong>${escapeHtml(summary.lo
+---
+LINE 3886
+---
+mise de ${formatCurrency(paymentOffer.discountValue)} DHS.
+                    </p>
+                    <div class="solar-payment-offer__total">
+            
+---
+LINE 3887
+---
+aymentOffer.discountValue)} DHS.
+                    </p>
+                    <div class="solar-payment-offer__total">
+                      <span>Montant à 
+---
+LINE 3888
+---
+                <div class="solar-payment-offer__total">
+                      <span>Montant à payer maintenant</span>
+                      <strong>${formatC
+---
+LINE 3888
+---
+r-payment-offer__total">
+                      <span>Montant à payer maintenant</span>
+                      <strong>${formatCurrency(paymentOffer.payNowPrice
+---
+LINE 3889
+---
+                 <span>Montant à payer maintenant</span>
+                      <strong>${formatCurrency(paymentOffer.payNowPrice)} DHS TTC</strong>
+          
+---
+LINE 3889
+---
+                     <strong>${formatCurrency(paymentOffer.payNowPrice)} DHS TTC</strong>
+                    </div>
+                  </div>
+               
+---
+LINE 3890
+---
+formatCurrency(paymentOffer.payNowPrice)} DHS TTC</strong>
+                    </div>
+                  </div>
+                `
+              : ""
+       
+---
+LINE 3891
+---
+r.payNowPrice)} DHS TTC</strong>
+                    </div>
+                  </div>
+                `
+              : ""
+          }
+
+          ${
+    
+---
+LINE 3899
+---
+        !paymentOffer && deferredTransfer
+              ? `
+                  <div class="solar-payment-offer">
+                    <p class="solar-payment-o
+---
+LINE 3900
+---
+  ? `
+                  <div class="solar-payment-offer">
+                    <p class="solar-payment-offer__eyebrow">Paiement par virement après</p>
+       
+---
+LINE 3900
+---
+             <p class="solar-payment-offer__eyebrow">Paiement par virement après</p>
+                    <h4>Livraison uniquement</h4>
+                    <p>
+---
+LINE 3901
+---
+ar-payment-offer__eyebrow">Paiement par virement après</p>
+                    <h4>Livraison uniquement</h4>
+                    <p>
+                      Le
+---
+LINE 3901
+---
+w">Paiement par virement après</p>
+                    <h4>Livraison uniquement</h4>
+                    <p>
+                      Le prix final inclut ${for
+---
+LINE 3902
+---
+rès</p>
+                    <h4>Livraison uniquement</h4>
+                    <p>
+                      Le prix final inclut ${formatCurrency(summary.deliver
+---
+LINE 3905
+---
+ pouvez conserver ce prix et payer plus tard par virement.
+                    </p>
+                    <div class="solar-payment-offer__total">
+            
+---
+LINE 3906
+---
+et payer plus tard par virement.
+                    </p>
+                    <div class="solar-payment-offer__total">
+                      <span>Montant à 
+---
+LINE 3907
+---
+                <div class="solar-payment-offer__total">
+                      <span>Montant à payer par virement</span>
+                      <strong>${forma
+---
+LINE 3907
+---
+payment-offer__total">
+                      <span>Montant à payer par virement</span>
+                      <strong>${formatCurrency(deferredTransfer.transfe
+---
+LINE 3908
+---
+               <span>Montant à payer par virement</span>
+                      <strong>${formatCurrency(deferredTransfer.transferPrice)} DHS TTC</strong>
+    
+---
+LINE 3908
+---
+               <strong>${formatCurrency(deferredTransfer.transferPrice)} DHS TTC</strong>
+                    </div>
+                  </div>
+               
+---
+LINE 3909
+---
+Currency(deferredTransfer.transferPrice)} DHS TTC</strong>
+                    </div>
+                  </div>
+                `
+              : ""
+       
+---
+LINE 3910
+---
+transferPrice)} DHS TTC</strong>
+                    </div>
+                  </div>
+                `
+              : ""
+          }
+
+          ${
+    
+---
+LINE 4010
+---
+ paymentOffer || deferredTransfer
+                  ? `
+                      <article class="solar-payment-panel">
+                        <p class="eyebrow
+---
+LINE 4011
+---
+                 <article class="solar-payment-panel">
+                        <p class="eyebrow">Payer par virement</p>
+                        <h4>${payment
+---
+LINE 4011
+---
+r-payment-panel">
+                        <p class="eyebrow">Payer par virement</p>
+                        <h4>${paymentOffer ? "Je paie maintenant" : "Je pa
+---
+LINE 4012
+---
+             <p class="eyebrow">Payer par virement</p>
+                        <h4>${paymentOffer ? "Je paie maintenant" : "Je paierai plus tard"}</h4>
+      
+---
+LINE 4012
+---
+             <h4>${paymentOffer ? "Je paie maintenant" : "Je paierai plus tard"}</h4>
+                        <p>
+                          ${
+              
+---
+LINE 4013
+---
+ ? "Je paie maintenant" : "Je paierai plus tard"}</h4>
+                        <p>
+                          ${
+                            paymentOffer
+   
+---
+LINE 4019
+---
+s dans votre prix final.`
+                          }
+                        </p>
+                        <button class="button button--primary" type="butto
+---
+LINE 4020
+---
+                       }
+                        </p>
+                        <button class="button button--primary" type="button" data-action="go-to-bank-tra
+---
+LINE 4022
+---
+"Payer par virement" : "Payer plus tard par virement"}
+                        </button>
+                      </article>
+                    `
+            
+---
+LINE 4023
+---
+s tard par virement"}
+                        </button>
+                      </article>
+                    `
+                  : `
+                      
+---
+LINE 4026
+---
+</article>
+                    `
+                  : `
+                      <article class="solar-payment-panel">
+                        <p class="eyebrow
+---
+LINE 4027
+---
+                 <article class="solar-payment-panel">
+                        <p class="eyebrow">Payer par virement</p>
+                        <h4>Paiement 
+---
+LINE 4027
+---
+r-payment-panel">
+                        <p class="eyebrow">Payer par virement</p>
+                        <h4>Paiement par virement non disponible</h4>
+   
+---
+LINE 4028
+---
+             <p class="eyebrow">Payer par virement</p>
+                        <h4>Paiement par virement non disponible</h4>
+                        <p>
+    
+---
+LINE 4028
+---
+r virement</p>
+                        <h4>Paiement par virement non disponible</h4>
+                        <p>
+                          Le paiement immédi
+---
+LINE 4029
+---
+         <h4>Paiement par virement non disponible</h4>
+                        <p>
+                          Le paiement immédiat avec remise est disponible u
+---
+LINE 4039
+---
+               <div>
+                  <p class="eyebrow">Besoin d'informations</p>
+                  <h4>Être rappelé avant paiement</h4>
+                  
+---
+LINE 4040
+---
+                <p class="eyebrow">Besoin d'informations</p>
+                  <h4>Être rappelé avant paiement</h4>
+                  <p>Laissez vos coordonné
+---
+LINE 4040
+---
+ow">Besoin d'informations</p>
+                  <h4>Être rappelé avant paiement</h4>
+                  <p>Laissez vos coordonnées. Un conseiller Aventron vous
+---
+LINE 4041
+---
+</p>
+                  <h4>Être rappelé avant paiement</h4>
+                  <p>Laissez vos coordonnées. Un conseiller Aventron vous rappellera rapidement.</
+---
+LINE 4041
+---
+  <p>Laissez vos coordonnées. Un conseiller Aventron vous rappellera rapidement.</p>
+                </div>
+
+                ${this.renderFlashMessage(this.s
+---
+LINE 4042
+---
+onnées. Un conseiller Aventron vous rappellera rapidement.</p>
+                </div>
+
+                ${this.renderFlashMessage(this.state.customerMessage, 
+---
+LINE 4046
+---
+sage(this.state.customerMessage, this.state.customerErrors)}
+
+                <div class="contact-form">
+                  <div class="contact-form__grid">
+
+---
+LINE 4047
+---
+stomerErrors)}
+
+                <div class="contact-form">
+                  <div class="contact-form__grid">
+                    <div class="contact-form__
+---
+LINE 4048
+---
+form">
+                  <div class="contact-form__grid">
+                    <div class="contact-form__field">
+                      <label for="solar-custo
+---
+LINE 4049
+---
+>
+                    <div class="contact-form__field">
+                      <label for="solar-customer-full-name">Nom complet</label>
+                     
+---
+LINE 4049
+---
+field">
+                      <label for="solar-customer-full-name">Nom complet</label>
+                      <input
+                        id="solar-custom
+---
+LINE 4050
+---
+label for="solar-customer-full-name">Nom complet</label>
+                      <input
+                        id="solar-customer-full-name"
+                 
+---
+LINE 4057
+---
+manquant.") ? "true" : "false"}"
+                      />
+                    </div>
+                    <div class="contact-form__field">
+                 
+---
+LINE 4058
+---
+e"}"
+                      />
+                    </div>
+                    <div class="contact-form__field">
+                      <label for="solar-custo
+---
+LINE 4059
+---
+>
+                    <div class="contact-form__field">
+                      <label for="solar-customer-phone">Numéro de téléphone</label>
+                 
+---
+LINE 4059
+---
+d">
+                      <label for="solar-customer-phone">Numéro de téléphone</label>
+                      <input
+                        id="solar-custom
+---
+LINE 4060
+---
+l for="solar-customer-phone">Numéro de téléphone</label>
+                      <input
+                        id="solar-customer-phone"
+                     
+---
+LINE 4067
+---
+manquant.") ? "true" : "false"}"
+                      />
+                    </div>
+                    <div class="contact-form__field contact-form__field-
+---
+LINE 4068
+---
+e"}"
+                      />
+                    </div>
+                    <div class="contact-form__field contact-form__field--full">
+                   
+---
+LINE 4069
+---
+v class="contact-form__field contact-form__field--full">
+                      <label for="solar-customer-email">Email</label>
+                      <input
+ 
+---
+LINE 4069
+---
+rm__field--full">
+                      <label for="solar-customer-email">Email</label>
+                      <input
+                        id="solar-custom
+---
+LINE 4070
+---
+         <label for="solar-customer-email">Email</label>
+                      <input
+                        id="solar-customer-email"
+                     
+---
+LINE 4081
+---
+lse"
+                        }"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+---
+LINE 4082
+---
+    }"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="solar-customer-act
+---
+LINE 4083
+---
+      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="solar-customer-actions">
+                
+---
+LINE 4085
+---
+    </div>
+                  </div>
+                </div>
+
+                <div class="solar-customer-actions">
+                  <button class="button so
+---
+LINE 4086
+---
+div>
+
+                <div class="solar-customer-actions">
+                  <button class="button solar-info-button" type="button" data-action="request-call
+---
+LINE 4090
+---
+     ${renderUiIcon("message", "solar-info-button__icon")}
+                    <span>${this.state.callbackSubmitting ? "Envoi en cours..." : "Demander un rappe
+---
+LINE 4090
+---
+an>${this.state.callbackSubmitting ? "Envoi en cours..." : "Demander un rappel"}</span>
+                  </button>
+                </div>
+              </di
+---
+LINE 4091
+---
+mitting ? "Envoi en cours..." : "Demander un rappel"}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+   
+---
+LINE 4092
+---
+." : "Demander un rappel"}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </se
+---
+LINE 4093
+---
+el"}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    
+---
+LINE 4094
+---
+           </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    renderCusto
+---
+LINE 4095
+---
+n>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    renderCustomerPanelV2() {
+  
+---
+LINE 4096
+---
+    </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    renderCustomerPanelV2() {
+      const summar
+---
+LINE 4107
+---
+TransferSummary(summary);
+
+      if (!summary) {
+        return `
+          <section class="solar-step solar-section-card" data-step-id="payment">
+        
+---
+LINE 4108
+---
+tion class="solar-step solar-section-card" data-step-id="payment">
+            <div class="solar-step__heading">
+              <span class="solar-step__index"
+---
+LINE 4109
+---
+tep-id="payment">
+            <div class="solar-step__heading">
+              <span class="solar-step__index">D</span>
+              <div>
+                <
+---
+LINE 4109
+---
+iv class="solar-step__heading">
+              <span class="solar-step__index">D</span>
+              <div>
+                <h4>Paiement et informations</h4>
+---
+LINE 4110
+---
+eading">
+              <span class="solar-step__index">D</span>
+              <div>
+                <h4>Paiement et informations</h4>
+                <p cla
+---
+LINE 4111
+---
+ <span class="solar-step__index">D</span>
+              <div>
+                <h4>Paiement et informations</h4>
+                <p class="solar-step__intro">
+---
+LINE 4111
+---
+dex">D</span>
+              <div>
+                <h4>Paiement et informations</h4>
+                <p class="solar-step__intro">Calculez d'abord le prix fin
+---
+LINE 4112
+---
+      <div>
+                <h4>Paiement et informations</h4>
+                <p class="solar-step__intro">Calculez d'abord le prix final pour afficher les op
+---
+LINE 4210
+---
+rsque l'installation Aventron est
+                  possible.
+                </p>
+              </div>
+
+              <p class="solar-panel-footnote solar
+---
+LINE 4211
+---
+ Aventron est
+                  possible.
+                </p>
+              </div>
+
+              <p class="solar-panel-footnote solar-panel-footnote--amb
+---
+LINE 4213
+---
+         possible.
+                </p>
+              </div>
+
+              <p class="solar-panel-footnote solar-panel-footnote--amber">
+                ${
+---
+LINE 4215
+---
+       ${renderUiIcon("shield", "solar-panel-footnote__icon")}
+                <span>Nous vous proposerons la meilleure option disponible.</span>
+            
+---
+LINE 4215
+---
+")}
+                <span>Nous vous proposerons la meilleure option disponible.</span>
+              </p>
+            </article>
+          `;
+
+      retur
+---
+LINE 4216
+---
+pan>Nous vous proposerons la meilleure option disponible.</span>
+              </p>
+            </article>
+          `;
+
+      return `
+        <section c
+---
+LINE 4217
+---
+oserons la meilleure option disponible.</span>
+              </p>
+            </article>
+          `;
+
+      return `
+        <section class="solar-step s
+---
+LINE 4221
+---
+          </p>
+            </article>
+          `;
+
+      return `
+        <section class="solar-step solar-section-card" data-step-id="payment">
+        
+---
+LINE 4222
+---
+ection class="solar-step solar-section-card" data-step-id="payment">
+          <div class="solar-step__heading">
+            <span class="solar-step__index">D
+---
+LINE 4223
+---
+ta-step-id="payment">
+          <div class="solar-step__heading">
+            <span class="solar-step__index">D</span>
+            <div>
+              <h4>P
+---
+LINE 4223
+---
+<div class="solar-step__heading">
+            <span class="solar-step__index">D</span>
+            <div>
+              <h4>Paiement et informations</h4>
+   
+---
+LINE 4224
+---
+p__heading">
+            <span class="solar-step__index">D</span>
+            <div>
+              <h4>Paiement et informations</h4>
+              <p class="
+---
+LINE 4225
+---
+     <span class="solar-step__index">D</span>
+            <div>
+              <h4>Paiement et informations</h4>
+              <p class="solar-step__intro">Pa
+---
+LINE 4225
+---
+__index">D</span>
+            <div>
+              <h4>Paiement et informations</h4>
+              <p class="solar-step__intro">Payez par virement ou demandez
+---
+LINE 4226
+---
+          <div>
+              <h4>Paiement et informations</h4>
+              <p class="solar-step__intro">Payez par virement ou demandez un rappel.</p>
+    
+---
+LINE 4226
+---
+          <p class="solar-step__intro">Payez par virement ou demandez un rappel.</p>
+            </div>
+          </div>
+
+          <div class="solar-step__
+---
+LINE 4227
+---
+="solar-step__intro">Payez par virement ou demandez un rappel.</p>
+            </div>
+          </div>
+
+          <div class="solar-step__body">
+          
+---
+LINE 4228
+---
+o">Payez par virement ou demandez un rappel.</p>
+            </div>
+          </div>
+
+          <div class="solar-step__body">
+            <div class="sola
+---
+LINE 4230
+---
+t ou demandez un rappel.</p>
+            </div>
+          </div>
+
+          <div class="solar-step__body">
+            <div class="solar-payment-grid">
+  
+---
+LINE 4231
+---
+div>
+          </div>
+
+          <div class="solar-step__body">
+            <div class="solar-payment-grid">
+              ${transferPanel}
+
+            
+---
+LINE 4234
+---
+iv class="solar-payment-grid">
+              ${transferPanel}
+
+              <div class="solar-configurator__customer solar-configurator__customer--info">
+ 
+---
+LINE 4235
+---
+ar-configurator__customer solar-configurator__customer--info">
+                <div class="solar-panel-badge solar-panel-badge--blue">
+                  ${ren
+---
+LINE 4237
+---
+          ${renderUiIcon("info", "solar-panel-badge__icon")}
+                  <span>Besoin d'informations</span>
+                </div>
+
+                <d
+---
