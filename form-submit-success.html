@@ -5,7 +5,21 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirmation d'envoi</title>
-      <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code -->
     <script src="assets/js/meta-pixel.js"></script>
     <!-- End Meta Pixel Code -->
+  </head>
+  <body>
+    <script>
+      (function () {
+        "use strict";
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage(
+            { type: "formsubmit-success", form: "bank-transfer-booking" },
+            window.location.origin
+          );
+        }
+      })();
+    </script>
   </body>
+</html>

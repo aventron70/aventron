@@ -457,6 +457,26 @@ solar-water-heater-configurator {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.solar-followup-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+  border: 1px solid rgba(34, 197, 94, 0.22);
+  color: #166534;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.solar-followup-summary__icon {
+  width: 20px;
+  height: 20px;
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
 .solar-version-selector {
   display: grid;
   gap: 20px;
@@ -1017,10 +1037,20 @@ solar-water-heater-configurator {
 .solar-version-card__icon .solar-choice-card__symbol-image--electricity,
 .solar-version-card__icon .solar-choice-card__symbol-image--no-electricity,
 .solar-version-card__icon .solar-choice-card__symbol-image--plumbing,
-.solar-version-card__icon .solar-choice-card__symbol-image--no-plumbing {
+.solar-version-card__icon .solar-choice-card__symbol-image--no-plumbing,
+.solar-version-card__icon .solar-choice-card__symbol-image--wifi,
+.solar-version-card__icon .solar-choice-card__symbol-image--no-wifi {
   width: 62px;
   height: 62px;
   object-fit: contain;
+}
+
+.solar-version-option--no-radio::after {
+  display: none;
+}
+
+.solar-version-option--no-radio .solar-version-option__title-row {
+  padding-right: 0;
 }
 
 .solar-version-card__icon .solar-choice-card__symbol-cross {
@@ -1208,8 +1238,9 @@ solar-water-heater-configurator {
   position: fixed;
   inset: 0;
   z-index: 120;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 24px;
 }
 
@@ -1225,41 +1256,103 @@ solar-water-heater-configurator {
 .solar-compare-modal__dialog {
   position: relative;
   z-index: 1;
-  width: min(100%, 980px);
-  max-height: min(88vh, 920px);
+  width: min(100%, 640px);
+  max-width: min(100%, 640px);
+  max-height: min(88vh, 720px);
   overflow: auto;
   overscroll-behavior: contain;
   display: grid;
-  gap: 22px;
-  padding: 32px 30px 28px;
-  border-radius: 32px;
+  gap: 18px;
+  padding: 28px 32px 24px;
+  border-radius: 28px;
   border: 1px solid rgba(226, 232, 240, 0.96);
   background:
     radial-gradient(circle at top right, rgba(247, 170, 43, 0.08), transparent 24%),
     #ffffff;
   box-shadow: 0 34px 80px rgba(15, 23, 42, 0.24);
+  box-sizing: border-box;
 }
 
 .solar-compare-modal__close {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 14px;
+  right: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
   border: 1px solid rgba(203, 213, 225, 0.96);
   background: #ffffff;
   color: #475569;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
 .solar-compare-modal--price {
   z-index: 130;
+}
+
+.solar-setup-modal {
+  width: min(100%, 560px);
+  max-height: min(88vh, 680px);
+  margin: auto;
+  gap: 24px;
+  padding: 32px 48px 28px;
+  border-radius: 34px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.solar-setup-modal__hero {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.solar-setup-modal__options {
+  display: grid;
+  gap: 16px;
+}
+
+.solar-setup-modal__options .solar-choice-grid--two {
+  justify-content: center;
+}
+
+.solar-setup-modal__actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+}
+
+.solar-setup-modal__actions .button {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: center;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.solar-setup-modal__actions .button.button--secondary {
+  color: #18233d;
+  border-color: rgba(203, 213, 225, 0.95);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+}
+
+.solar-setup-modal__actions .button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.solar-setup-modal__note {
+  justify-content: center;
 }
 
 .solar-price-modal {
@@ -1505,28 +1598,28 @@ solar-water-heater-configurator {
 
 .solar-compare-table {
   width: 100%;
-  min-width: 620px;
+  min-width: 520px;
   border-collapse: collapse;
 }
 
 .solar-compare-table thead th {
   background: linear-gradient(180deg, #fff9ee 0%, #ffffff 100%);
   color: #18233d;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 800;
   text-align: left;
 }
 
 .solar-compare-table th,
 .solar-compare-table td {
-  padding: 18px 20px;
+  padding: 14px 16px;
   border-bottom: 1px solid rgba(226, 232, 240, 0.98);
   vertical-align: middle;
 }
 
 .solar-compare-table tbody th {
   color: #0f172a;
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   font-weight: 700;
   text-align: left;
   background: #ffffff;
@@ -1544,14 +1637,15 @@ solar-water-heater-configurator {
 .solar-compare-table__cell {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: #22304a;
-  line-height: 1.55;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .solar-compare-table__status-icon {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex: 0 0 auto;
 }
 
@@ -3190,6 +3284,7 @@ solar-water-heater-configurator {
 
   .solar-compare-modal__dialog {
     padding: 26px 22px 22px;
+    max-width: 100%;
   }
 
   .solar-price-modal {
@@ -3454,7 +3549,9 @@ solar-water-heater-configurator {
   .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--electricity,
   .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-electricity,
   .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--plumbing,
-  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing {
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--wifi,
+  .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-wifi {
     width: 65px;
     height: 65px;
     object-fit: contain;
@@ -4115,6 +4212,14 @@ solar-water-heater-configurator {
     gap: 18px;
     padding: 22px 16px 18px;
     border-radius: 26px;
+    max-width: 100%;
+  }
+
+  .solar-setup-modal {
+    width: min(100%, 520px);
+    gap: 20px;
+    padding: 26px 22px 22px;
+    border-radius: 28px;
   }
 
   .solar-compare-modal__close {
@@ -4624,6 +4729,7 @@ solar-water-heater-configurator {
   }
 
   .solar-progress-sidebar {
+    display: none;
     position: fixed;
     top: auto;
     right: 12px;
@@ -5294,21 +5400,21 @@ solar-water-heater-configurator {
   }
 
   .solar-compare-modal {
-    place-items: end center;
-    padding: 0;
+    place-items: center center;
+    padding: 14px;
   }
 
   .solar-compare-modal__dialog {
-    width: min(100%, 100vw);
-    max-height: min(92dvh, 100dvh);
+    width: min(100%, 560px);
+    max-height: min(86dvh, 720px);
     overflow-x: hidden;
     gap: 14px;
-    padding: 16px 12px calc(14px + env(safe-area-inset-bottom));
-    border-radius: 22px 22px 0 0;
-    box-shadow: 0 -24px 60px rgba(15, 23, 42, 0.24);
+    padding: 22px 18px calc(16px + env(safe-area-inset-bottom));
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
   }
 
-  /* Price popup must stay centered on screen instead of bottom-sheet style */
+  /* Price popup stays centered on screen */
   .solar-compare-modal--price {
     place-items: center center;
     padding: 14px;
@@ -7749,6 +7855,43 @@ solar-water-heater-configurator {
   font-size: 0.95rem;
 }
 
+.solar-followup-card--wifi {
+  display: grid;
+  gap: 16px;
+}
+
+.solar-wifi-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+  color: #1e40af;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.solar-wifi-note__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #3b82f6;
+}
+
+.solar-wifi-note p {
+  margin: 0;
+}
+
+.solar-wifi-followup__question {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .solar-version-card--technical .solar-choice-grid--two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -7940,7 +8083,9 @@ solar-water-heater-configurator {
 .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--electricity,
 .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-electricity,
 .solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--plumbing,
-.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing {
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--wifi,
+.solar-version-card--installation .solar-version-option__icon .solar-choice-card__symbol-image--no-wifi {
   width: 83px;
   height: 83px;
   object-fit: contain;

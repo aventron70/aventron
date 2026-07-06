@@ -194,6 +194,14 @@ const CITY_REFERENCE_DATA = [
     return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--no-plumbing" src="assets/images/solar-nonpre.png" alt="" />';
   }
 
+  function renderWifiSymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--wifi" src="assets/images/wifi.png" alt="" />';
+  }
+
+  function renderNoWifiSymbol() {
+    return '<img class="solar-choice-card__symbol-image solar-choice-card__symbol-image--no-wifi" src="assets/images/nonwifi.png" alt="" />';
+  }
+
   function renderCrossedSymbol(symbolMarkup) {
     return `
       <span class="solar-choice-card__symbol-visual solar-choice-card__symbol-visual--crossed">
@@ -300,6 +308,9 @@ const CITY_REFERENCE_DATA = [
         activeCompareModal: "",
         isPricePopupOpen: false,
         isPlumbingSetupPopupOpen: false,
+        isWifiSetupPopupOpen: false,
+        isDeliveryOnlyPopupOpen: false,
+        deliveryOnlyAcknowledgedCity: "",
       };
 
       this.handleChange = this.handleChange.bind(this);
@@ -339,6 +350,29 @@ const CITY_REFERENCE_DATA = [
         if (this.state.isPricePopupOpen) {
           this.state.isPricePopupOpen = false;
           this.render();
+          return;
+        }
+
+        if (this.state.isPlumbingSetupPopupOpen) {
+          this.state.isPlumbingSetupPopupOpen = false;
+          this.render();
+          return;
+        }
+
+        if (this.state.isWifiSetupPopupOpen) {
+          this.state.isWifiSetupPopupOpen = false;
+          this.render();
+          return;
+        }
+
+        if (this.state.isDeliveryOnlyPopupOpen) {
+          this.state.isDeliveryOnlyPopupOpen = false;
+          this.state.deliveryOnlyAcknowledgedCity = this.state.city;
+          this.state.installationMode = "deliveryOnly";
+          this.clearInstallationTechnicalFields();
+          this.onConfigurationUpdated();
+          this.render();
+          return;
         }
       }
     }
@@ -372,6 +406,9 @@ const CITY_REFERENCE_DATA = [
           if (target.value !== "withInstallation") {
             this.clearInstallationTechnicalFields();
           }
+          if (target.value === "withInstallation") {
+            this.checkAndOpenDeliveryOnlyPopup();
+          }
           this.onConfigurationUpdated();
           break;
         case "installationCity":
@@ -379,17 +416,23 @@ const CITY_REFERENCE_DATA = [
           this.state.locationMode = "manual";
           this.state.coordinates = null;
           this.refreshDistanceEstimate({ silent: true });
+          this.checkAndOpenDeliveryOnlyPopup();
           this.onConfigurationUpdated();
           break;
         case "roofWifi":
           this.state.roofWifi = target.value;
           if (target.value === "yes") {
             this.state.wifiSetup = "";
+            this.state.isWifiSetupPopupOpen = false;
+          } else {
+            this.state.wifiSetup = "";
+            this.state.isWifiSetupPopupOpen = true;
           }
           this.onConfigurationUpdated();
           break;
         case "wifiSetup":
           this.state.wifiSetup = target.value;
+          this.state.isWifiSetupPopupOpen = false;
           this.onConfigurationUpdated();
           break;
         case "roofElectricity":
@@ -438,6 +481,24 @@ const CITY_REFERENCE_DATA = [
     handleClick(event) {
       const actionNode = event.target.closest("[data-action]");
 
+      if (actionNode) {
+        const action = actionNode.dataset.action;
+
+        if (action === "open-compare-modal" || action === "close-compare-modal") {
+          event.preventDefault();
+          event.stopPropagation();
+
+          if (action === "open-compare-modal") {
+            this.state.activeCompareModal = actionNode.dataset.compareTopic || "";
+          } else {
+            this.state.activeCompareModal = "";
+          }
+
+          this.render();
+          return;
+        }
+      }
+
       if (!actionNode) {
         const card = event.target.closest(".solar-version-option, .solar-choice-card");
 
@@ -485,6 +546,36 @@ const CITY_REFERENCE_DATA = [
           this.state.isPlumbingSetupPopupOpen = false;
           this.render();
           break;
+        case "close-wifi-popup":
+          this.state.isWifiSetupPopupOpen = false;
+          this.render();
+          break;
+        case "close-delivery-only-popup":
+          this.state.isDeliveryOnlyPopupOpen = false;
+          this.state.deliveryOnlyAcknowledgedCity = this.state.city;
+          this.state.installationMode = "deliveryOnly";
+          this.clearInstallationTechnicalFields();
+          this.onConfigurationUpdated();
+          this.render();
+          break;
+        case "delivery-only-cancel":
+          this.state.isDeliveryOnlyPopupOpen = false;
+          this.state.city = "";
+          this.state.coordinates = null;
+          this.state.locationMode = "manual";
+          this.state.distanceDetails = null;
+          this.state.deliveryOnlyAcknowledgedCity = "";
+          this.onConfigurationUpdated();
+          this.render();
+          break;
+        case "delivery-only-continue-delivery":
+          this.state.isDeliveryOnlyPopupOpen = false;
+          this.state.deliveryOnlyAcknowledgedCity = this.state.city;
+          this.state.installationMode = "deliveryOnly";
+          this.clearInstallationTechnicalFields();
+          this.onConfigurationUpdated();
+          this.render();
+          break;
         case "price-popup-more-info":
           trackMetaCustomEvent("Lead");
           this.state.isPricePopupOpen = false;
@@ -502,22 +593,6 @@ const CITY_REFERENCE_DATA = [
         case "jump-to-step":
           this.goToWizardStep(actionNode.dataset.stepTarget);
           break;
-        case "open-version-compare":
-          this.state.activeCompareModal = "version";
-          this.render();
-          break;
-        case "close-version-compare":
-          this.state.activeCompareModal = "";
-          this.render();
-          break;
-        case "open-compare-modal":
-          this.state.activeCompareModal = actionNode.dataset.compareTopic || "";
-          this.render();
-          break;
-        case "close-compare-modal":
-          this.state.activeCompareModal = "";
-          this.render();
-          break;
         default:
           break;
       }
@@ -529,6 +604,36 @@ const CITY_REFERENCE_DATA = [
       this.state.roofElectricity = "";
       this.state.roofPlumbing = "";
       this.state.plumbingSetup = "";
+      this.state.isWifiSetupPopupOpen = false;
+      this.state.isPlumbingSetupPopupOpen = false;
+    }
+
+    isInstallationBlockedByZone() {
+      const distanceDetails = this.calculateDistance();
+      return Boolean(distanceDetails && distanceDetails.status === "known" && distanceDetails.km > 600);
+    }
+
+    checkAndOpenDeliveryOnlyPopup() {
+      if (this.state.installationMode !== "withInstallation") {
+        this.state.isDeliveryOnlyPopupOpen = false;
+        return;
+      }
+
+      if (this.isInstallationBlockedByZone()) {
+        if (this.state.deliveryOnlyAcknowledgedCity !== this.state.city) {
+          this.state.isDeliveryOnlyPopupOpen = true;
+        }
+      } else {
+        this.state.isDeliveryOnlyPopupOpen = false;
+      }
+    }
+
+    showDeliveryOnlyPopupIfBlocked() {
+      if (this.state.installationMode === "withInstallation" && this.isInstallationBlockedByZone()) {
+        this.state.isDeliveryOnlyPopupOpen = true;
+        return true;
+      }
+      return false;
     }
 
     isLocationStepComplete() {
@@ -817,6 +922,11 @@ const CITY_REFERENCE_DATA = [
         return;
       }
 
+      if (this.showDeliveryOnlyPopupIfBlocked()) {
+        this.render();
+        return;
+      }
+
       this.state.currentStepId = steps[currentIndex + 1].id;
       this.state.validationErrors = [];
       this.render();
@@ -965,21 +1075,7 @@ const CITY_REFERENCE_DATA = [
     }
 
     enforceInstallationAvailability() {
-      const details = this.state.distanceDetails;
-
-      if (!details || details.status !== "known") {
-        return;
-      }
-
-      if (details.km > 600 && this.state.installationMode === "withInstallation") {
-        this.state.installationMode = "deliveryOnly";
-        this.clearInstallationTechnicalFields();
-        this.state.configMessage = {
-          type: "warning",
-          title: "Installation non disponible automatiquement",
-          text: "Pour cette zone, seule la livraison peut être proposée. L'option installation a été retirée.",
-        };
-      }
+      // No silent mode switch here; the UI shows a popup so the user decides.
     }
 
     validateConfiguration() {
@@ -1014,12 +1110,7 @@ const CITY_REFERENCE_DATA = [
         errors.push("Choisissez une ville valide dans la liste ou utilisez votre localisation GPS.");
       }
 
-      if (
-        this.state.installationMode === "withInstallation" &&
-        distanceDetails &&
-        distanceDetails.status === "known" &&
-        distanceDetails.km > 600
-      ) {
+      if (this.state.installationMode === "withInstallation" && this.isInstallationBlockedByZone()) {
         errors.push("L'installation Aventron n'est pas disponible automatiquement pour cette zone.");
       }
 
@@ -1081,6 +1172,11 @@ const CITY_REFERENCE_DATA = [
           title: "Informations obligatoires manquantes",
           text: "Complétez toutes les informations avant de calculer le prix final.",
         };
+        this.render();
+        return;
+      }
+
+      if (this.showDeliveryOnlyPopupIfBlocked()) {
         this.render();
         return;
       }
@@ -1195,7 +1291,7 @@ const CITY_REFERENCE_DATA = [
         standardPrice: totalPrice,
         travelFee,
         requiresCustomStudy: travelFee.requiresCustomStudy,
-        installationAvailable: travelFee.installationAvailable,
+        installationAvailable: !this.isInstallationBlockedByZone(),
         notes,
       };
 
@@ -1640,6 +1736,7 @@ const CITY_REFERENCE_DATA = [
           };
           this.state.city = nearestCity ? nearestCity.label : "";
           this.refreshDistanceEstimate();
+          this.checkAndOpenDeliveryOnlyPopup();
           this.resetPriceIfConfigurationChanges();
           this.render();
         },
@@ -2033,7 +2130,8 @@ const CITY_REFERENCE_DATA = [
           ${options
             .map((option) => {
               const selected = selectedValue === option.value;
-              const extraCardClasses = `${cardClasses}${option.cardClass ? ` ${option.cardClass}` : ""}`.trim();
+              const hideRadio = Boolean(option.hideRadio);
+              const extraCardClasses = `${cardClasses}${option.cardClass ? ` ${option.cardClass}` : ""}${hideRadio ? " solar-version-option--no-radio" : ""}`.trim();
 
               return `
                 <label class="solar-choice-card solar-version-card solar-version-option ${extraCardClasses} ${selected ? "is-selected" : ""}">
@@ -2072,9 +2170,11 @@ const CITY_REFERENCE_DATA = [
                     </span>
                   ` : ""}
 
-                  <span class="solar-version-option__radio">
-                    <span class="solar-version-option__radio-indicator"></span>
-                  </span>
+                  ${hideRadio ? "" : `
+                    <span class="solar-version-option__radio">
+                      <span class="solar-version-option__radio-indicator"></span>
+                    </span>
+                  `}
                 </label>
               `;
             })
@@ -2215,7 +2315,7 @@ const CITY_REFERENCE_DATA = [
               `solar-version-card--${config.topic}`
             )}
           </div>
-          <button class="solar-version-compare" type="button" data-action="open-compare-modal" data-compare-topic="water-filter">
+          <button class="solar-version-compare" type="button" data-action="open-compare-modal" data-compare-topic="filter">
             <div class="solar-version-compare__left">
               <svg class="solar-version-compare__icon" viewBox="0 0 24 24" fill="none">
                 <path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2360,15 +2460,6 @@ const CITY_REFERENCE_DATA = [
           </button>
         </div>
 
-        ${
-          installationBlockedByZone
-            ? this.renderFlashMessage({
-                type: "warning",
-                title: "Installation Aventron indisponible pour cette zone",
-                text: "Pour cette ville, seule la livraison peut être proposée automatiquement.",
-              })
-            : ""
-        }
       `;
     }
 
@@ -2377,6 +2468,10 @@ const CITY_REFERENCE_DATA = [
       const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
       const totalSteps = steps.length;
       const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
+      const lastConfigurationStepId = this.getLastConfigurationStepId();
+      const isLastConfigurationStep = this.state.currentStepId === lastConfigurationStepId;
+      const nextAction = isLastConfigurationStep && !this.state.priceCalculated ? "calculate-price" : "next-step";
+      const nextLabel = isLastConfigurationStep && !this.state.priceCalculated ? "Calculer le prix final" : "Suivant";
 
       return `
         <div class="solar-version-header">
@@ -2432,8 +2527,8 @@ const CITY_REFERENCE_DATA = [
             </svg>
             <span>Précédent</span>
           </button>
-          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="next-step">
-            <span>Suivant</span>
+          <button class="solar-version-nav__btn solar-version-nav__btn--primary" type="button" data-action="${nextAction}">
+            <span>${nextLabel}</span>
             <svg class="solar-version-nav__btn__arrow" viewBox="0 0 24 24" fill="none">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -2616,66 +2711,39 @@ const CITY_REFERENCE_DATA = [
 
     renderWifiFieldGroup() {
       return `
-        ${this.renderTechnicalSelection(
+        ${this.renderShowcaseCards(
           "roofWifi",
           [
             {
               value: "yes",
               title: "Wi-Fi disponible",
               subtitle: "Le réseau Wi-Fi est déjà accessible sur le toit.",
-              badge: "Oui",
-              iconMarkup: renderUiIcon("roof-wifi", "solar-version-card__icon-svg"),
+              iconMarkup: renderWifiSymbol(),
               features: [
                 { icon: "check", label: "Connexion déjà disponible" },
                 { icon: "wifi", label: "Version Smart prête" },
                 { icon: "clock", label: "Mise en service plus fluide" },
               ],
+              hideRadio: false,
             },
             {
               value: "no",
               title: "Wi-Fi à prévoir",
               subtitle: "Le réseau Wi-Fi n'est pas encore disponible sur le toit.",
-              badge: "Non",
-              iconMarkup: renderCrossedSymbol(renderUiIcon("roof-wifi", "solar-version-card__icon-svg")),
+              iconMarkup: renderNoWifiSymbol(),
               features: [
                 { icon: "wrench", label: "Préparation réseau à prévoir" },
                 { icon: "wifi", label: "Option Aventron disponible" },
                 { icon: "info", label: "Vous pouvez continuer la configuration" },
               ],
+              hideRadio: false,
             },
           ],
-          this.state.roofWifi
+          this.state.roofWifi,
+          "solar-version-grid--technical",
+          "solar-version-card--installation solar-version-card--wifi"
         )}
 
-        ${
-          this.state.roofWifi === "no"
-            ? `
-              <div class="solar-followup-card">
-                <h6>Ajouter l'installation Wi-Fi sur le toit ?</h6>
-                <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
-                ${this.renderChoiceCards(
-                  "wifiSetup",
-                  [
-                    {
-                      value: "add",
-                      title: "Oui, ajouter",
-                      subtitle: "Ajouter pour 1 000 DHS",
-                      cardClass: "solar-choice-card--decision",
-                    },
-                    {
-                      value: "skip",
-                      title: "Non",
-                      subtitle: "Je la prépare moi-même",
-                      cardClass: "solar-choice-card--decision",
-                    },
-                  ],
-                  this.state.wifiSetup,
-                  "solar-choice-grid--two solar-choice-grid--decision"
-                )}
-              </div>
-            `
-            : ""
-        }
       `;
     }
 
@@ -2900,7 +2968,7 @@ const CITY_REFERENCE_DATA = [
       const currentStepIndex = this.getWizardStepIndex(this.state.currentStepId);
       const totalSteps = steps.length;
       const progressPercent = ((currentStepIndex) / (totalSteps - 1)) * 100;
-      const hasPopupFocus = this.state.isPricePopupOpen || this.state.activeCompareModal || this.state.isPlumbingSetupPopupOpen;
+      const hasPopupFocus = this.state.isPricePopupOpen || this.state.activeCompareModal || this.state.isPlumbingSetupPopupOpen || this.state.isWifiSetupPopupOpen || this.state.isDeliveryOnlyPopupOpen;
 
       return `
         <div class="solar-payment-header ${hasPopupFocus ? "is-obscured" : ""}">
@@ -2935,10 +3003,10 @@ const CITY_REFERENCE_DATA = [
       return `
         <div class="solar-compare-modal solar-compare-modal--plumbing" aria-hidden="false">
           <button class="solar-compare-modal__backdrop" type="button" data-action="close-plumbing-popup" aria-label="Fermer"></button>
-          <div class="solar-compare-modal__dialog solar-plumbing-modal">
+          <div class="solar-compare-modal__dialog solar-setup-modal" role="dialog" aria-modal="true">
             <button class="solar-compare-modal__close" type="button" data-action="close-plumbing-popup" aria-label="Fermer">×</button>
 
-            <div class="solar-plumbing-modal__hero">
+            <div class="solar-setup-modal__hero">
               <div class="solar-panel-badge solar-panel-badge--amber">
                 ${renderUiIcon("droplet", "solar-panel-badge__icon")}
                 <span>Préinstallation plomberie</span>
@@ -2949,7 +3017,7 @@ const CITY_REFERENCE_DATA = [
               </div>
             </div>
 
-            <div class="solar-plumbing-modal__options">
+            <div class="solar-setup-modal__options">
               ${this.renderChoiceCards(
                 "plumbingSetup",
                 [
@@ -2971,10 +3039,104 @@ const CITY_REFERENCE_DATA = [
               )}
             </div>
 
-            <p class="solar-panel-footnote solar-panel-footnote--amber solar-plumbing-modal__note">
+            <p class="solar-panel-footnote solar-panel-footnote--amber solar-setup-modal__note">
               ${renderUiIcon("info", "solar-panel-footnote__icon")}
               <span>Vous pourrez revenir sur ce choix avant de finaliser votre commande.</span>
             </p>
+          </div>
+        </div>
+      `;
+    }
+
+    renderWifiSetupPopupModal() {
+      if (!this.state.isWifiSetupPopupOpen) {
+        return "";
+      }
+
+      return `
+        <div class="solar-compare-modal solar-compare-modal--wifi" aria-hidden="false">
+          <button class="solar-compare-modal__backdrop" type="button" data-action="close-wifi-popup" aria-label="Fermer"></button>
+          <div class="solar-compare-modal__dialog solar-setup-modal" role="dialog" aria-modal="true">
+            <button class="solar-compare-modal__close" type="button" data-action="close-wifi-popup" aria-label="Fermer">×</button>
+
+            <div class="solar-setup-modal__hero">
+              <div class="solar-panel-badge solar-panel-badge--blue">
+                ${renderUiIcon("wifi", "solar-panel-badge__icon")}
+                <span>Wi-Fi sur le toit</span>
+              </div>
+              <div class="solar-panel-copy solar-panel-copy--summary">
+                <h4>Ajouter l'installation Wi-Fi sur le toit ?</h4>
+                <p>Vous pouvez demander cette préparation pour 1 000 DHS.</p>
+              </div>
+            </div>
+
+            <div class="solar-setup-modal__options">
+              ${this.renderChoiceCards(
+                "wifiSetup",
+                [
+                  {
+                    value: "add",
+                    title: "Oui, ajouter",
+                    subtitle: "Ajouter pour 1 000 DHS",
+                    cardClass: "solar-choice-card--decision",
+                  },
+                  {
+                    value: "skip",
+                    title: "Non",
+                    subtitle: "Je la prépare moi-même",
+                    cardClass: "solar-choice-card--decision",
+                  },
+                ],
+                this.state.wifiSetup,
+                "solar-choice-grid--two solar-choice-grid--decision"
+              )}
+            </div>
+
+            <p class="solar-panel-footnote solar-panel-footnote--blue solar-setup-modal__note">
+              ${renderUiIcon("info", "solar-panel-footnote__icon")}
+              <span>Vous pourrez revenir sur ce choix avant de finaliser votre commande.</span>
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    renderDeliveryOnlyPopupModal() {
+      if (!this.state.isDeliveryOnlyPopupOpen) {
+        return "";
+      }
+
+      return `
+        <div class="solar-compare-modal solar-compare-modal--delivery" aria-hidden="false">
+          <button class="solar-compare-modal__backdrop" type="button" data-action="close-delivery-only-popup" aria-label="Fermer"></button>
+          <div class="solar-compare-modal__dialog solar-setup-modal" role="dialog" aria-modal="true">
+            <button class="solar-compare-modal__close" type="button" data-action="close-delivery-only-popup" aria-label="Fermer">×</button>
+
+            <div class="solar-setup-modal__hero">
+              <div class="solar-panel-badge solar-panel-badge--amber">
+                ${renderUiIcon("truck", "solar-panel-badge__icon")}
+                <span>Livraison uniquement</span>
+              </div>
+              <div class="solar-panel-copy solar-panel-copy--summary">
+                <h4>Seule la livraison est possible</h4>
+                <p>
+                  Pour ${escapeHtml(this.state.city)}, l'installation Aventron n'est pas disponible.
+                  La livraison reste possible partout au Maroc.
+                </p>
+              </div>
+            </div>
+
+            <div class="solar-setup-modal__actions">
+              <button class="button button--secondary solar-action-button" type="button" data-action="delivery-only-cancel">
+                <span class="solar-action-button__group">Annuler</span>
+              </button>
+              <button class="button button--primary solar-action-button" type="button" data-action="delivery-only-continue-delivery">
+                <span class="solar-action-button__group">
+                  ${renderUiIcon("truck", "solar-action-button__icon")}
+                  <span>Continuer pour la livraison</span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -3003,7 +3165,7 @@ const CITY_REFERENCE_DATA = [
           <button
             class="solar-compare-modal__backdrop"
             type="button"
-            data-action="close-version-compare"
+            data-action="close-compare-modal"
             aria-label="Fermer la comparaison"
           ></button>
 
@@ -3011,7 +3173,7 @@ const CITY_REFERENCE_DATA = [
             <button
               class="solar-compare-modal__close"
               type="button"
-              data-action="close-version-compare"
+              data-action="close-compare-modal"
               aria-label="Fermer"
             >
               <span aria-hidden="true">×</span>
@@ -3680,10 +3842,7 @@ const CITY_REFERENCE_DATA = [
 
     renderCurrentWizardStep() {
       const currentStepId = this.getCurrentWizardStep()?.id || "capacity";
-      const distanceDetails = this.calculateDistance();
-      const installationBlockedByZone = Boolean(
-        distanceDetails && distanceDetails.status === "known" && distanceDetails.km > 600
-      );
+      const installationBlockedByZone = this.isInstallationBlockedByZone();
 
       switch (currentStepId) {
         case "capacity":
@@ -3857,10 +4016,7 @@ const CITY_REFERENCE_DATA = [
     }
 
     renderProductSection() {
-      const distanceDetails = this.calculateDistance();
-      const installationBlockedByZone = Boolean(
-        distanceDetails && distanceDetails.status === "known" && distanceDetails.km > 600
-      );
+      const installationBlockedByZone = this.isInstallationBlockedByZone();
 
       return `
         <section class="solar-step solar-section-card" data-step-id="product">
@@ -3931,16 +4087,6 @@ const CITY_REFERENCE_DATA = [
               this.renderComparisonSelection(this.getComparisonShowcaseConfig("installation", { installationBlockedByZone })),
               { stepId: "installation-mode" }
             )}
-
-            ${
-              installationBlockedByZone
-                ? this.renderFlashMessage({
-                    type: "warning",
-                    title: "Installation Aventron indisponible pour cette zone",
-                    text: "Pour cette ville, seule la livraison peut être proposée automatiquement.",
-                  })
-                : ""
-            }
           </div>
         </section>
       `;
@@ -4693,6 +4839,8 @@ const CITY_REFERENCE_DATA = [
         ${this.renderComparisonModal()}
         ${this.renderPricePopupModal()}
         ${this.renderPlumbingSetupPopupModal()}
+        ${this.renderWifiSetupPopupModal()}
+        ${this.renderDeliveryOnlyPopupModal()}
       `;
     }
   }

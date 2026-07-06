@@ -95,6 +95,16 @@ p {
   backdrop-filter: none;
   background: transparent;
   border-bottom: 0;
+  transition:
+    background-color 0.25s ease,
+    backdrop-filter 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.site-header.is-scrolled {
+  backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(6, 12, 20, 0.92), rgba(6, 12, 20, 0.72));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .site-header__inner {
@@ -2105,6 +2115,15 @@ html[dir="rtl"] .testimonial-card {
   backdrop-filter: blur(16px);
   background: linear-gradient(180deg, rgba(6, 12, 20, 0.9), rgba(6, 12, 20, 0.3));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition:
+    background-color 0.25s ease,
+    backdrop-filter 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.landing-header.is-scrolled {
+  background: linear-gradient(180deg, rgba(6, 12, 20, 0.96), rgba(6, 12, 20, 0.88));
+  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 .landing-header__inner,
@@ -2319,8 +2338,16 @@ html[dir="rtl"] .landing-list {
 }
 
 @media (max-width: 640px) {
+  .landing-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+  }
+
   .landing-hero {
-    padding-top: 56px;
+    padding-top: 74px;
   }
 
   .landing-header__inner {

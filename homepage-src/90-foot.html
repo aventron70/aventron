@@ -1,5 +1,48 @@
     </main>
 
+    <aside
+      class="configurator-toast"
+      id="configurator-toast"
+      role="region"
+      aria-label="Configureur chauffe-eau solaire"
+      aria-hidden="true"
+    >
+      <button class="configurator-toast__close" type="button" aria-label="Fermer">✕</button>
+
+      <div class="configurator-toast__icon" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="5" fill="url(#sun-core)" />
+          <path
+            d="M12 2V4M12 20V22M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M2 12H4M20 12H22M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
+            stroke="url(#sun-rays)"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <defs>
+            <linearGradient id="sun-core" x1="7" y1="7" x2="17" y2="17" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffb744" />
+              <stop offset="1" stop-color="#ff9f43" />
+            </linearGradient>
+            <linearGradient id="sun-rays" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#22b381" />
+              <stop offset="1" stop-color="#ffb744" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <h3 class="configurator-toast__title">☀️ Trouvez le chauffe-eau solaire idéal</h3>
+      <p class="configurator-toast__desc">
+        Répondez à quelques questions et obtenez une recommandation personnalisée en moins de 2 minutes grâce à notre
+        configurateur.
+      </p>
+
+      <div class="configurator-toast__actions">
+        <a class="configurator-toast__cta" href="configurator.html">Configurer gratuitement</a>
+        <button class="configurator-toast__later" type="button">Plus tard</button>
+      </div>
+    </aside>
+
     <a class="mobile-cta" href="https://wa.me/212722667235" target="_blank" rel="noreferrer">Nous contacter sur WhatsApp</a>
 
     <footer class="site-footer">
@@ -45,5 +88,33 @@
     </footer>
 
     <script type="module" src="assets/js/homepage/app.js"></script>
+
+    <script>
+      (function () {
+        var toast = document.getElementById('configurator-toast');
+        if (!toast || sessionStorage.getItem('configurator-toast-dismissed')) return;
+
+        var closeBtn = toast.querySelector('.configurator-toast__close');
+        var laterBtn = toast.querySelector('.configurator-toast__later');
+
+        function hide() {
+          toast.classList.add('is-hiding');
+          toast.classList.remove('is-visible');
+          toast.setAttribute('aria-hidden', 'true');
+          sessionStorage.setItem('configurator-toast-dismissed', '1');
+          setTimeout(function () {
+            toast.style.display = 'none';
+          }, 400);
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', hide);
+        if (laterBtn) laterBtn.addEventListener('click', hide);
+
+        setTimeout(function () {
+          toast.classList.add('is-visible');
+          toast.setAttribute('aria-hidden', 'false');
+        }, 1000);
+      })();
+    </script>
   </body>
 </html>
