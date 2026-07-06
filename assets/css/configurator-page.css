@@ -479,31 +479,33 @@
 
   /* Version option cards (version / filter / mixer) */
   .configurator-page .solar-version-option {
-    padding: 18px 16px;
-    gap: 10px;
-    border-radius: 20px;
+    padding: 12px 14px;
+    gap: 8px;
+    border-radius: 18px;
     min-height: 0;
+    align-items: center;
+    text-align: center;
   }
 
   .configurator-page .solar-version-option__icon {
-    width: 92px;
-    height: 92px;
+    width: 76px;
+    height: 76px;
   }
 
   .configurator-page .solar-version-option__icon svg,
   .configurator-page .solar-version-option__icon .solar-version-card__icon-svg {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
   }
 
   .configurator-page .solar-version-option__icon .solar-choice-card__symbol-image--filter {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
   }
 
   .configurator-page .solar-version-option__icon .solar-choice-card__symbol-image--mixer {
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
   }
 
   .configurator-page .solar-version-option__icon .solar-choice-card__symbol-image--electricity,
@@ -512,31 +514,41 @@
   .configurator-page .solar-version-option__icon .solar-choice-card__symbol-image--no-plumbing,
   .configurator-page .solar-version-option__icon .solar-choice-card__symbol-image--wifi,
   .configurator-page .solar-version-option__icon .solar-choice-card__symbol-image--no-wifi {
-    width: 74px;
-    height: 74px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .configurator-page .solar-version-option__content {
+    text-align: center;
+    align-items: center;
+    gap: 4px;
   }
 
   .configurator-page .solar-version-option__title {
-    font-size: 1.05rem;
+    font-size: 0.98rem;
   }
 
   .configurator-page .solar-version-option__subtitle {
-    font-size: 0.82rem;
-  }
-
-  .configurator-page .solar-version-card__chips {
-    gap: 8px;
-  }
-
-  .configurator-page .solar-version-card__chip {
-    min-height: 30px;
-    padding: 0 10px;
     font-size: 0.78rem;
   }
 
+  .configurator-page .solar-version-card__chips {
+    gap: 6px;
+    justify-items: center;
+    width: 100%;
+  }
+
+  .configurator-page .solar-version-card__chip {
+    min-height: 26px;
+    padding: 0 10px;
+    font-size: 0.74rem;
+    justify-content: center;
+    width: auto;
+  }
+
   .configurator-page .solar-version-card__chip-icon {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
   }
 
   /* Technical decision cards (wifi / electricity / plumbing / installation) */
@@ -674,6 +686,24 @@
 
   .configurator-page .solar-version-compare {
     margin-top: 8px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    min-height: 38px;
+  }
+
+  /* Step 3 (filter) specific compact overrides */
+  .configurator-page .solar-version-card--filter .solar-version-option {
+    padding: 12px;
+    gap: 6px;
+  }
+
+  .configurator-page .solar-version-card--filter .solar-version-card__chips {
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .configurator-page .solar-version-card--filter .solar-version-compare {
+    margin-top: 10px;
   }
 }
 
