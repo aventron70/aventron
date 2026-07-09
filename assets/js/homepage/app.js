@@ -1,4 +1,4 @@
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+﻿const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const header = document.querySelector(".site-header");
 const revealItems = Array.from(document.querySelectorAll(".reveal"));
@@ -183,8 +183,8 @@ if (contactForm && contactSuccess) {
 
     const sendingMessage = contactForm.dataset.sendingMessage || "Envoi en cours...";
     const successMessage =
-      contactForm.dataset.successMessage || "Merci. Votre demande a bien été reçue. Nous vous contacterons rapidement.";
-    const errorMessage = contactForm.dataset.errorMessage || "L’envoi n’a pas abouti. Merci de réessayer.";
+      contactForm.dataset.successMessage || "Merci. Votre demande a bien Ã©tÃ© reÃ§ue. Nous vous contacterons rapidement.";
+    const errorMessage = contactForm.dataset.errorMessage || "Lâ€™envoi nâ€™a pas abouti. Merci de rÃ©essayer.";
     const defaultSubmitLabel = contactSubmitButton?.dataset.defaultLabel || contactSubmitButton?.textContent || "Recevoir un devis";
 
     contactSuccess.textContent = "";
@@ -239,7 +239,7 @@ const productControl = document.querySelector("[data-product-control]");
 const PRODUCT_DATA = {
   "150": { capacity: "150L", collector: "1 x 2.0 m2" },
   "200": { capacity: "200L", collector: "1 x 2.5 m2" },
-  "300": { capacity: "300L", collector: "2 x 2.5 m2" },
+  "300": { capacity: "300L", collector: "2 x 2.0 m2" },
 };
 
 const VARIANT_LABELS = {
