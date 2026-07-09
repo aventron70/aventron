@@ -225,3 +225,61 @@ setActiveSection("hero");
 markPrefillButtons();
 
 window.addEventListener("scroll", setHeaderState, { passive: true });
+
+// Product selector on landing/product pages
+const productSizeButtons = Array.from(document.querySelectorAll("[data-product-size]"));
+const productVariantButtons = Array.from(document.querySelectorAll("[data-product-variant]"));
+const productModel = document.querySelector("[data-product-model]");
+const productSummary = document.querySelector("[data-product-summary]");
+const productBadge = document.querySelector("[data-product-badge]");
+const productCapacity = document.querySelector("[data-product-capacity]");
+const productCollector = document.querySelector("[data-product-collector]");
+const productControl = document.querySelector("[data-product-control]");
+
+const PRODUCT_DATA = {
+  "150": { capacity: "150L", collector: "1 x 2.0 m2" },
+  "200": { capacity: "200L", collector: "1 x 2.5 m2" },
+  "300": { capacity: "300L", collector: "2 x 2.5 m2" },
+};
+
+const VARIANT_LABELS = {
+  N: "Standard",
+  S: "Smart",
+};
+
+function updateProductState() {
+  if (!productModel) return;
+
+  const activeSize = productSizeButtons.find((button) => button.classList.contains("is-active"))?.dataset.productSize || "150";
+  const activeVariant = productVariantButtons.find((button) => button.classList.contains("is-active"))?.dataset.productVariant || "N";
+
+  const data = PRODUCT_DATA[activeSize] || PRODUCT_DATA["150"];
+  const variantLabel = VARIANT_LABELS[activeVariant] || "Standard";
+  const modelCode = `AT${activeSize}${activeVariant}`;
+
+  if (productModel) productModel.textContent = modelCode;
+  if (productBadge) productBadge.textContent = `${data.capacity} / ${variantLabel}`;
+  if (productCapacity) productCapacity.textContent = data.capacity;
+  if (productCollector) productCollector.textContent = data.collector;
+  if (productControl) productControl.textContent = activeVariant === "S" ? "Version Smart" : "Version Standard";
+  if (productSummary) {
+    productSummary.textContent = `Chauffe-eau solaire ${data.capacity} en version ${variantLabel.toLowerCase()} avec ${data.collector.replace(" x", " collecteur(s) de ")}.`;
+  }
+}
+
+function setActiveProductButton(buttons, targetButton) {
+  buttons.forEach((button) => button.classList.remove("is-active"));
+  targetButton.classList.add("is-active");
+  updateProductState();
+}
+
+productSizeButtons.forEach((button) => {
+  button.addEventListener("click", () => setActiveProductButton(productSizeButtons, button));
+});
+
+productVariantButtons.forEach((button) => {
+  button.addEventListener("click", () => setActiveProductButton(productVariantButtons, button));
+});
+
+updateProductState();
+
