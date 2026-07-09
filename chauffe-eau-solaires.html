@@ -12,8 +12,6 @@
     <link rel="canonical" href="https://www.aventrontechnologies.ma/chauffe-eau-solaires.html" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="assets/css/pages.css" />
-    <link rel="stylesheet" href="assets/css/solar-configurator.css" />
-      <!-- Meta Pixel Code -->
     <!-- Meta Pixel Code -->
     <script src="assets/js/meta-pixel.js"></script>
     <!-- End Meta Pixel Code -->
@@ -159,10 +157,90 @@
           </article>
         </div>
       </section>
+      <section class="section product" id="product">
+        <div class="container product__grid">
+          <div class="product__media reveal">
+            <img src="assets/images/product.jpeg" alt="Chauffe-eau solaire Aventron Technologies" />
+            <img src="assets/images/smart.png" alt="Application smart Aventron" />
+          </div>
 
-      <section class="section page-section--alt" id="configurateur-solaire">
-        <div class="container">
-          <solar-water-heater-configurator></solar-water-heater-configurator>
+          <div class="product__copy reveal">
+            <p class="eyebrow">Produit</p>
+            <h2>Un design solaire intelligent, propre et performant</h2>
+            <p>
+              Le chauffe-eau solaire smart Aventron combine performance solaire,
+              structure moderne et suivi intelligent pour offrir une solution
+              premium aussi efficace qu'esthétique.
+            </p>
+            <div class="product-trust reveal">
+              <div class="product-trust__grid">
+                <article class="product-trust__item">
+                  <strong>Made in Europe</strong>
+                  <span>Fabrication européenne pour une finition fiable et un niveau de qualité constant.</span>
+                </article>
+                <article class="product-trust__item">
+                  <strong>Jusqu'à 99°C en mode solaire</strong>
+                  <span>Performance solaire élevée pour répondre aux besoins de confort les plus exigeants.</span>
+                </article>
+              </div>
+              <div class="product-certifications">
+                <img src="assets/images/certs.png" alt="Certifications du chauffe-eau solaire Aventron" />
+              </div>
+            </div>
+
+            <div class="product-configurator">
+              <div class="product-configurator__controls">
+                <div class="product-configurator__group">
+                  <span class="product-configurator__label">Choisir la capacité</span>
+                  <div class="product-configurator__options">
+                    <button class="product-option is-active" type="button" data-product-size="150">150L</button>
+                    <button class="product-option" type="button" data-product-size="200">200L</button>
+                    <button class="product-option" type="button" data-product-size="300">300L</button>
+                  </div>
+                </div>
+
+                <div class="product-configurator__group">
+                  <span class="product-configurator__label">Choisir la version</span>
+                  <div class="product-configurator__options">
+                    <button class="product-option is-active" type="button" data-product-variant="N">Normal</button>
+                    <button class="product-option" type="button" data-product-variant="S">Smart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-focus">
+                <div class="product-focus__hero">
+                  <div>
+                    <span class="product-focus__eyebrow">Configuration active</span>
+                    <h3 class="product-focus__code" data-product-model>AT150N</h3>
+                    <p class="product-focus__summary" data-product-summary>
+                      Chauffe-eau solaire 150L en version normale avec 1 collecteur de 2.0 m2.
+                    </p>
+                  </div>
+                  <span class="product-focus__badge" data-product-badge>150L / Normal</span>
+                </div>
+
+                <div class="product-focus__stats">
+                  <article class="product-specs__item">
+                    <strong>Capacité</strong>
+                    <span data-product-capacity>150L</span>
+                  </article>
+                  <article class="product-specs__item">
+                    <strong>Collecteur</strong>
+                    <span data-product-collector>1 x 2.0 m2</span>
+                  </article>
+                  <article class="product-specs__item">
+                    <strong>Contrôle</strong>
+                    <span data-product-control>Version normale</span>
+                  </article>
+                  <article class="product-specs__item">
+                    <strong>Couverture</strong>
+                    <span>Vente et installation partout au Maroc</span>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -185,7 +263,6 @@
         </div>
       </div>
     </footer>
-    <script src="assets/js/solar-water-heater-configurator.js" defer></script>
     <script type="module" src="assets/js/homepage/app.js"></script>
   </body>
 </html>
